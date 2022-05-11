@@ -1,0 +1,30 @@
+export const asideData = [{
+    id:1,
+    name:"Home",
+    icon:"",
+    path:"/"
+},
+{id:2,
+name:"Explore",
+icon:"",
+path:"/explore"
+},
+{
+    id:3,
+    name:"Notifications",
+    icon:"",
+    path:"/notifications"
+},
+{
+    id:4,
+    name:"Profile",
+    icon:"",
+    path:"/profile"
+},
+{
+    id:5,
+    name:"Settings",
+    icon:"",
+    path:"/settings"
+}
+]
