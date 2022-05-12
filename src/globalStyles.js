@@ -1,14 +1,15 @@
 import styled,{createGlobalStyle} from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
-root{
+html{
   --color-primary:#f1e9e7;
   --color-light:#fff;
-  ---color-dark:#0d152d;
+  --color-dark:black;
+  --primary-cta:#0000ff;
 }
 .dark{
-  color:#fff;
-  background-color: #0d152d;
+  color:var(--color-light);
+  background-color: var(--color-dark);
 }
 *{
     box-sizing: border-box;

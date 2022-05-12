@@ -26,12 +26,15 @@ import {
   HeartOutline,
   ShareIcon,
 } from "../../Assets/icones";
+import { useTheme } from "../../context/theme-context";
+import { getTextColor,getBorder } from "../../utils/Functions/getColor";
 
 export const Feeds = () => {
+  const {theme} = useTheme();
   return (
     <div className="section">
       <BrowseFeeds>
-        <PostContainer>
+        <PostContainer style={{border:getBorder(theme)}}>
           <PostHeader>
             <LeftArea>
               {" "}
@@ -55,6 +58,7 @@ export const Feeds = () => {
               </RightArea>
             </Icons>
             <Likes>500 likes</Likes>
+            
             <Caption>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Recusandae, nobis. Delectus corporis quasi corrupti, consectetur
@@ -65,11 +69,12 @@ export const Feeds = () => {
           <PostFooter>
            <CommentBox>
            <InputEmoji cleanOnEnter placeholder="Add a comment...." />
-            <Button fixed_bottom_right>Post</Button>
+            <Button style={{color:getTextColor(theme)}} fixed_bottom_right >Post</Button>
            </CommentBox>
           </PostFooter>
         </PostContainer>
-        <PostContainer>
+
+        <PostContainer style={{border:getBorder(theme)}}>
           <PostHeader>
             <LeftArea>
               {" "}
@@ -103,7 +108,7 @@ export const Feeds = () => {
           <PostFooter>
            <CommentBox>
            <InputEmoji cleanOnEnter placeholder="Add a comment...." />
-            <Button fixed_bottom_right>Post</Button>
+            <Button style={{color:getTextColor(theme)}} fixed_bottom_right>Post</Button>
            </CommentBox>
           </PostFooter>
         </PostContainer>
@@ -114,19 +119,19 @@ export const Feeds = () => {
           {" "}
           <UserThumbnail src={avataaar1} />
           <Username>Coding_Avengers</Username>
-          <Button>Follow</Button>
+          <Button style={{color:getTextColor(theme)}}>Follow</Button>
         </LeftArea>
         <LeftArea m_md>
           {" "}
           <UserThumbnail src={avataaar1} />
           <Username>Coding_Avengers</Username>
-          <Button>Follow</Button>
+          <Button style={{color:getTextColor(theme)}}>Follow</Button>
         </LeftArea>
         <LeftArea m_md>
           {" "}
           <UserThumbnail src={avataaar1} />
           <Username>Coding_Avengers</Username>
-          <Button>Follow</Button>
+          <Button style={{color:getTextColor(theme)}}>Follow</Button>
         </LeftArea>
       </SuggestionArea>
     </div>

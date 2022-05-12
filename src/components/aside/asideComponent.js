@@ -11,6 +11,9 @@ color:black;
 &.${props => props.activeClassName} {
     color: red;
   }
+  &:hover{
+    color:var(--primary-cta) !important;
+  }
 `;
 
 export const NavItem = styled.li`
@@ -22,6 +25,8 @@ export const NavItem = styled.li`
   color: black;
   &:hover{
     background-color:#f1e9e7;
+    color:var(--primary-cta) !important;
+
   }
 `;
 
