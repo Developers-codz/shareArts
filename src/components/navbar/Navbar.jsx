@@ -5,7 +5,7 @@ import {
   LoginIcon,
   MoonIcon,
   SunIcon,
-} from "../../Assets/icones";
+} from "../../Assets/icons";
 import { useTheme } from "../../context/theme-context";
 import { Header,Heading,SearchInput,SearchWrapper,SearchWrapperIcon,IconWrapper } from "./navbarComponent";
 

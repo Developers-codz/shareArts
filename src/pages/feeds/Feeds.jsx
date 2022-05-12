@@ -25,7 +25,7 @@ import {
   CommentIcon,
   HeartOutline,
   ShareIcon,
-} from "../../Assets/icones";
+} from "../../Assets/icons";
 import { useTheme } from "../../context/theme-context";
 import { getTextColor,getBorder } from "../../utils/Functions/getColor";
 

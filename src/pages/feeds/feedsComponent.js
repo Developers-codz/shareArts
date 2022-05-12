@@ -5,7 +5,7 @@ export const PostContainer = styled.div`
   width: 40vw;
   height: 40rem;
   border: 1px solid black;
-  margin: 2.5rem 1rem;
+  margin: 1rem 1rem 2rem 0;
   position: relative;
 `;
 export const PostHeader = styled.div`
