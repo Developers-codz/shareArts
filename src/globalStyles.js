@@ -4,9 +4,11 @@ const GlobalStyle = createGlobalStyle`
 html{
   --color-primary:#f1e9e7;
   --color-secondary:#d6806a;
+  --color-secondary-dark:#ca2535;
   --color-light:#fff;
   --color-dark:black;
   --primary-cta:#0000ff;
+  
 }
 .dark{
   color:var(--color-light);
