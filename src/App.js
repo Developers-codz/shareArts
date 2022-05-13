@@ -4,6 +4,7 @@ import {Navbar,Aside} from "./components"
 import {useTheme} from "./context/theme-context"
 import {Routes,Route} from "react-router-dom"
 import { Feeds} from "./pages/feeds/Feeds";
+import {Landing} from "./pages/Landing/Landing"
 
 
 function App() {
@@ -11,10 +12,9 @@ function App() {
   return (
     <div className={`App ${theme==="dark" ? "dark" : ""}`}>
       <GlobalStyle />
-    <Navbar />
-    <Aside />
+    
    <Routes>
-     <Route path="/" element={<Feeds />} />
+     <Route path="/" element={<Landing />} />
    </Routes>
     </div>
   );

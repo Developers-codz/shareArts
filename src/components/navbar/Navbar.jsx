@@ -24,7 +24,7 @@ export const Navbar = () => {
         }
       >
         <div>
-          <Logo />
+          <Logo width="2.4rem" height="2.4rem" />
           <Heading>Share Arts</Heading>
         </div>
         <SearchWrapper>
