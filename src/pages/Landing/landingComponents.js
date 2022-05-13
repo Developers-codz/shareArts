@@ -11,7 +11,6 @@ align-items: center;
 `
 export const Section = styled.div`
 margin-left:${props => props.logo ? "4rem" : "5rem"}
-
 `
 
 export const Header = styled.h1`
