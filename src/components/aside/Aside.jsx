@@ -1,12 +1,18 @@
 import {useTheme} from "../../context/theme-context"
+import {useLocation} from "react-router-dom"
 import {asideData} from "../../data/aside-data"
 import {NavMenu,NavItem,NavLinks} from "./asideComponent"
 import { getAsideColor } from "../../utils/Functions/getColor"
 
 export const Aside =()=>{
     const {theme} = useTheme();
+    const {pathname} = useLocation();
     return(
-    <aside className="aside">
+        pathname !== "/landing" &&
+        pathname !== "/login" &&
+        pathname !== "/signup" ? 
+    (
+        <aside className="aside">
       <NavMenu>
         {
             asideData.map(({id,name,path})=>{
@@ -21,5 +27,6 @@ export const Aside =()=>{
         }
       </NavMenu>
     </aside>
+    ):null
     )
 }
