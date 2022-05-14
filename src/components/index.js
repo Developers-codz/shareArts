@@ -1,2 +1,3 @@
-export * from "../components/navbar/Navbar"
-export * from "../components/aside/Aside"
+export * from "./navbar/Navbar"
+export * from "./aside/Aside"
+export * from "./posts/Post"
