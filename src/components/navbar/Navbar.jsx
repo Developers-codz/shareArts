@@ -9,8 +9,7 @@ import {
 } from "../../Assets/icons";
 import { useTheme } from "../../context/theme-context";
 import { Header,Heading,SearchInput,SearchWrapper,SearchWrapperIcon,IconWrapper } from "./navbarComponent";
-
-
+import { getBgColor } from "../../utils/Functions/getColor";
 
 export const Navbar = () => {
   const { theme } = useTheme();
@@ -22,11 +21,8 @@ export const Navbar = () => {
    ( <>
     <Header
       className="header-wrapper"
-      style={
-        theme === "light"
-          ? { backgroundColor: "white" }
-          : { backgroundColor: "#18191a" , borderBottom:"1px solid #f1e9e7"}
-      }
+      style={{backgroundColor:getBgColor(theme)}}
+      
     >
       <div>
         <Logo width="2.4rem" height="2.4rem" />

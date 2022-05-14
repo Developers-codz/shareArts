@@ -12,7 +12,10 @@ html{
 }
 .dark{
   color:var(--color-light);
-  background-color: var(--color-dark);
+  background-color: #28231d;
+}
+.light{
+  background-color: #f2efeb;
 }
 *{
     box-sizing: border-box;
@@ -41,6 +44,7 @@ html{
   display:flex;
   justify-content: space-between;
   padding-top:13vh; 
+  min-height: 97.5vh;
 }
 `
 

@@ -27,14 +27,14 @@ import {
   ShareIcon,
 } from "../../Assets/icons";
 import { useTheme } from "../../context/theme-context";
-import { getTextColor,getBorder } from "../../utils/Functions/getColor";
+import { getTextColor,getBorder,getBgColor } from "../../utils/Functions/getColor";
 
 export const Feeds = () => {
   const {theme} = useTheme();
   return (
     <div className="section">
       <BrowseFeeds>
-        <PostContainer style={{border:getBorder(theme)}}>
+        <PostContainer style={{backgroundColor:getBgColor(theme)}}>
           <PostHeader>
             <LeftArea>
               {" "}
@@ -74,7 +74,7 @@ export const Feeds = () => {
           </PostFooter>
         </PostContainer>
 
-        <PostContainer style={{border:getBorder(theme)}}>
+        <PostContainer style={{backgroundColor:getBgColor(theme)}}>
           <PostHeader>
             <LeftArea>
               {" "}
