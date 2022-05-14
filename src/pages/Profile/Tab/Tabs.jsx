@@ -1,6 +1,7 @@
 import { Wrapper, TabHead, EachTab,Outlet } from "./tabComponent";
 import {TabContent} from "./TabContent"
 import { useState } from "react";
+import { Post } from "../../../components";
 export const Tabs = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}
@@ -31,13 +32,13 @@ export const Tabs = () => {
       </TabHead>
       <Outlet>
       <TabContent id="tab1" activeTab={activeTab}>
-          <p>My Post</p>
+         <Post />
         </TabContent>
         <TabContent id="tab2" activeTab={activeTab}>
-          <p>My Liked</p>
+          <p>My Liked 0</p>
         </TabContent>
         <TabContent id="tab3" activeTab={activeTab}>
-          <p>My saved</p>
+          <p>My saved 0</p>
         </TabContent>
       </Outlet>
 

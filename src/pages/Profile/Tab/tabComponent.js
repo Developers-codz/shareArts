@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
 margin-left:17rem;
+margin-top: 1rem;
 `
 export const TabHead = styled.div`
 display:flex;

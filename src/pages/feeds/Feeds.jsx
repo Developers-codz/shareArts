@@ -21,6 +21,7 @@ export const Feeds = () => {
       <BrowseFeeds>
       <Post />
       <Post />
+      <Post />
       </BrowseFeeds>
       <SuggestionArea>
         <Header>Suggestions For you </Header>
