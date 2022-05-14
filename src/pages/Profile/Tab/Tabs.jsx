@@ -1,7 +1,8 @@
 import { Wrapper, TabHead, EachTab,Outlet } from "./tabComponent";
+import {TabContent} from "./TabContent"
 import { useState } from "react";
 export const Tabs = () => {
-  const [activeTab, setActiveTab] = useState("Tab1");
+  const [activeTab, setActiveTab] = useState("tab1");
   return (
     <Wrapper>
       <TabHead>
@@ -27,7 +28,17 @@ export const Tabs = () => {
           Saved
         </EachTab>
       </TabHead>
-      <Outlet></Outlet>
+      <Outlet>
+      <TabContent id="tab1" activeTab={activeTab}>
+          <p>My Post</p>
+        </TabContent>
+        <TabContent id="tab2" activeTab={activeTab}>
+          <p>My Liked</p>
+        </TabContent>
+        <TabContent id="tab3" activeTab={activeTab}>
+          <p>My saved</p>
+        </TabContent>
+      </Outlet>
 
     </Wrapper>
   );
