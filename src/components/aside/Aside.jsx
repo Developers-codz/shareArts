@@ -18,7 +18,7 @@ export const Aside = () => {
               <NavLinks
                 to={path}
                exact activeStyle={{
-                color: 'red',
+                color: 'red ',
               }}
                 style={{ color: getAsideColor(theme) }}
               >

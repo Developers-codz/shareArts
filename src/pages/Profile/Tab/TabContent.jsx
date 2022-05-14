@@ -1,8 +1,13 @@
+import styled from "styled-components"
+
+const TabWrapper = styled.div`
+    margin-top:"2rem"
+`
 export const TabContent = ({id,activeTab,children}) =>{
     return (
-        activeTab === id ? <div style={{marginTop:"2rem"}}>
+        activeTab === id ? <TabWrapper>
      { children }
-   </div>
+   </TabWrapper>
    : null
     )
 }
