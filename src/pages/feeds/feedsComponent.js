@@ -4,7 +4,7 @@ export const BrowseFeeds = styled.div``;
 export const PostContainer = styled.div`
   width: 40vw;
   height: 40rem;
-  border: 1px solid black;
+  border-radius:10px;
   margin: 1rem 1rem 2rem 0;
   position: relative;
 `;

@@ -8,9 +8,6 @@ export const NavMenu = styled.ul`
 export const NavLinks = styled(NavLink)`
 text-decoration:none;
 color:black;
-&.${props => props.activeClassName} {
-    color: red;
-  }
   &:hover{
     color:var(--primary-cta) !important;
   }

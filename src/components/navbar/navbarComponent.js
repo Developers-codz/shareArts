@@ -6,7 +6,6 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid black;
   z-index: 3;
 `;
 export const Heading = styled.span`
