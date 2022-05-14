@@ -1,9 +1,32 @@
-import {Wrapper} from "./profileComponents"
+import {Wrapper,ProfileImg, Section,HeaderSection,Header,Button,BodySection,About,Followers,ExternalLink} from "./profileComponents"
+import avataaar from "../../Assets/images/avataaar1.png"
+import { getBorder } from "../../utils/Functions/getColor"
+import {useTheme} from "../../context/theme-context" 
+import { Tabs } from "./Tab/Tabs"
 export const Profile = () =>{
+    const {theme} = useTheme()
     return(
-        <div className="section">
+        <Wrapper>
 
-            <Wrapper></Wrapper>
-        </div>
+            <Section style={{borderBottom:getBorder(theme)}}>
+                <ProfileImg  src={avataaar} />
+                <Section direction>
+                    <HeaderSection>
+                        <Header>@ Coding_avengers </Header>
+                        <Button>Edit Profile</Button>
+                    </HeaderSection>
+                   <BodySection>
+                   <Header>John Doe</Header>
+                   <About>Awesome Coding Tricks</About>
+                   <ExternalLink href="https://www.programiz.com/javascript/examples">Cool coding Tricks </ExternalLink>
+                   <Section>
+                    <Followers>0 Posts</Followers>
+                   <Followers>4k Followers</Followers><Followers> 10 Following</Followers>
+                   </Section>
+                   </BodySection>
+                </Section>
+            </Section>
+     <Tabs />
+        </Wrapper>
     )
 }
