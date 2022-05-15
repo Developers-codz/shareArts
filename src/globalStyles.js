@@ -47,6 +47,9 @@ html{
   min-height: 97.5vh;
 }
 @media only screen and (max-width:560px){
+  html{
+    font-size:65%;
+  }
   .aside{
     display:none;
   }

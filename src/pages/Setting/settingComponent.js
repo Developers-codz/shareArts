@@ -31,3 +31,17 @@ margin:.2rem 0 1rem 0
 
 export const BioInput = styled.textarea`
 margin:.2rem 0 1rem 0`
+
+export const EditBtn = styled.label`
+position:absolute;
+bottom:20px;
+right:20px;
+cursor:pointer;
+background-color:var(--color-light);
+border:none;
+border-radius: 50%;
+padding:.3rem;
+`
+export const ImageWrapper = styled.div`
+position:relative;
+`
