@@ -3,7 +3,6 @@ export const Wrapper  = styled.div`
   padding-top:13vh; 
   min-height: 95vh;
   margin:1rem 0 0rem 18rem;
-
 `
 export const Section = styled.div`
   display: flex;

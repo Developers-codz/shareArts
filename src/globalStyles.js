@@ -46,6 +46,16 @@ html{
   padding-top:13vh; 
   min-height: 97.5vh;
 }
+@media only screen and (max-width:560px){
+  .aside{
+    display:none;
+  }
+  .App{
+ 
+  grid-template-areas: "nav nav"
+  "main main";
+}
+}
 `
 
 export default GlobalStyle;

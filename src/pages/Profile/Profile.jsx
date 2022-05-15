@@ -7,7 +7,6 @@ export const Profile = () =>{
     const {theme} = useTheme()
     return(
         <Wrapper>
-
             <Section style={{borderBottom:getBorder(theme)}}>
                 <ProfileImg  src={avataaar} />
                 <Section direction>
@@ -20,7 +19,7 @@ export const Profile = () =>{
                    <About>Awesome Coding Tricks</About>
                    <ExternalLink href="https://www.programiz.com/javascript/examples">Cool coding Tricks </ExternalLink>
                    <Section>
-                    <Followers>1 Posts</Followers>
+                    <Followers>1 Post</Followers>
                    <Followers>4k Followers</Followers><Followers> 10 Following</Followers>
                    </Section>
                    </BodySection>
