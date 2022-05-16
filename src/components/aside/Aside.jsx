@@ -1,7 +1,7 @@
 import { useTheme } from "../../context/theme-context";
 import { useLocation } from "react-router-dom";
 import { asideData } from "../../data/aside-data";
-import { NavMenu, NavItem, NavLinks } from "./asideComponent";
+import { NavMenu, NavItem, NavLinks ,IconWrapper} from "./asideComponent";
 import { getAsideColor } from "../../utils/Functions/getColor";
 
 export const Aside = () => {
@@ -12,19 +12,20 @@ export const Aside = () => {
     pathname !== "/signup" ? (
     <aside className="aside">
       <NavMenu>
-        {asideData.map(({ id, name, path }) => {
+        {asideData.map(({ id, name, path,icon }) => {
           return (
-            <NavItem key={id}>
-              <NavLinks
-                to={path}
-               exact activeStyle={{
-                color: 'red ',
-              }}
+            <NavLinks key={id}  to={path}   exact activeStyle={{
+              color: 'red ',
+            }}>
+                <IconWrapper>{icon}</IconWrapper>
+              <NavItem 
+             
                 style={{ color: getAsideColor(theme) }}
               >
                 {name}
-              </NavLinks>
-            </NavItem>
+              </NavItem>
+            
+            </NavLinks>
           );
         })}
       </NavMenu>
