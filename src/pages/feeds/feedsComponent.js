@@ -7,6 +7,10 @@ export const PostContainer = styled.div`
   border-radius:10px;
   margin: 1rem 1rem 2rem 0;
   position: relative;
+  @media only screen and (max-width:560px){
+    width:100%;
+    min-height:45rem;
+  }
 `;
 export const PostHeader = styled.div`
   display: flex;
@@ -72,6 +76,9 @@ export const SuggestionArea = styled.div`
   right: 0;
   width: 25vw;
   height: 20rem;
+  @media only screen and (max-width:560px){
+    display:none;
+  }
 `;
 
 export const Header = styled.div`
