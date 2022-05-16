@@ -8,6 +8,9 @@ import {
   Para,
 } from "./AuthFormComponent";
 import { useState } from "react";
+import {useDispatch} from "react-redux"
+import { signup } from "../../Redux/Reducers/authSlice";
+
 export const SignUp = () => {
   const [userDetail, setUserDetail] = useState({
     fullname: "",
@@ -15,9 +18,23 @@ export const SignUp = () => {
     username: "",
     password: "",
   });
+  const [passMatch,setPassMatch] = useState("")
   const changeHandler = (e) =>{
     setUserDetail(prevDetail => ({...prevDetail,[e.target.name]:e.target.value}))
   }
+  const dispatch = useDispatch();
+
+  const clickHandler = () => {
+    const {fullname,email,username,password} = userDetail;
+    console.log(userDetail,passMatch)
+    if(fullname || email || username || password !== "" ){
+      dispatch(signup(userDetail))
+    }
+    else {
+   console.log("please fill all the fields")
+    }
+  }
+
   const {fullname,email,username,password} = userDetail;
   return (
     <div className="section">
@@ -55,9 +72,11 @@ export const SignUp = () => {
           <FormInput
             type="text"
             placeholder="Re-Enter Your Password"
+            value={passMatch}
+            onChange={(e) => setPassMatch(e.target.value)}
           ></FormInput>
 
-          <PrimaryButton primary>SignUp</PrimaryButton>
+          <PrimaryButton primary onClick={clickHandler}>SignUp</PrimaryButton>
           <Para>
             Already Have an account ? <Link to="/login">Login now</Link>
           </Para>

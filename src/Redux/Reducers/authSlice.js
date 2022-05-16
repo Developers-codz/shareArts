@@ -18,6 +18,17 @@ export const login = createAsyncThunk("/auth/login", async (e,userDetail) =>{
     }
 })
 
+export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
+    try{
+        const response = await axios.post("/api/auth/signup",JSON.stringify(userDetail))
+        return response.data
+    }
+    catch(error){
+        console.log(error)
+
+    }
+})
+
 
 const authSlice = createSlice({
     name:"auth",
@@ -26,6 +37,10 @@ const authSlice = createSlice({
         builder.addCase(login.fulfilled,(state,action) =>{
             console.log(action.payload.foundUser)
             state.currentUser = action.payload.foundUser
+        })
+        .addCase(signup.fulfilled,(state,action) => {
+            console.log(action.payload.createdUser)
+            state.currentUser = action.payload.createdUser
         })
     }
 })
