@@ -1,9 +1,10 @@
 // import "./App.css";
 import GlobalStyle from "./globalStyles";
-import {Navbar,Aside} from "./components"
+import {Navbar,Aside,BottomNavigation} from "./components"
 import {useTheme} from "./context/theme-context"
 import {Routes,Route} from "react-router-dom"
 import { Feeds,Landing,Login,SignUp,Profile,Setting} from "./pages";
+
 
 
 
@@ -22,6 +23,7 @@ function App() {
      <Route path="/login" element={<Login />} />
      <Route path="/signup" element={<SignUp />} />
    </Routes>
+   <BottomNavigation />
     </div>
   );
 }
