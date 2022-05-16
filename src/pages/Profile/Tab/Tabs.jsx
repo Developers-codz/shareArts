@@ -9,21 +9,21 @@ export const Tabs = () => {
     <Wrapper>
       <TabHead>
         <EachTab
-          style={activeTab === "tab1" ?currentStyle:null}
+          style={activeTab === "tab1" ? currentStyle:null}
           id="tab1"
           onClick={(e) => setActiveTab(e.target.id)}
         >
           Posts
         </EachTab>
         <EachTab
-          style={activeTab === "tab2" ?currentStyle:null}
+          style={activeTab === "tab2" ? currentStyle:null}
           id="tab2"
           onClick={(e) => setActiveTab(e.target.id)}
         >
           Liked
         </EachTab>
         <EachTab
-          style={activeTab === "tab3" ?currentStyle:null}
+          style={activeTab === "tab3" ? currentStyle:null}
           id="tab3"
           onClick={(e) => setActiveTab(e.target.id)}
         >

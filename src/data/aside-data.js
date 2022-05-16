@@ -1,30 +1,31 @@
+import {NotificationIcon,ProfileIcon,HomeIcon,ExploreIcon,SettingsIcon} from "../Assets/icons/navigationIcon"
 export const asideData = [{
     id:1,
     name:"Home",
-    icon:"",
+    icon:<HomeIcon width="1.5rem" height="1.5rem" />,
     path:"/"
 },
 {id:2,
 name:"Explore",
-icon:"",
+icon:<ExploreIcon  width="1.5rem" height="1.5rem" />,
 path:"/explore"
 },
 {
     id:3,
     name:"Notifications",
-    icon:"",
+    icon:<NotificationIcon  width="1.5rem" height="1.5rem" />,
     path:"/notifications"
 },
 {
     id:4,
     name:"Profile",
-    icon:"",
+    icon:<ProfileIcon  width="1.5rem" height="1.5rem" />,
     path:"/profile"
 },
 {
     id:5,
     name:"Settings",
-    icon:"",
+    icon:<SettingsIcon  width="1.5rem" height="1.5rem" />,
     path:"/settings"
 }
 ]

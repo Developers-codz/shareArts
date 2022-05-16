@@ -8,10 +8,14 @@ export const Wrapper = styled.div`
   align-items: center;
   @media only screen and (max-width: 560px) {
     flex-direction: column;
+    width:100vw;
   }
 `;
 export const Section = styled.div`
   margin-left: ${(props) => (props.logo ? "4rem" : "5rem")};
+  @media only screen and (max-width: 560px) {
+    margin-left:0
+  }
 `;
 
 export const Header = styled.h1`
@@ -42,4 +46,8 @@ export const Button = styled(Link)`
 export const HeroImg = styled.img`
   width: 36rem;
   margin-left: 5rem;
+  @media only screen and (max-width: 560px) {
+  width:18rem;
+  margin-left:0
+  }
 `;
