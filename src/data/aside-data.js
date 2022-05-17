@@ -3,7 +3,7 @@ export const asideData = [{
     id:1,
     name:"Home",
     icon:<HomeIcon width="1.5rem" height="1.5rem" />,
-    path:"/"
+    path:"/feeds"
 },
 {id:2,
 name:"Explore",

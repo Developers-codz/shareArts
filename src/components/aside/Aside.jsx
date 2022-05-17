@@ -7,16 +7,14 @@ import { getAsideColor } from "../../utils/Functions/getColor";
 export const Aside = () => {
   const { theme } = useTheme();
   const { pathname } = useLocation();
-  return pathname !== "/landing" &&
+  return pathname !== "/" &&
     pathname !== "/login" &&
     pathname !== "/signup" ? (
     <aside className="aside">
       <NavMenu>
         {asideData.map(({ id, name, path,icon }) => {
           return (
-            <NavLinks key={id}  to={path}   exact activeStyle={{
-              color: 'red ',
-            }}>
+            <NavLinks key={id}  to={path}   exact >
                 <IconWrapper>{icon}</IconWrapper>
               <NavItem 
              

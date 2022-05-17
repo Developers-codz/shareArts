@@ -25,7 +25,7 @@ export const BottomNavigation = () => {
     <>
       <Wrapper style={{ backgroundColor: getBgColor2(theme) }}>
         {asideData.map(({ path, icon, name }) => (
-          <NavLink to={path} >{icon}</NavLink>
+          <NavLink to={path} key={name}>{icon}</NavLink>
         ))}
       </Wrapper>
     </>

@@ -12,7 +12,7 @@ export const NavLinks = styled(NavLink)`
   justify-content: start;
   align-items: center;
   border-radius: 10px;
-  color: black;
+  color: ${props => props.exact ? "red" : "black"};
   &:hover {
     color: var(--primary-cta) !important;
     background-color: #f1e9e7;
