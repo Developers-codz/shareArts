@@ -21,11 +21,10 @@ export const Login = () => {
     }));
   };
 
-  const clickHandler = (e) =>{
-    if(e.target.value === "credentialLogin") {
-      dispatch(login(e,userDetail))
-    }
-  }
+  const clickHandler = (e) => {
+    dispatch(login(e, userDetail));
+    setUserDetail((prev) => ({ ...prev, username: "", password: "" }));
+  };
   const { username, password } = userDetail;
   return (
     <div className="section">
@@ -47,7 +46,9 @@ export const Login = () => {
             onChange={(e) => changeHandler(e)}
           ></FormInput>
           <Header small>OR</Header>
-          <Button value="credentialLogin" onClick={(e)=>clickHandler(e)}>Login with Test Credential</Button>
+          <Button value="credentialLogin" onClick={(e) => clickHandler(e)}>
+            Login with Test Credential
+          </Button>
           <PrimaryButton primary onClick={(e) => clickHandler(e)}>
             Login
           </PrimaryButton>

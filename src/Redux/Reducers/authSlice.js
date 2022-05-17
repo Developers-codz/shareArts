@@ -36,10 +36,12 @@ const authSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(login.fulfilled,(state,action) =>{
             console.log(action.payload.foundUser)
+            localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.foundUser
         })
         .addCase(signup.fulfilled,(state,action) => {
             console.log(action.payload.createdUser)
+            localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.createdUser
         })
     }

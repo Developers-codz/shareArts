@@ -27,8 +27,10 @@ export const SignUp = () => {
   const clickHandler = () => {
     const {fullname,email,username,password} = userDetail;
     console.log(userDetail,passMatch)
-    if(fullname || email || username || password !== "" ){
+    if(fullname && email && username && password !== "" && password === passMatch ){
       dispatch(signup(userDetail))
+      setUserDetail(prev => ({...prev,fullname:"",email:"",username:"",password:""}))
+      setPassMatch("")
     }
     else {
    console.log("please fill all the fields")
