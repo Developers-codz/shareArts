@@ -36,7 +36,6 @@ const authSlice = createSlice({
     initialState,
     extraReducers(builder) {
         builder.addCase(login.fulfilled,(state,action) =>{
-            console.log(action.payload.foundUser)
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.foundUser
             SuccessToast("Login Successful")
