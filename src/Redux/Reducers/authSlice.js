@@ -45,7 +45,6 @@ const authSlice = createSlice({
             AlertToast(`${action.payload.errors}`);
           })
         .addCase(signup.fulfilled,(state,action) => {
-            console.log(action.payload.createdUser)
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.createdUser
             SuccessToast("signIn Successful")
