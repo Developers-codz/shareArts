@@ -3,7 +3,9 @@ import avataaar from "../../Assets/images/avataaar1.png"
 import { getBorder } from "../../utils/Functions/getColor"
 import {useTheme} from "../../context/theme-context" 
 import { Tabs } from "./Tab/Tabs"
+import { useNavigate } from "react-router-dom"
 export const Profile = () =>{
+    const navigate = useNavigate();
     const {theme} = useTheme()
     return(
         <Wrapper>
@@ -12,7 +14,7 @@ export const Profile = () =>{
                 <Section direction>
                     <HeaderSection>
                         <Header>@ Coding_avengers </Header>
-                        <Button>Edit Profile</Button>
+                        <Button onClick={()=>navigate("/settings")}>Edit Profile</Button>
                     </HeaderSection>
                    <BodySection>
                    <Header>John Doe</Header>
