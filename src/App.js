@@ -4,6 +4,7 @@ import {Navbar,Aside,BottomNavigation,RequireAuth,RestrictAuth} from "./componen
 import {useTheme} from "./context/theme-context"
 import {Routes,Route} from "react-router-dom"
 import { Feeds,Landing,Login,SignUp,Profile,Setting} from "./pages";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -29,9 +30,9 @@ function App() {
      <Route path="/login" element={<Login />} />
      <Route path="/signup" element={<SignUp />} />
     </Route>
-  
    </Routes>
    <BottomNavigation />
+   <ToastContainer />
     </div>
   );
 }
