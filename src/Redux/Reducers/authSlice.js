@@ -12,20 +12,22 @@ export const login = createAsyncThunk("/auth/login", async (e,userDetail) =>{
             username: "adarshbalika",
             password: "adarshBalika123",
         } : JSON.stringify(userDetail));
+        SuccessToast("Login Successful")
         return response.data;
         
     } catch (error) {
-        console.log(error)
+        AlertToast(`${error}`)
     }
 })
 
 export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
     try{
         const response = await axios.post("/api/auth/signup",JSON.stringify(userDetail))
+        SuccessToast("SignIn Successful")
         return response.data
     }
     catch(error){
-        console.log(error)
+        AlertToast(`${error}`)
 
     }
 })
@@ -38,7 +40,6 @@ const authSlice = createSlice({
         builder.addCase(login.fulfilled,(state,action) =>{
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.foundUser
-            SuccessToast("Login Successful")
         })
         .addCase(login.rejected, (state, action) => {
             AlertToast(`${action.payload.errors}`);
@@ -46,10 +47,9 @@ const authSlice = createSlice({
         .addCase(signup.fulfilled,(state,action) => {
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.createdUser
-            SuccessToast("signIn Successful")
         })
         .addCase(signup.rejected,(state,action) =>{
-            AlertToast(`${action.payload.errors}`)
+        
         })
     }
 })

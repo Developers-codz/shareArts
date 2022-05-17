@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import {useDispatch} from "react-redux"
 import { signup } from "../../Redux/Reducers/authSlice";
+import {AlertToast} from "../../components/toasts"
 
 export const SignUp = () => {
   const [userDetail, setUserDetail] = useState({
@@ -32,8 +33,11 @@ export const SignUp = () => {
       setUserDetail(prev => ({...prev,fullname:"",email:"",username:"",password:""}))
       setPassMatch("")
     }
+    else if(password !== passMatch){
+      AlertToast("Password do not match");
+    }
     else {
-   console.log("please fill all the fields")
+      AlertToast("Please Enter Alll the field");
     }
   }
 
@@ -65,14 +69,14 @@ export const SignUp = () => {
             onChange={(e) => changeHandler(e)}
           ></FormInput>
           <FormInput
-            type="text"
+            type="password"
             placeholder="Enter Your Password"
             name="password"
             value={password}
             onChange={(e) => changeHandler(e)}
           ></FormInput>
           <FormInput
-            type="text"
+            type="password"
             placeholder="Re-Enter Your Password"
             value={passMatch}
             onChange={(e) => setPassMatch(e.target.value)}
