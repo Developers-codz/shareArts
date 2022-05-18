@@ -20,21 +20,22 @@ import {
     BookmarkedIcon,
     CommentIcon,
     HeartOutline,
+    HeartFilled,
     ShareIcon,
   } from "../../Assets/icons";
 
   import {useTheme} from "../../context/theme-context"
-
   import { getBgColor,getTextColor } from "../../utils/Functions/getColor";
   import {bookmark} from "../../Redux/Reducers/postsSlice"
-  import {useSelector} from "react-redux"
-  import {useDispatch} from "react-redux"
+  import {useSelector,useDispatch} from "react-redux"
+  import { removeLikes,addLikes } from "../../Redux/Reducers/postsSlice"
+  
+  
 export const Post = ({post}) => {
     const {theme} = useTheme()
     const dispatch = useDispatch();
     const bookmarked = useSelector(store => store.posts.bookmarked)
-    // const isBookmarked = Bookmarked.find(item => item._id === post._id)
-    // console.log(isBookmarked)
+    const Liked = useSelector(store => store.posts.liked)
   return (
     <>
       <PostContainer style={{ backgroundColor: getBgColor(theme) }}>
@@ -52,7 +53,9 @@ export const Post = ({post}) => {
         <Content>
           <Icons>
             <LeftArea>
-              <HeartOutline />
+              {post.likes.likedBy.map(liked =>liked.username ).includes("adarshbalika") ? <span onClick={() => dispatch(removeLikes(post._id))}><HeartFilled /></span> : 
+              <span onClick={() => dispatch(addLikes(post._id))}><HeartOutline /></span>
+              }
               <CommentIcon />
               <ShareIcon />
             </LeftArea>

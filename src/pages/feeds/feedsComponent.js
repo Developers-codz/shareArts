@@ -91,9 +91,14 @@ export const Header = styled.div`
 export const Button = styled.button`
   margin: 0 1rem;
   border: none;
-  background: transparent;
+  background: ${(props) => props.addpostBtn ? "#d6806a":"transparent"};
+  padding:${(props) => props.addpostBtn ? ".5rem 1rem":""};
+  border-radius:${(props) => props.addpostBtn ? "10px":""};
   cursor: pointer;
   font-size: 1.1rem;
+  position:${(props) => props.addpostBtn ? "fixed":""};
+  bottom:${(props) => props.addpostBtn ? "20px":""};
+  right:${(props) => props.addpostBtn ? "20px":""};
   &:hover {
     transform: scale(1.03, 1.03);
     color:var( --primary-cta) !important;

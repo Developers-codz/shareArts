@@ -5,7 +5,6 @@ import { AlertToast,SuccessToast } from "../../components/toasts";
 const initialState = {
     posts:[],
     bookmarked:[],
-    liked:[],
     loading:false,
 };
 
@@ -25,6 +24,7 @@ export const addLikes = createAsyncThunk("posts/like",async (postId,{rejectWithV
     const encodedToken = localStorage.getItem("token");
     try{
         const response = await axios.post(`/api/posts/like/${postId}`,{},{headers:{authorization:encodedToken}})
+        return response.data
     }
     catch(error){
         return rejectWithValue(error)
@@ -71,14 +71,17 @@ const postsSlice = createSlice({
         .addCase(getAllPosts.rejected,(action)=>{
             AlertToast(`${action.payload.errors}`)
         })
+
         .addCase(addLikes.fulfilled,(state,action) =>{
-            state.liked = action.payload.posts
+            console.log(action.payload.posts)
+            state.posts = action.payload.posts
         })
         .addCase(addLikes.rejected,(state,action) =>{
             AlertToast(`${action.payload.errors}`)
         })
         .addCase(removeLikes.fulfilled,(state,action) =>{
-                state.liked = action.payload.posts
+            console.log(action.payload.posts)
+                state.posts = action.payload.posts
         })
         .addCase(removeLikes.rejected,(state,action) =>{
 
