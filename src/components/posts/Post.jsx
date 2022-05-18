@@ -25,7 +25,7 @@ import {
   import {useTheme} from "../../context/theme-context"
   import avataaar1 from "../../Assets/images/avataaar1.png";
   import { getBgColor,getTextColor } from "../../utils/Functions/getColor";
-export const Post = () => {
+export const Post = ({post}) => {
     const {theme} = useTheme()
   return (
     <>
@@ -33,14 +33,14 @@ export const Post = () => {
         <PostHeader>
           <LeftArea>
             {" "}
-            <UserThumbnail src={avataaar1} />
-            <Username>Coding_Avengers</Username>
+            <UserThumbnail src={post.profilePic} />
+            <Username>{post.username}</Username>
           </LeftArea>
 
           <RightArea></RightArea>
         </PostHeader>
 
-        <PostHeroImg src={img1} />
+        <PostHeroImg src={post.postPic} />
         <Content>
           <Icons>
             <LeftArea>
@@ -54,10 +54,7 @@ export const Post = () => {
           </Icons>
           <Likes>500 likes</Likes>
           <Caption>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Recusandae, nobis. Delectus corporis quasi corrupti, consectetur
-            rerum nam suscipit libero quas quod odio velit aspernatur illo
-            veniam aliquid reprehenderit at aperiam.
+            {post.content}
           </Caption>
         </Content>
         <PostFooter>

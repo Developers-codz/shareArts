@@ -8,6 +8,7 @@ import {
   Button,
 } from "./feedsComponent";
 import avataaar1 from "../../Assets/images/avataaar1.png";
+import { useSelector } from "react-redux";
 
 import { useTheme } from "../../context/theme-context";
 import {
@@ -15,13 +16,17 @@ import {
 } from "../../utils/Functions/getColor";
 import { Post } from "../../components";
 export const Feeds = () => {
+  const {posts} = useSelector((state)=>state.posts)
+
   const { theme } = useTheme();
   return (
     <div className="section">
       <BrowseFeeds>
-      <Post />
-      <Post />
-      <Post />
+      {
+        posts.map(post => {
+          return <Post key={post._id} post={post}/>
+        })
+      }
       </BrowseFeeds>
       <SuggestionArea>
         <Header>Suggestions For you </Header>

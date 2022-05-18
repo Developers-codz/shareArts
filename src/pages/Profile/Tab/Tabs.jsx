@@ -32,7 +32,7 @@ export const Tabs = () => {
       </TabHead>
       <Outlet>
       <TabContent id="tab1" activeTab={activeTab}>
-         <Post />
+         {/* <Post /> */}
         </TabContent>
         <TabContent id="tab2" activeTab={activeTab}>
           <p>My Liked 0</p>
