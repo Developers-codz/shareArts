@@ -21,11 +21,34 @@ export const getAllPosts = createAsyncThunk("posts/getAll", async (mockParameter
     }
 })
 
+export const addLikes = createAsyncThunk("posts/like",async (postId,{rejectWithValue}) =>{
+    const encodedToken = localStorage.getItem("token");
+    try{
+        const response = await axios.post(`/api/posts/like/${postId}`,{},{headers:{authorization:encodedToken}})
+    }
+    catch(error){
+        return rejectWithValue(error)
+    }
+})
+
+export const removeLikes =  createAsyncThunk("post/dislike",async (postId,{rejectWithValue})=>{
+    const encodedToken = localStorage.getItem("token")
+    try{
+        const response = await axios.post(`/api/posts/dislike/${postId}`,{},{headers:{
+            authorization:encodedToken
+        }})
+        return response.data
+    }
+    catch(error){
+        return rejectWithValue(error)
+    }
+})
 
 export const bookmark = createAsyncThunk("post/bookmark",async (postId,{rejectWithValue}) =>{
+    const encodedToken = localStorage.getItem("token")
     try{
-        const encodedToken = localStorage.getItem("token")
         const response = await axios.post(`/api/users/bookmark/${postId}`,{},{headers:{authorization:encodedToken}});
+        console.log(response.data)
         return response.data
     }
     catch(error){
@@ -47,6 +70,18 @@ const postsSlice = createSlice({
         })
         .addCase(getAllPosts.rejected,(action)=>{
             AlertToast(`${action.payload.errors}`)
+        })
+        .addCase(addLikes.fulfilled,(state,action) =>{
+            state.liked = action.payload.posts
+        })
+        .addCase(addLikes.rejected,(state,action) =>{
+            AlertToast(`${action.payload.errors}`)
+        })
+        .addCase(removeLikes.fulfilled,(state,action) =>{
+                state.liked = action.payload.posts
+        })
+        .addCase(removeLikes.rejected,(state,action) =>{
+
         })
         .addCase(bookmark.fulfilled,(state,action) =>{
             SuccessToast("Added to bookmark");

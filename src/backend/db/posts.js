@@ -15,7 +15,7 @@ export const posts = [
     content:
       "Its has been 84 years now",
     likes: {
-      likeCount: 0,
+      likeCount: 10,
       likedBy: [],
       dislikedBy: [],
     },
@@ -33,7 +33,7 @@ export const posts = [
     content:
       "Have you ever completed your projects without a deadline  ?",
     likes: {
-      likeCount: 0,
+      likeCount: 12,
       likedBy: [],
       dislikedBy: [],
     },
@@ -51,7 +51,7 @@ export const posts = [
     content:
       "coding ninza represents coding competition, stay tuned to know more",
     likes: {
-      likeCount: 0,
+      likeCount: 22,
       likedBy: [],
       dislikedBy: [],
     },
@@ -70,7 +70,7 @@ export const posts = [
     content:
       "So here's my latest Painting of Lord Ganesha",
     likes: {
-      likeCount: 0,
+      likeCount: 52,
       likedBy: [],
       dislikedBy: [],
     },

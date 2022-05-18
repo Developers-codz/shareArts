@@ -2,9 +2,11 @@ import { Wrapper, TabHead, EachTab,Outlet } from "./tabComponent";
 import {TabContent} from "./TabContent"
 import { useState } from "react";
 import { Post } from "../../../components";
+import {useSelector} from "react-redux"
 export const Tabs = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}
+  const bookmarked = useSelector(store => store.posts.bookmarked)
   return (
     <Wrapper>
       <TabHead>
@@ -38,7 +40,11 @@ export const Tabs = () => {
           <p>My Liked 0</p>
         </TabContent>
         <TabContent id="tab3" activeTab={activeTab}>
-          <p>My saved 0</p>
+         {bookmarked.map((item) => {
+           return (
+            <Post key={item._id} post={item} />
+           )
+         })}
         </TabContent>
       </Outlet>
 

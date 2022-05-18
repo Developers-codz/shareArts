@@ -17,16 +17,24 @@ import {
 } from "../../pages/feeds/feedsComponent";
 import {
     BookmarkIcon,
+    BookmarkedIcon,
     CommentIcon,
     HeartOutline,
     ShareIcon,
   } from "../../Assets/icons";
-  import img1 from "../../Assets/images/img1.jpg";
+
   import {useTheme} from "../../context/theme-context"
-  import avataaar1 from "../../Assets/images/avataaar1.png";
+
   import { getBgColor,getTextColor } from "../../utils/Functions/getColor";
+  import {bookmark} from "../../Redux/Reducers/postsSlice"
+  import {useSelector} from "react-redux"
+  import {useDispatch} from "react-redux"
 export const Post = ({post}) => {
     const {theme} = useTheme()
+    const dispatch = useDispatch();
+    const bookmarked = useSelector(store => store.posts.bookmarked)
+    // const isBookmarked = Bookmarked.find(item => item._id === post._id)
+    // console.log(isBookmarked)
   return (
     <>
       <PostContainer style={{ backgroundColor: getBgColor(theme) }}>
@@ -48,11 +56,11 @@ export const Post = ({post}) => {
               <CommentIcon />
               <ShareIcon />
             </LeftArea>
-            <RightArea>
-              <BookmarkIcon />
+            <RightArea onClick={() => dispatch(bookmark(post._id))}>
+              {bookmarked.map(bookmark => bookmark._id).includes(post._id) ? <BookmarkedIcon /> : <BookmarkIcon />}
             </RightArea>
           </Icons>
-          <Likes>500 likes</Likes>
+          <Likes>{post.likes.likeCount} Likes</Likes>
           <Caption>
             {post.content}
           </Caption>
