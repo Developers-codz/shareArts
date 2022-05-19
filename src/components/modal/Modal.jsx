@@ -1,6 +1,6 @@
 import InputEmoji from "react-input-emoji";
 import { Button } from "../../pages/feeds/feedsComponent";
-import { ModalWrapper,CloseButton,InputWrapper } from "./modalComponent";
+import { ModalWrapper,CloseButton,InputWrapper ,InputPost} from "./modalComponent";
 import { useDispatch } from "react-redux";
 import {useState} from "react"
 import { AlertToast } from "../toasts";
@@ -12,8 +12,8 @@ export const Modal = ({isModalOpen,setModalOpen}) =>{
 
     const clickHandler = () =>{
         // console.log(postData)
-        if(postData === "")
-            AlertToast("Write something to post")
+        if(postData.content === "")
+            AlertToast("Please write about what are you thinking")
         else 
             {dispatch(addNewPost(postData.content))
         setPostData("")
@@ -23,7 +23,7 @@ export const Modal = ({isModalOpen,setModalOpen}) =>{
         <ModalWrapper>
             <CloseButton onClick={()=>setModalOpen(false)}>X</CloseButton>
             <InputWrapper>
-            <input  placeholder="What Are you thinking about...." onChange={(e)=>setPostData(prev => ({...prev,content:e.target.value}))} />
+            <InputPost  placeholder="What Are you thinking about...." onChange={(e)=>setPostData(prev => ({...prev,content:e.target.value}))} />
             </InputWrapper>
             <Button addpostBtn onClick={clickHandler}>Post</Button>
         </ModalWrapper>

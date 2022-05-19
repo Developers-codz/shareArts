@@ -24,3 +24,21 @@ right:10px;
 cursor:pointer;
 font-size:1.7rem;
 `
+
+export const InputPost = styled.input`
+border-right: none;
+border-left:none;
+border-top:none;
+border-bottom:1px solid black;
+font-size:1.4rem;
+margin:0.5rem 2rem;
+width:80%;
+background-color: transparent;
+&:hover{
+    border-bottom:1px solid var(--color-secondary-dark);
+    outline:none;
+}
+&:focus{
+    outline:none;
+}
+`
