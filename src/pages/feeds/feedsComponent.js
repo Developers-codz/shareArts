@@ -25,7 +25,8 @@ export const LeftArea = styled.div`
   cursor: pointer;
   margin: ${(props) => (props.m_md ? "1rem" : ".2rem")};
 `;
-export const RightArea = styled.div``;
+export const RightArea = styled.div`
+position:relative;`;
 
 export const UserThumbnail = styled.img`
   width: 50px;
@@ -104,3 +105,38 @@ export const Button = styled.button`
     color:var( --primary-cta) !important;
   }
 `;
+
+export const ToggleMenu = styled.div`
+border-radius:10px;
+text-align:center;
+width:10rem;
+height:5rem;
+position:absolute;
+z-index:9;
+right:1rem;
+background-color:var(--color-primary);
+& :hover{
+  border-radius: 0px !important;
+  background-color:var(--color-primary)
+}
+
+`
+
+export const VerticalIconWrapper = styled.span`
+margin-right:1rem;
+& :hover{
+  border-radius: 50%;
+  background-color:var(--color-primary)
+}
+`
+
+export const EditButton =  styled.div`
+cursor:pointer;
+padding:.5rem 0 .5rem 0;
+margin: 0.3rem;
+border-radius:10px;
+&:hover{
+  background-color: var(--color-light);
+}
+`
+export const DeleteButton = styled(EditButton)``
