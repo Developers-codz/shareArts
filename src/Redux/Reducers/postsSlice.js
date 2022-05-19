@@ -22,7 +22,6 @@ export const getAllPosts = createAsyncThunk("posts/getAll", async (mockParameter
 
 export const addNewPost = createAsyncThunk("posts/addNewPost",async (post,{rejectWithValue})=>{
     const encodedToken = localStorage.getItem("token")
-    console.log(post)
     try{
         const response = await axios.post("/api/posts",{content:post},
         {headers:{
