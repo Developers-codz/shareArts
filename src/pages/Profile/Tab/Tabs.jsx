@@ -2,9 +2,19 @@ import { Wrapper, TabHead, EachTab,Outlet } from "./tabComponent";
 import {TabContent} from "./TabContent"
 import { useState } from "react";
 import { Post } from "../../../components";
+import {useSelector} from "react-redux"
 export const Tabs = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}
+  const bookmarked = useSelector(store => store.posts.bookmarked)
+  const allPosts = useSelector(store => store.posts.posts)
+
+  const allBookmarked = allPosts.filter((post) =>{
+    return bookmarked.some((bookmark) => {
+      return bookmark._id === post._id
+    })
+  })
+
   return (
     <Wrapper>
       <TabHead>
@@ -32,13 +42,17 @@ export const Tabs = () => {
       </TabHead>
       <Outlet>
       <TabContent id="tab1" activeTab={activeTab}>
-         <Post />
+         {/* <Post /> */}
         </TabContent>
         <TabContent id="tab2" activeTab={activeTab}>
           <p>My Liked 0</p>
         </TabContent>
         <TabContent id="tab3" activeTab={activeTab}>
-          <p>My saved 0</p>
+         {allBookmarked.map((item) => {
+           return (
+            <Post key={item._id} post={item} />
+           )
+         })}
         </TabContent>
       </Outlet>
 

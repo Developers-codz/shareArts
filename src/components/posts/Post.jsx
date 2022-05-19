@@ -13,52 +13,86 @@ import {
   CommentBox,
   Button,
   UserThumbnail,
-  Username
+  Username,
+  ToggleMenu,
+  VerticalIconWrapper,
+  EditButton,
+  DeleteButton
 } from "../../pages/feeds/feedsComponent";
 import {
-    BookmarkIcon,
-    CommentIcon,
-    HeartOutline,
-    ShareIcon,
-  } from "../../Assets/icons";
-  import img1 from "../../Assets/images/img1.jpg";
-  import {useTheme} from "../../context/theme-context"
-  import avataaar1 from "../../Assets/images/avataaar1.png";
-  import { getBgColor,getTextColor } from "../../utils/Functions/getColor";
-export const Post = () => {
-    const {theme} = useTheme()
+  BookmarkIcon,
+  BookmarkedIcon,
+  CommentIcon,
+  HeartOutline,
+  HeartFilled,
+  ShareIcon,
+  VerticalDots,
+} from "../../Assets/icons";
+
+import { useTheme } from "../../context/theme-context";
+import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
+import { bookmark } from "../../Redux/Reducers/postsSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { removeLikes, addLikes } from "../../Redux/Reducers/postsSlice";
+import { useState } from "react";
+
+export const Post = ({ post }) => {
+  const [isMenuOpen, setOpen] = useState(false);
+  const { theme } = useTheme();
+  const dispatch = useDispatch();
+  const bookmarked = useSelector((store) => store.posts.bookmarked);
+
+
   return (
     <>
       <PostContainer style={{ backgroundColor: getBgColor(theme) }}>
         <PostHeader>
           <LeftArea>
             {" "}
-            <UserThumbnail src={avataaar1} />
-            <Username>Coding_Avengers</Username>
+            <UserThumbnail src={post.userPhoto} />
+            <Username>{post.username}</Username>
           </LeftArea>
 
-          <RightArea></RightArea>
+          <RightArea>
+            <VerticalIconWrapper onClick={() => setOpen((open) => !open)}>
+              <VerticalDots />
+              
+            </VerticalIconWrapper>
+            {isMenuOpen && <ToggleMenu>
+              <EditButton>Edit</EditButton>
+              <DeleteButton>Delete</DeleteButton>
+              </ToggleMenu>}
+          </RightArea>
         </PostHeader>
 
-        <PostHeroImg src={img1} />
+        <PostHeroImg src={post.postPic} />
         <Content>
           <Icons>
             <LeftArea>
-              <HeartOutline />
+              {post.likes.likedBy
+                .map((liked) => liked.username)
+                .includes("adarshbalika") ? (
+                <span onClick={() => dispatch(removeLikes(post._id))}>
+                  <HeartFilled />
+                </span>
+              ) : (
+                <span onClick={() => dispatch(addLikes(post._id))}>
+                  <HeartOutline />
+                </span>
+              )}
               <CommentIcon />
               <ShareIcon />
             </LeftArea>
-            <RightArea>
-              <BookmarkIcon />
+            <RightArea onClick={() => dispatch(bookmark(post._id))}>
+              {bookmarked.map((bookmark) => bookmark._id).includes(post._id) ? (
+                <BookmarkedIcon />
+              ) : (
+                <BookmarkIcon />
+              )}
             </RightArea>
           </Icons>
-          <Likes>500 likes</Likes>
-          <Caption>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Recusandae, nobis. Delectus corporis quasi corrupti, consectetur
-            rerum nam suscipit libero quas quod odio velit aspernatur illo
-            veniam aliquid reprehenderit at aperiam.
-          </Caption>
+          <Likes>{post.likes.likeCount} Likes</Likes>
+          <Caption>{post.content}</Caption>
         </Content>
         <PostFooter>
           <CommentBox>

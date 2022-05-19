@@ -9,7 +9,8 @@ export const Aside = () => {
   const { pathname } = useLocation();
   return pathname !== "/" &&
     pathname !== "/login" &&
-    pathname !== "/signup" ? (
+    pathname !== "/signup" &&
+    pathname !== "/mockman" ? (
     <aside className="aside">
       <NavMenu>
         {asideData.map(({ id, name, path,icon }) => {

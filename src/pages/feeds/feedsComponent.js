@@ -25,11 +25,13 @@ export const LeftArea = styled.div`
   cursor: pointer;
   margin: ${(props) => (props.m_md ? "1rem" : ".2rem")};
 `;
-export const RightArea = styled.div``;
+export const RightArea = styled.div`
+position:relative;`;
 
 export const UserThumbnail = styled.img`
   width: 50px;
   height: 50px;
+  border-radius: 50%;
   margin: 0 1rem;
 `;
 export const Username = styled.div`
@@ -90,11 +92,51 @@ export const Header = styled.div`
 export const Button = styled.button`
   margin: 0 1rem;
   border: none;
-  background: transparent;
+  background: ${(props) => props.addpostBtn ? "#d6806a":"transparent"};
+  padding:${(props) => props.addpostBtn ? ".5rem 1rem":""};
+  border-radius:${(props) => props.addpostBtn ? "10px":""};
   cursor: pointer;
   font-size: 1.1rem;
+  position:${(props) => props.addpostBtn ? "fixed":""};
+  bottom:${(props) => props.addpostBtn ? "20px":""};
+  right:${(props) => props.addpostBtn ? "20px":""};
   &:hover {
     transform: scale(1.03, 1.03);
     color:var( --primary-cta) !important;
   }
 `;
+
+export const ToggleMenu = styled.div`
+border-radius:10px;
+text-align:center;
+width:10rem;
+height:5rem;
+position:absolute;
+z-index:9;
+right:1rem;
+background-color:var(--color-primary);
+& :hover{
+  border-radius: 0px !important;
+  background-color:var(--color-primary)
+}
+
+`
+
+export const VerticalIconWrapper = styled.span`
+margin-right:1rem;
+& :hover{
+  border-radius: 50%;
+  background-color:var(--color-primary)
+}
+`
+
+export const EditButton =  styled.div`
+cursor:pointer;
+padding:.5rem 0 .5rem 0;
+margin: 0.3rem;
+border-radius:10px;
+&:hover{
+  background-color: var(--color-light);
+}
+`
+export const DeleteButton = styled(EditButton)``
