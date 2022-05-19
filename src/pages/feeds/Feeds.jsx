@@ -14,8 +14,12 @@ import { useTheme } from "../../context/theme-context";
 import { getTextColor } from "../../utils/Functions/getColor";
 import { Post,Modal } from "../../components";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export const Feeds = () => {
-  const { posts } = useSelector((state) => state.posts);
+  const navigate = useNavigate()
+  const { posts } = useSelector((store) => store.posts);
+  const {users} = useSelector((store)=> store.users)
   const [isModalOpen,setModalOpen] = useState(false)
 
   const { theme } = useTheme();
@@ -35,24 +39,18 @@ export const Feeds = () => {
       </BrowseFeeds>
       <SuggestionArea>
         <Header>Suggestions For you </Header>
+        {users.map((user) => {
+        return (
+
         <LeftArea m_md>
           {" "}
-          <UserThumbnail src={avataaar1} />
-          <Username>Coding_Avengers</Username>
+          <UserThumbnail src={user.userPhoto} onClick={() => navigate(`${user.username}`)} />
+          <Username>{user.username}</Username>
           <Button style={{ color: getTextColor(theme) }}>Follow</Button>
         </LeftArea>
-        <LeftArea m_md>
-          {" "}
-          <UserThumbnail src={avataaar1} />
-          <Username>Coding_Avengers</Username>
-          <Button style={{ color: getTextColor(theme) }}>Follow</Button>
-        </LeftArea>
-        <LeftArea m_md>
-          {" "}
-          <UserThumbnail src={avataaar1} />
-          <Username>Coding_Avengers</Username>
-          <Button style={{ color: getTextColor(theme) }}>Follow</Button>
-        </LeftArea>
+        )}
+        )}
+        
       </SuggestionArea>
       <Button addpostBtn onClick={() => setModalOpen(true)}>Add Post</Button>
      
