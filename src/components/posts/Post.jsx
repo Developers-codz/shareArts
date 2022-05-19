@@ -42,7 +42,7 @@ export const Post = ({post}) => {
         <PostHeader>
           <LeftArea>
             {" "}
-            <UserThumbnail src={post.profilePic} />
+            <UserThumbnail src={post.userPhoto} />
             <Username>{post.username}</Username>
           </LeftArea>
 

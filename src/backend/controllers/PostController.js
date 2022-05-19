@@ -63,7 +63,7 @@ export const getAllUserPostsHandler = function (schema, request) {
  * body contains {content}
  * */
 
-export const createPostHandler = function (schema, request) {
+ export const createPostHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
     if (!user) {
@@ -77,18 +77,22 @@ export const createPostHandler = function (schema, request) {
         }
       );
     }
-    const { postData } = JSON.parse(request.requestBody);
+    const { content } = JSON.parse(request.requestBody);
     const post = {
       _id: uuid(),
-      ...postData,
+      content: content,
       likes: {
         likeCount: 0,
         likedBy: [],
         dislikedBy: [],
       },
+      comments: [],
+      userPhoto: user.userPhoto,
+      postPic:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
       username: user.username,
       createdAt: formatDate(),
       updatedAt: formatDate(),
+      userId: user?.id,
     };
     this.db.posts.insert(post);
     return new Response(201, {}, { posts: this.db.posts });
@@ -102,6 +106,7 @@ export const createPostHandler = function (schema, request) {
     );
   }
 };
+
 
 /**
  * This handler handles updating a post in the db.
@@ -181,7 +186,7 @@ export const likePostHandler = function (schema, request) {
     );
     post.likes.likeCount += 1;
     // changes 
-    post.likes.likedBy.push({ _id: user._id, username: user.username });
+    post.likes.likedBy.push(user);
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
@@ -235,7 +240,7 @@ export const dislikePostHandler = function (schema, request) {
       (currUser) => currUser._id !== user._id
     );
     //  changes
-    post.likes.dislikedBy.push({ _id: user._id, username: user.username });
+    post.likes.dislikedBy.push(user);
     post = { ...post, likes: { ...post.likes, likedBy: updatedLikedBy } };
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
     return new Response(201, {}, { posts: this.db.posts });

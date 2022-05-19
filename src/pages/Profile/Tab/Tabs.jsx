@@ -7,6 +7,14 @@ export const Tabs = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}
   const bookmarked = useSelector(store => store.posts.bookmarked)
+  const allPosts = useSelector(store => store.posts.posts)
+
+  const allBookmarked = allPosts.filter((post) =>{
+    return bookmarked.some((bookmark) => {
+      return bookmark._id === post._id
+    })
+  })
+
   return (
     <Wrapper>
       <TabHead>
@@ -40,7 +48,7 @@ export const Tabs = () => {
           <p>My Liked 0</p>
         </TabContent>
         <TabContent id="tab3" activeTab={activeTab}>
-         {bookmarked.map((item) => {
+         {allBookmarked.map((item) => {
            return (
             <Post key={item._id} post={item} />
            )

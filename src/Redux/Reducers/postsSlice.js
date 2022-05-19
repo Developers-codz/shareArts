@@ -20,6 +20,24 @@ export const getAllPosts = createAsyncThunk("posts/getAll", async (mockParameter
     }
 })
 
+export const addNewPost = createAsyncThunk("posts/addNewPost",async (post,{rejectWithValue})=>{
+    const encodedToken = localStorage.getItem("token")
+    console.log(post)
+    try{
+        const response = await axios.post("/api/posts",{content:post},
+        {headers:{
+            authorization:encodedToken,
+        }})
+        console.log(response.data)
+        return response.data;
+
+    }
+    catch(error){
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})
+
 export const addLikes = createAsyncThunk("posts/like",async (postId,{rejectWithValue}) =>{
     const encodedToken = localStorage.getItem("token");
     try{
@@ -70,6 +88,15 @@ const postsSlice = createSlice({
         })
         .addCase(getAllPosts.rejected,(action)=>{
             AlertToast(`${action.payload.errors}`)
+        })
+
+        .addCase(addNewPost.fulfilled,(state,action) => {
+            SuccessToast("Posted Successfully")
+            console.log(action.payload.posts)
+            state.posts = action.payload.posts;
+        })
+        .addCase(addNewPost.rejected,(state,action)=>{
+            AlertToast("Unable to Post")
         })
 
         .addCase(addLikes.fulfilled,(state,action) =>{

@@ -17,7 +17,8 @@ export const Navbar = () => {
   return (
     pathname!=="/" &&
     pathname !== "/login" &&
-        pathname !== "/signup" ?
+        pathname !== "/signup" &&
+        pathname !== "/mockman" ?
    ( <>
     <Header
       className="header-wrapper"
