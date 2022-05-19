@@ -11,7 +11,6 @@ export const Modal = ({isModalOpen,setModalOpen}) =>{
     const [postData,setPostData] = useState({content:""})
 
     const clickHandler = () =>{
-        // console.log(postData)
         if(postData.content === "")
             AlertToast("Please write about what are you thinking")
         else 

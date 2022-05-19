@@ -28,12 +28,10 @@ export const addNewPost = createAsyncThunk("posts/addNewPost",async (post,{rejec
         {headers:{
             authorization:encodedToken,
         }})
-        console.log(response.data)
         return response.data;
 
     }
     catch(error){
-        console.log(error)
         return rejectWithValue(error)
     }
 })
@@ -66,7 +64,6 @@ export const bookmark = createAsyncThunk("post/bookmark",async (postId,{rejectWi
     const encodedToken = localStorage.getItem("token")
     try{
         const response = await axios.post(`/api/users/bookmark/${postId}`,{},{headers:{authorization:encodedToken}});
-        console.log(response.data)
         return response.data
     }
     catch(error){
@@ -83,7 +80,6 @@ const postsSlice = createSlice({
         })
         .addCase(getAllPosts.fulfilled, (state,action)=> {
             state.loading=false;
-            console.log(action.payload.posts);
             state.posts = action.payload.posts;
         })
         .addCase(getAllPosts.rejected,(action)=>{
@@ -92,7 +88,6 @@ const postsSlice = createSlice({
 
         .addCase(addNewPost.fulfilled,(state,action) => {
             SuccessToast("Posted Successfully")
-            console.log(action.payload.posts)
             state.posts = action.payload.posts;
         })
         .addCase(addNewPost.rejected,(state,action)=>{
@@ -100,18 +95,16 @@ const postsSlice = createSlice({
         })
 
         .addCase(addLikes.fulfilled,(state,action) =>{
-            console.log(action.payload.posts)
             state.posts = action.payload.posts
         })
         .addCase(addLikes.rejected,(state,action) =>{
             AlertToast(`${action.payload.errors}`)
         })
         .addCase(removeLikes.fulfilled,(state,action) =>{
-            console.log(action.payload.posts)
                 state.posts = action.payload.posts
         })
         .addCase(removeLikes.rejected,(state,action) =>{
-
+            AlertToast(`${action.payload.errors}`)
         })
         .addCase(bookmark.fulfilled,(state,action) =>{
             SuccessToast("Added to bookmark");
