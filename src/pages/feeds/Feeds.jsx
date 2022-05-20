@@ -7,8 +7,8 @@ import {
   Header,
   Button,
 } from "./feedsComponent";
-import avataaar1 from "../../Assets/images/avataaar1.png";
-import { useSelector } from "react-redux";
+import {followUser} from "../../Redux/Reducers/userSlice"
+import { useSelector,useDispatch } from "react-redux";
 
 import { useTheme } from "../../context/theme-context";
 import { getTextColor } from "../../utils/Functions/getColor";
@@ -21,7 +21,7 @@ export const Feeds = () => {
   const { posts } = useSelector((store) => store.posts);
   const {users} = useSelector((store)=> store.users)
   const [isModalOpen,setModalOpen] = useState(false)
-
+  const dispatch = useDispatch();
   const { theme } = useTheme();
   return (
     <>
@@ -46,7 +46,7 @@ export const Feeds = () => {
           {" "}
           <UserThumbnail src={user.userPhoto} onClick={() => navigate(`${user.username}`)} />
           <Username>{user.username}</Username>
-          <Button style={{ color: getTextColor(theme) }}>Follow</Button>
+          <Button style={{ color: getTextColor(theme) }} onClick={() => dispatch(followUser(user._id))}>Follow</Button>
         </LeftArea>
         )}
         )}

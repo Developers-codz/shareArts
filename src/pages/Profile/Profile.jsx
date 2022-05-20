@@ -1,16 +1,18 @@
 import {Wrapper,ProfileImg, Section,HeaderSection,Header,Button,BodySection,About,Followers,ExternalLink} from "./profileComponents"
-import avataaar from "../../Assets/images/avataaar1.png"
 import { getBorder } from "../../utils/Functions/getColor"
 import {useTheme} from "../../context/theme-context" 
 import { Tabs } from "./Tab/Tabs"
 import { useNavigate,useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
+import {useState,useEffect} from "react"
+
 export const Profile = () =>{
     const {users} = useSelector(store => store.users);
     const {currentUser} = useSelector(store => store.auth);
+   
     const navigate = useNavigate();
     const params = useParams();
-    console.log(params)
+    const [isCurrentUser,setCurrentUser] = useState(params.username === "profile" ? true : false)
     const getProfile = (username) => {
         if(username === "profile"){
             console.log(currentUser)
@@ -21,6 +23,7 @@ export const Profile = () =>{
         }
     }
     let profile = getProfile(params.username,10)
+    
     console.log(profile)
 
     const {theme} = useTheme()
@@ -31,7 +34,7 @@ export const Profile = () =>{
                 <Section direction>
                     <HeaderSection>
                         <Header>{profile.username}</Header>
-                        <Button onClick={()=>navigate("/settings")}>Edit Profile</Button>
+                       {isCurrentUser &&  <Button onClick={()=>navigate(`/settings`)}>Edit Profile</Button>}
                     </HeaderSection>
                    <BodySection>
                    <Header>{profile.firstName}{" "}{profile.lastName}</Header>
