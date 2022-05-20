@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editUser } from "../../Redux/Reducers/userSlice";
+import { logout } from "../../Redux/Reducers/authSlice";
 
 export const Setting = () => {
   const { currentUser } = useSelector((store) => store.auth);
@@ -99,7 +100,7 @@ export const Setting = () => {
       </Form>
       <Form>
       <h1>Log Out</h1>
-      <PrimaryButton >LOG OUT</PrimaryButton>
+      <PrimaryButton onClick={()=>dispatch(logout())} >LOG OUT</PrimaryButton>
       </Form>
     </Wrapper>
   );
