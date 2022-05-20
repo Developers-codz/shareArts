@@ -110,7 +110,7 @@ export const ToggleMenu = styled.div`
 border-radius:10px;
 text-align:center;
 width:10rem;
-height:5rem;
+min-height:2rem;
 position:absolute;
 z-index:9;
 right:1rem;

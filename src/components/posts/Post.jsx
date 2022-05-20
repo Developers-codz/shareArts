@@ -17,7 +17,7 @@ import {
   ToggleMenu,
   VerticalIconWrapper,
   EditButton,
-  DeleteButton
+  DeleteButton,
 } from "../../pages/feeds/feedsComponent";
 import {
   BookmarkIcon,
@@ -31,9 +31,9 @@ import {
 
 import { useTheme } from "../../context/theme-context";
 import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
-import { bookmark,removeBookmark } from "../../Redux/Reducers/postsSlice";
+import { bookmark, removeBookmark,removeLikes, addLikes  } from "../../Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { removeLikes, addLikes } from "../../Redux/Reducers/postsSlice";
+import {followUser,unFollowUser } from "../../Redux/Reducers/userSlice";
 import { useState } from "react";
 
 export const Post = ({ post }) => {
@@ -41,7 +41,12 @@ export const Post = ({ post }) => {
   const { theme } = useTheme();
   const dispatch = useDispatch();
   const bookmarked = useSelector((store) => store.posts.bookmarked);
-
+  const currentUser = useSelector((store) => store.auth.currentUser);
+  const {users} = useSelector((store) => store.users);
+  const activeuser = users.find((user) => user._id === currentUser._id);
+  console.log(activeuser)
+  const userToFollow = users.find(user => user.username === post.username)
+console.log(userToFollow)
 
   return (
     <>
@@ -56,12 +61,34 @@ export const Post = ({ post }) => {
           <RightArea>
             <VerticalIconWrapper onClick={() => setOpen((open) => !open)}>
               <VerticalDots />
-              
             </VerticalIconWrapper>
-            {isMenuOpen && <ToggleMenu>
-              <EditButton>Edit</EditButton>
-              <DeleteButton>Delete</DeleteButton>
-              </ToggleMenu>}
+            {isMenuOpen && (
+              <ToggleMenu>
+                {post.username === currentUser.username ? (
+                  <>
+                    {" "}
+                    <EditButton>Edit</EditButton>
+                    <DeleteButton>Delete</DeleteButton>{" "}
+                  </>
+                ) : activeuser.following.some(
+                  (followingUser) => followingUser._id === userToFollow._id
+                ) ? (
+                  <EditButton
+                    style={{ color: getTextColor(theme) }}
+                    onClick={() => dispatch(unFollowUser(userToFollow._id))}
+                  >
+                    Following
+                  </EditButton>
+                ) : (
+                  <EditButton
+                    style={{ color: getTextColor(theme) }}
+                    onClick={() => dispatch(followUser(userToFollow._id))}
+                  >
+                    Follow
+                  </EditButton>
+                )}
+              </ToggleMenu>
+            )}
           </RightArea>
         </PostHeader>
 
@@ -83,11 +110,16 @@ export const Post = ({ post }) => {
               <CommentIcon />
               <ShareIcon />
             </LeftArea>
-            <RightArea >
+            <RightArea>
               {bookmarked.map((bookmark) => bookmark._id).includes(post._id) ? (
-                <span onClick={() => dispatch(removeBookmark(post._id))}><BookmarkedIcon /></span>
+                <span onClick={() => dispatch(removeBookmark(post._id))}>
+                  <BookmarkedIcon />
+                </span>
               ) : (
-               <span onClick={() => dispatch(bookmark(post._id))}> <BookmarkIcon /></span>
+                <span onClick={() => dispatch(bookmark(post._id))}>
+                  {" "}
+                  <BookmarkIcon />
+                </span>
               )}
             </RightArea>
           </Icons>
