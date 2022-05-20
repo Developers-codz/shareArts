@@ -10,7 +10,6 @@ export const getAllUsers = createAsyncThunk(
   async (mockParameter, { rejectWithValue }) => {
     try {
       const response = await axios.get("/api/users");
-      console.log(response.data);
       return response.data;
     } catch (error) {
       rejectWithValue(error);
@@ -30,8 +29,7 @@ export const followUser = createAsyncThunk(
           authorization:encodedToken
         }}
       );
-      SuccessToast("Started Following");
-      console.log(response.data)
+      SuccessToast("Started Following"); 
       return response.data;
     } catch (error) {
         console.log(error)
@@ -62,7 +60,6 @@ const setFollowUser = (state, action) => {
     if (action.payload !== undefined) {
       state.users = state.users.map((user) => {
         if (user._id === action.payload.followUser._id) {
-            console.log(action.payload.followUser);
           return action.payload.followUser;
         } else if (user._id === action.payload.user._id) {
           return action.payload.user;

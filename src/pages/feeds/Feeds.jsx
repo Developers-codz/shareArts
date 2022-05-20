@@ -41,7 +41,6 @@ export const Feeds = () => {
       <SuggestionArea>
         <Header>Suggestions For you </Header>
         {users.filter(user => user._id !== currentUser._id).map(user => {
-          console.log(activeuser);
           return (
 
         <LeftArea m_md>
