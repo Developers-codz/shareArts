@@ -31,7 +31,7 @@ import {
 
 import { useTheme } from "../../context/theme-context";
 import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
-import { bookmark } from "../../Redux/Reducers/postsSlice";
+import { bookmark,removeBookmark } from "../../Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { removeLikes, addLikes } from "../../Redux/Reducers/postsSlice";
 import { useState } from "react";
@@ -83,11 +83,11 @@ export const Post = ({ post }) => {
               <CommentIcon />
               <ShareIcon />
             </LeftArea>
-            <RightArea onClick={() => dispatch(bookmark(post._id))}>
+            <RightArea >
               {bookmarked.map((bookmark) => bookmark._id).includes(post._id) ? (
-                <BookmarkedIcon />
+                <span onClick={() => dispatch(removeBookmark(post._id))}><BookmarkedIcon /></span>
               ) : (
-                <BookmarkIcon />
+               <span onClick={() => dispatch(bookmark(post._id))}> <BookmarkIcon /></span>
               )}
             </RightArea>
           </Icons>

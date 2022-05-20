@@ -70,6 +70,18 @@ export const bookmark = createAsyncThunk("post/bookmark",async (postId,{rejectWi
     }
 })
 
+export const removeBookmark = createAsyncThunk("post/removeBookmark",async (postId,{rejectWithValue}) =>{
+    const encodedToken = localStorage.getItem("token")
+    try{
+        const response = await axios.post(`/api/users/remove-bookmark/${postId}`,{},{headers:{authorization:encodedToken}});
+        SuccessToast("Removed from Bookmark")
+        return response.data
+    }
+    catch(error){
+        return rejectWithValue(error.response.data);
+    }
+})
+
 const postsSlice = createSlice({
     name:"posts",
     initialState,
@@ -110,6 +122,12 @@ const postsSlice = createSlice({
             state.bookmarked = action.payload.bookmarks;
         })
         .addCase(bookmark.rejected,(state,action)=>{
+            AlertToast(`${action.payload.errors}`)
+        })
+        .addCase(removeBookmark.fulfilled,(state,action) =>{
+            state.bookmarked = action.payload.bookmarks;
+        })
+        .addCase(removeBookmark.rejected,(state,action)=>{
             AlertToast(`${action.payload.errors}`)
         })
     }
