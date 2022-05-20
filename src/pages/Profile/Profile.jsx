@@ -4,7 +4,7 @@ import {useTheme} from "../../context/theme-context"
 import { Tabs } from "./Tab/Tabs"
 import { useNavigate,useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
-import {useState,useEffect} from "react"
+import {useState} from "react"
 
 export const Profile = () =>{
     const {users} = useSelector(store => store.users);
@@ -47,7 +47,7 @@ export const Profile = () =>{
                    </BodySection>
                 </Section>
             </Section>
-     <Tabs />
+     <Tabs isCurrentUser={isCurrentUser}/>
         </Wrapper>
     )
 }
