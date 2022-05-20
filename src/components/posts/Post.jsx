@@ -31,12 +31,12 @@ import {
 
 import { useTheme } from "../../context/theme-context";
 import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
-import { bookmark, removeBookmark,removeLikes, addLikes  } from "../../Redux/Reducers/postsSlice";
+import { bookmark, removeBookmark,removeLikes, addLikes,deletePost  } from "../../Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {followUser,unFollowUser } from "../../Redux/Reducers/userSlice";
 import { useState } from "react";
 
-export const Post = ({ post }) => {
+export const Post = ({ post,setModalOpen }) => {
   const [isMenuOpen, setOpen] = useState(false);
   const { theme } = useTheme();
   const dispatch = useDispatch();
@@ -44,10 +44,11 @@ export const Post = ({ post }) => {
   const currentUser = useSelector((store) => store.auth.currentUser);
   const {users} = useSelector((store) => store.users);
   const activeuser = users.find((user) => user._id === currentUser._id);
-  console.log(activeuser)
   const userToFollow = users.find(user => user.username === post.username)
-console.log(userToFollow)
-
+ 
+const clickHandler = () =>{
+  setOpen((open) => !open)
+}
   return (
     <>
       <PostContainer style={{ backgroundColor: getBgColor(theme) }}>
@@ -59,7 +60,7 @@ console.log(userToFollow)
           </LeftArea>
 
           <RightArea>
-            <VerticalIconWrapper onClick={() => setOpen((open) => !open)}>
+            <VerticalIconWrapper onClick={clickHandler}>
               <VerticalDots />
             </VerticalIconWrapper>
             {isMenuOpen && (
@@ -67,8 +68,8 @@ console.log(userToFollow)
                 {post.username === currentUser.username ? (
                   <>
                     {" "}
-                    <EditButton>Edit</EditButton>
-                    <DeleteButton>Delete</DeleteButton>{" "}
+                    <EditButton onClick={()=>setModalOpen(true)}>Edit</EditButton>
+                    <DeleteButton onClick={()=>dispatch(deletePost(post))}>Delete</DeleteButton>{" "}
                   </>
                 ) : activeuser.following.some(
                   (followingUser) => followingUser._id === userToFollow._id

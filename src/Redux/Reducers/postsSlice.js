@@ -35,6 +35,22 @@ export const addNewPost = createAsyncThunk("posts/addNewPost",async (post,{rejec
     }
 })
 
+export const deletePost = createAsyncThunk("posts/deletePost",async (postData,{rejectWithValue}) => {
+    const encodedToken = localStorage.getItem("token")
+    const {_id} = postData;
+    try{
+        const response = await axios.delete(`/api/posts/${_id}`
+        ,{headers:{
+            authorization:encodedToken
+        }})
+
+        return response.data
+    }
+    catch(error){
+        return rejectWithValue(error)
+    }
+})
+
 export const addLikes = createAsyncThunk("posts/like",async (postId,{rejectWithValue}) =>{
     const encodedToken = localStorage.getItem("token");
     try{
@@ -103,6 +119,13 @@ const postsSlice = createSlice({
         })
         .addCase(addNewPost.rejected,(state,action)=>{
             AlertToast("Unable to Post")
+        })
+
+        .addCase(deletePost.fulfilled,(state,action)=>{
+            state.posts = action.payload.posts
+        })
+        .addCase(deletePost.rejected,(state,action)=>{
+
         })
 
         .addCase(addLikes.fulfilled,(state,action) =>{
