@@ -3,7 +3,7 @@ import {TabContent} from "./TabContent"
 import { useState } from "react";
 import { Post } from "../../../components";
 import {useSelector} from "react-redux"
-export const Tabs = () => {
+export const Tabs = ({isCurrentUser}) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}
   const bookmarked = useSelector(store => store.posts.bookmarked)
@@ -25,7 +25,9 @@ export const Tabs = () => {
         >
           Posts
         </EachTab>
-        <EachTab
+       {isCurrentUser && (
+         <>
+          <EachTab
           style={activeTab === "tab2" ? currentStyle:null}
           id="tab2"
           onClick={(e) => setActiveTab(e.target.id)}
@@ -39,6 +41,8 @@ export const Tabs = () => {
         >
           Saved
         </EachTab>
+        </>
+       )}
       </TabHead>
       <Outlet>
       <TabContent id="tab1" activeTab={activeTab}>

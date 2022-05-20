@@ -7,7 +7,7 @@ import { getAsideColor } from "../../utils/Functions/getColor";
 export const Aside = () => {
   const { theme } = useTheme();
   const { pathname } = useLocation();
-  return pathname !== "/" &&
+  return pathname !== "/landing" &&
     pathname !== "/login" &&
     pathname !== "/signup" &&
     pathname !== "/mockman" ? (

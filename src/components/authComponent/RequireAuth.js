@@ -5,5 +5,5 @@ import { useSelector } from "react-redux";
 export const RequireAuth = () => {
     const currentUser = useSelector((state)=>state.auth.currentUser)
     const location = useLocation();
-  return currentUser._id ?<Outlet />: (<Navigate to="/login" state={{from: location}} replace />)
+  return currentUser._id ?<Outlet />: (<Navigate to="/landing" state={{from: location}} replace />)
 }

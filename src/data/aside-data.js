@@ -1,9 +1,11 @@
 import {NotificationIcon,ProfileIcon,HomeIcon,ExploreIcon,SettingsIcon} from "../Assets/icons/navigationIcon"
+import { useSelector } from "react-redux"
+
 export const asideData = [{
     id:1,
     name:"Home",
     icon:<HomeIcon width="1.5rem" height="1.5rem" />,
-    path:"/feeds"
+    path:"/"
 },
 {id:2,
 name:"Explore",
@@ -29,3 +31,4 @@ path:"/explore"
     path:"/settings"
 }
 ]
+

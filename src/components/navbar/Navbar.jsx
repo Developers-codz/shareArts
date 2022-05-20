@@ -15,7 +15,7 @@ export const Navbar = () => {
   const { theme } = useTheme();
   const { pathname } = useLocation();
   return (
-    pathname!=="/" &&
+    pathname!=="/landing" &&
     pathname !== "/login" &&
         pathname !== "/signup" &&
         pathname !== "/mockman" ?

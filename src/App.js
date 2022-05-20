@@ -5,6 +5,7 @@ import {Routes,Route} from "react-router-dom"
 import { Feeds,Landing,Login,SignUp,Profile,Setting} from "./pages";
 import { ToastContainer, toast } from 'react-toastify';
 import {getAllPosts} from "./Redux/Reducers/postsSlice"
+import { getAllUsers } from "./Redux/Reducers/userSlice";
 import {useEffect} from "react"
 import {useDispatch} from "react-redux"
 import MockMan from "mockman-js";
@@ -17,6 +18,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(getAllPosts())
+    dispatch(getAllUsers())
   },[])
   return (
     <div className={`App ${theme==="dark" ? "dark" : "light"}`}>
@@ -24,11 +26,11 @@ function App() {
       <Navbar />
       <Aside />
    <Routes>
-     <Route path="/" element={<Landing />} />
+     <Route path="/landing" element={<Landing />} />
      <Route element={<RequireAuth />} >
-     <Route path="/profile" element={<Profile />} />
+     <Route path="/:username" element={<Profile />} />
      <Route path="/settings" element={<Setting />} />
-     <Route path="/feeds" element={<Feeds />} />
+     <Route path="/" element={<Feeds />} />
      </Route>
   
     <Route element={<RestrictAuth />}>

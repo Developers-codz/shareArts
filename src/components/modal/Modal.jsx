@@ -5,9 +5,12 @@ import { useDispatch } from "react-redux";
 import {useState} from "react"
 import { AlertToast } from "../toasts";
 import { addNewPost } from "../../Redux/Reducers/postsSlice";
+import {getBgColor,getTextColor} from "../../utils/Functions/getColor"
+import { useTheme } from "../../context/theme-context";
 
 export const Modal = ({isModalOpen,setModalOpen}) =>{
     const dispatch = useDispatch()
+    const {theme} = useTheme();
     const [postData,setPostData] = useState({content:""})
 
     const clickHandler = () =>{
@@ -19,10 +22,10 @@ export const Modal = ({isModalOpen,setModalOpen}) =>{
         setModalOpen(false)}
     }
     return isModalOpen &&  (
-        <ModalWrapper>
+        <ModalWrapper style={{backgroundColor:getBgColor(theme)}}>
             <CloseButton onClick={()=>setModalOpen(false)}>X</CloseButton>
             <InputWrapper>
-            <InputPost  placeholder="What Are you thinking about...." onChange={(e)=>setPostData(prev => ({...prev,content:e.target.value}))} />
+            <InputPost style={{color:getTextColor(theme)}}  placeholder="What Are you thinking about...." onChange={(e)=>setPostData(prev => ({...prev,content:e.target.value}))} />
             </InputWrapper>
             <Button addpostBtn onClick={clickHandler}>Post</Button>
         </ModalWrapper>
