@@ -7,9 +7,8 @@ import {
   Header,
   Button,
 } from "./feedsComponent";
-import {followUser} from "../../Redux/Reducers/userSlice"
+import {followUser,unFollowUser} from "../../Redux/Reducers/userSlice"
 import { useSelector,useDispatch } from "react-redux";
-
 import { useTheme } from "../../context/theme-context";
 import { getTextColor } from "../../utils/Functions/getColor";
 import { Post,Modal } from "../../components";
@@ -19,10 +18,12 @@ import { useNavigate } from "react-router-dom";
 export const Feeds = () => {
   const navigate = useNavigate()
   const { posts } = useSelector((store) => store.posts);
-  const {users} = useSelector((store)=> store.users)
+  const {users} = useSelector((store)=> store.users);
+  const {currentUser} = useSelector((store) => store.auth)
   const [isModalOpen,setModalOpen] = useState(false)
   const dispatch = useDispatch();
   const { theme } = useTheme();
+ const activeuser = users.find(user => user._id === currentUser._id)
   return (
     <>
      <Modal isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
@@ -39,17 +40,23 @@ export const Feeds = () => {
       </BrowseFeeds>
       <SuggestionArea>
         <Header>Suggestions For you </Header>
-        {users.map((user) => {
-        return (
+        {users.filter(user => user._id !== currentUser._id).map(user => {
+          console.log(activeuser);
+          return (
 
         <LeftArea m_md>
           {" "}
           <UserThumbnail src={user.userPhoto} onClick={() => navigate(`${user.username}`)} />
           <Username>{user.username}</Username>
-          <Button style={{ color: getTextColor(theme) }} onClick={() => dispatch(followUser(user._id))}>Follow</Button>
+         {
+           activeuser.following.some(followingUser => followingUser._id === user._id) ? 
+           <Button style={{ color: getTextColor(theme) }} onClick={() => dispatch(unFollowUser(user._id))}>Following</Button> :
+           <Button style={{ color: getTextColor(theme) }} onClick={() => dispatch(followUser(user._id))}>Follow</Button>
+         }
+         
         </LeftArea>
-        )}
-        )}
+          )
+        })}
         
       </SuggestionArea>
       <Button addpostBtn onClick={() => setModalOpen(true)}>Add Post</Button>

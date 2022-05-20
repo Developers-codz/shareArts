@@ -25,12 +25,16 @@ export const followUser = createAsyncThunk(
     try {
       const response = await axios.post(
         ` /api/users/follow/${id}`,
-        { authorization: encodedToken },
-        {}
+        {},
+        {headers:{
+          authorization:encodedToken
+        }}
       );
       SuccessToast("Started Following");
+      console.log(response.data)
       return response.data;
     } catch (error) {
+        console.log(error)
       rejectWithValue(error);
     }
   }
@@ -43,8 +47,8 @@ export const unFollowUser = createAsyncThunk(
     try {
       const response = await axios.post(
         ` /api/users/unfollow/${id}`,
-        { authorization: encodedToken },
-        {}
+       {},
+       {headers:{authorization:encodedToken}}
       );
       SuccessToast("Removed from Following");
       return response.data;
@@ -53,6 +57,20 @@ export const unFollowUser = createAsyncThunk(
     }
   }
 );
+
+const setFollowUser = (state, action) => {
+    if (action.payload !== undefined) {
+      state.users = state.users.map((user) => {
+        if (user._id === action.payload.followUser._id) {
+            console.log(action.payload.followUser);
+          return action.payload.followUser;
+        } else if (user._id === action.payload.user._id) {
+          return action.payload.user;
+        } else return user;
+      });
+    }
+  };
+
 export const editUser = createAsyncThunk(
   "users/edit",
   async (userData, { rejectWithValue }) => {
@@ -87,10 +105,8 @@ const userSlice = createSlice({
         AlertToast(`${action.payload.errors[0]}`);
       })
 
-      .addCase(followUser.fulfilled, (state, action) => {
-        console.log(action);
-      })
-
+      .addCase(followUser.fulfilled ,setFollowUser)
+      .addCase(unFollowUser.fulfilled,setFollowUser)
       .addCase(editUser.fulfilled, (state, action) => {
         state.users = state.users.map((user) => {
           if (user._id === action.payload.user._id) return action.payload.user;

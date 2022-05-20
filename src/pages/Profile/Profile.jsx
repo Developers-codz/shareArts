@@ -42,7 +42,7 @@ export const Profile = () =>{
                    <ExternalLink href={profile.link}>{profile.link}</ExternalLink>
                    <Section>
                     <Followers>1 Post</Followers>
-                   <Followers>4k Followers</Followers><Followers> 10 Following</Followers>
+                   <Followers>{profile.followers.length} followers</Followers><Followers>{profile.following.length} Following</Followers>
                    </Section>
                    </BodySection>
                 </Section>
