@@ -12,12 +12,12 @@ name:"Explore",
 icon:<ExploreIcon  width="1.5rem" height="1.5rem" />,
 path:"/explore"
 },
-{
-    id:3,
-    name:"Notifications",
-    icon:<NotificationIcon  width="1.5rem" height="1.5rem" />,
-    path:"/notifications"
-},
+// {
+//     id:3,
+//     name:"Notifications",
+//     icon:<NotificationIcon  width="1.5rem" height="1.5rem" />,
+//     path:"/notifications"
+// },
 {
     id:4,
     name:"Profile",

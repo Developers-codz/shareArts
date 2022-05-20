@@ -24,7 +24,7 @@ export const users = [
     firstName: "Kajal",
     lastName: "Kumari",
     email:"kajal@gmail.com",
-    username: "KajalKaju",
+    username: "Kajalkumari",
     password: "Kajal123",
     userPhoto: "https://avatars.githubusercontent.com/u/50793296?v=4",
     bio:"Aspiring Full stack Developer",

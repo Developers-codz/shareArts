@@ -39,6 +39,7 @@ export const Setting = () => {
   }
   return (
     <Wrapper>
+      
       <Form>
         <ImageWrapper>
           <ProfileImg src={userPhoto}></ProfileImg>
@@ -93,7 +94,12 @@ export const Setting = () => {
           value={link}
           onChange={(e) => changeHandler(e)}
         ></InputField>
-        <PrimaryButton onClick={clickHandler}>Update Profile</PrimaryButton>
+        <PrimaryButton  primary onClick={clickHandler}>Update Profile</PrimaryButton>
+   
+      </Form>
+      <Form>
+      <h1>Log Out</h1>
+      <PrimaryButton >LOG OUT</PrimaryButton>
       </Form>
     </Wrapper>
   );

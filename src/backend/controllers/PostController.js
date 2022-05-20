@@ -113,7 +113,8 @@ export const getAllUserPostsHandler = function (schema, request) {
  * send POST Request at /api/posts/edit/:postId
  * body contains { postData }
  * */
-export const editPostHandler = function (schema, request) {
+
+ export const editPostHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
     if (!user) {

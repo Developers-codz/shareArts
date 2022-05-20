@@ -31,7 +31,7 @@ import {
 
 import { useTheme } from "../../context/theme-context";
 import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
-import { bookmark, removeBookmark,removeLikes, addLikes,deletePost  } from "../../Redux/Reducers/postsSlice";
+import { bookmark, removeBookmark,removeLikes, addLikes,deletePost,getPostToEdit,setEditEmpty } from "../../Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {followUser,unFollowUser } from "../../Redux/Reducers/userSlice";
 import { useState } from "react";
@@ -48,6 +48,7 @@ export const Post = ({ post,setModalOpen }) => {
  
 const clickHandler = () =>{
   setOpen((open) => !open)
+  isMenuOpen ? dispatch(setEditEmpty()) : dispatch(getPostToEdit(post))
 }
   return (
     <>
@@ -68,7 +69,8 @@ const clickHandler = () =>{
                 {post.username === currentUser.username ? (
                   <>
                     {" "}
-                    <EditButton onClick={()=>setModalOpen(true)}>Edit</EditButton>
+                    <EditButton onClick={()=>{setModalOpen(true);
+                    }}>Edit</EditButton>
                     <DeleteButton onClick={()=>dispatch(deletePost(post))}>Delete</DeleteButton>{" "}
                   </>
                 ) : activeuser.following.some(
