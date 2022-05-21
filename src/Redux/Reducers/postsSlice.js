@@ -92,6 +92,7 @@ export const addLikes = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
+      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -113,6 +114,7 @@ export const removeLikes = createAsyncThunk(
           },
         }
       );
+      SuccessToast("disliked  successfully")
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -211,7 +213,7 @@ const postsSlice = createSlice({
         state.posts = action.payload.posts;
       })
       .addCase(removeLikes.rejected, (state, action) => {
-        AlertToast(`${action.payload.errors}`);
+        
       })
       .addCase(bookmark.fulfilled, (state, action) => {
         SuccessToast("Added to bookmark");

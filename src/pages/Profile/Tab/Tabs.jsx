@@ -3,18 +3,27 @@ import {TabContent} from "./TabContent"
 import { useState } from "react";
 import { Post } from "../../../components";
 import {useSelector} from "react-redux"
+import userSlice from "../../../Redux/Reducers/userSlice";
 export const Tabs = ({isCurrentUser}) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}
   const bookmarked = useSelector(store => store.posts.bookmarked)
   const allPosts = useSelector(store => store.posts.posts)
+  const {currentUser} = useSelector(store => store.auth);
+  const {users} = useSelector(store => store.users)
 
   const allBookmarked = allPosts.filter((post) =>{
     return bookmarked.some((bookmark) => {
       return bookmark._id === post._id
     })
   })
-
+const getAllLiked = allPosts.filter(post => {
+  return post.likes.likedBy.some(liked => liked._id == currentUser._id)
+})
+const getAllPost = allPosts.filter((post)=>{
+  return users.some(user => user.username === post.username)
+})
+console.log(getAllPost)
   return (
     <Wrapper>
       <TabHead>
@@ -49,7 +58,11 @@ export const Tabs = ({isCurrentUser}) => {
          {/* <Post /> */}
         </TabContent>
         <TabContent id="tab2" activeTab={activeTab}>
-          <p>My Liked 0</p>
+        {getAllLiked.map((item) => {
+           return (
+            <Post key={item._id} post={item} />
+           )
+         })}
         </TabContent>
         <TabContent id="tab3" activeTab={activeTab}>
          {allBookmarked.map((item) => {
