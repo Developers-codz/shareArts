@@ -67,7 +67,6 @@ export const editPost = createAsyncThunk(
   async (postData, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     const {_id} = postData;
-    console.log("jii");
     try {
       const response = await axios.post(
         `/api/posts/edit/${_id}`,
@@ -196,11 +195,9 @@ const postsSlice = createSlice({
       .addCase(deletePost.rejected, (state, action) => {})
 
       .addCase(editPost.fulfilled, (state, action) => {
-        console.log("jii");
         state.posts = action.payload.posts;
       })
       .addCase(editPost.rejected, (state, action) => {
-        console.log("jii");
         console.log(action);
       })
 
