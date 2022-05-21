@@ -18,6 +18,8 @@ import {
   VerticalIconWrapper,
   EditButton,
   DeleteButton,
+  CommentArea,
+  Comment
 } from "../../pages/feeds/feedsComponent";
 import {
   BookmarkIcon,
@@ -31,25 +33,44 @@ import {
 
 import { useTheme } from "../../context/theme-context";
 import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
-import { bookmark, removeBookmark,removeLikes, addLikes,deletePost,getPostToEdit,setEditEmpty } from "../../Redux/Reducers/postsSlice";
+import {
+  bookmark,
+  removeBookmark,
+  removeLikes,
+  addLikes,
+  deletePost,
+  getPostToEdit,
+  setEditEmpty,
+  commentPost,
+} from "../../Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
-import {followUser,unFollowUser } from "../../Redux/Reducers/userSlice";
-import { useState } from "react";
+import { followUser, unFollowUser } from "../../Redux/Reducers/userSlice";
+import { useState,useEffect } from "react";
+import { AlertToast } from "../toasts";
 
-export const Post = ({ post,setModalOpen }) => {
+export const Post = ({ post, setModalOpen }) => {
   const [isMenuOpen, setOpen] = useState(false);
+  const [isCommentAreaOpen, setCommentOpen] = useState(false);
+  const [comment, setComment] = useState({ id: post._id, comment: "" });
+  const [currentPost,setCurrentPost] = useState(null)
+
   const { theme } = useTheme();
   const dispatch = useDispatch();
+
   const bookmarked = useSelector((store) => store.posts.bookmarked);
+
   const currentUser = useSelector((store) => store.auth.currentUser);
-  const {users} = useSelector((store) => store.users);
+  const { users } = useSelector((store) => store.users);
   const activeuser = users.find((user) => user._id === currentUser._id);
-  const userToFollow = users.find(user => user.username === post.username)
- 
-const clickHandler = () =>{
-  setOpen((open) => !open)
-  isMenuOpen ? dispatch(setEditEmpty()) : dispatch(getPostToEdit(post))
-}
+  const userToFollow = users.find((user) => user.username === post.username);
+  const clickHandler = () => {
+    setOpen((open) => !open);
+    isMenuOpen ? dispatch(setEditEmpty()) : dispatch(getPostToEdit(post));
+  };
+  const posts = useSelector(store => store.posts.posts);
+ useEffect(()=>{
+  setCurrentPost(posts.find(currpost => currpost._id === post._id ))
+ },[comment])
   return (
     <>
       <PostContainer style={{ backgroundColor: getBgColor(theme) }}>
@@ -69,13 +90,20 @@ const clickHandler = () =>{
                 {post.username === currentUser.username ? (
                   <>
                     {" "}
-                    <EditButton onClick={()=>{setModalOpen(true);
-                    }}>Edit</EditButton>
-                    <DeleteButton onClick={()=>dispatch(deletePost(post))}>Delete</DeleteButton>{" "}
+                    <EditButton
+                      onClick={() => {
+                        setModalOpen(true);
+                      }}
+                    >
+                      Edit
+                    </EditButton>
+                    <DeleteButton onClick={() => dispatch(deletePost(post))}>
+                      Delete
+                    </DeleteButton>{" "}
                   </>
                 ) : activeuser.following.some(
-                  (followingUser) => followingUser._id === userToFollow._id
-                ) ? (
+                    (followingUser) => followingUser._id === userToFollow._id
+                  ) ? (
                   <EditButton
                     style={{ color: getTextColor(theme) }}
                     onClick={() => dispatch(unFollowUser(userToFollow._id))}
@@ -110,7 +138,10 @@ const clickHandler = () =>{
                   <HeartOutline />
                 </span>
               )}
+              <span onClick={()=>setCommentOpen(open => !open)}>
+
               <CommentIcon />
+              </span>
               <ShareIcon />
             </LeftArea>
             <RightArea>
@@ -131,13 +162,36 @@ const clickHandler = () =>{
         </Content>
         <PostFooter>
           <CommentBox>
-            <InputEmoji cleanOnEnter placeholder="Add a comment...." />
-            <Button style={{ color: getTextColor(theme) }} fixed_bottom_right>
+            <input value={comment.comment} onChange={(e)=> setComment(prev => ({...prev,comment:e.target.value}))} 
+            placeholder="Add a comment...." />
+            {/* <InputEmoji /> */}
+            <Button
+              style={{ color: getTextColor(theme) }}
+              fixed_bottom_right
+              onClick={() => {
+               if(comment.comment === "")
+                AlertToast("write something to comment first")
+               else{
+
+                 dispatch(commentPost(comment));
+                 setComment(prev => ({...prev,comment:""}))
+               }
+              }}
+            >
               Post
             </Button>
           </CommentBox>
+         
         </PostFooter>
+      
+      {isCommentAreaOpen && <CommentArea> 
+     
+     {
+      currentPost.comments.length > 0  && currentPost.comments.map(comment => <Comment>{comment.content}</Comment>)
+      }
+      </CommentArea>}
       </PostContainer>
+      
     </>
   );
 };

@@ -107,6 +107,41 @@ export const getAllUserPostsHandler = function (schema, request) {
   }
 };
 
+export const commentPostHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: [
+            "The username you entered is not Registered. Not Found error",
+          ],
+        }
+      );
+    }
+
+    const postId = request.params.postId;
+    const post = schema.posts.findBy({ _id: postId }).attrs;
+
+    const { commentData } = JSON.parse(request.requestBody);
+    commentData.createdAt = formatDate();
+    commentData.username = user.username;
+    post.comments.push(commentData);
+    this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
+    return new Response(201, {}, { posts: this.db.posts });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
+
 
 /**
  * This handler handles updating a post in the db.

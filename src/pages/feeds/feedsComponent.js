@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const BrowseFeeds = styled.div``;
 export const PostContainer = styled.div`
   width: 40vw;
-  height: 40rem;
+  min-height: 40rem;
   border-radius:10px;
-  margin: 1rem 1rem 2rem 0;
+  margin: 1rem 1rem .5rem 0;
   position: relative;
   @media only screen and (max-width:560px){
     width:100%;
@@ -66,12 +66,17 @@ export const PostFooter = styled.div``;
 
 export const CommentBox = styled.div`
   width: 100%;
-  padding: 1rem 0.8rem;
-  position: absolute;
-  bottom: 0;
+  padding: 0.2rem 0.8rem;
   display: flex;
   justify-content: space-between;
 `;
+export const CommentArea = styled.div`
+padding:.5rem;
+min-height:4rem;
+`
+export const Comment = styled.div`
+margin:.5rem;
+`
 
 export const SuggestionArea = styled.div`
   position: fixed;
