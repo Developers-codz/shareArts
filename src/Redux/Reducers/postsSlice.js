@@ -82,6 +82,26 @@ export const editPost = createAsyncThunk(
   }
 );
 
+export const commentPost = createAsyncThunk(
+  "posts/commentPost",
+  async ({id,comment}, { rejectWithValue }) => {
+    const encodedToken = localStorage.getItem("token");
+    // const {_id} = commentData;
+    try {
+      const response = await axios.post(
+        `/api/posts/${id}/comment`,
+        { commentData: { content: comment } },
+        { headers: { authorization: encodedToken } }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(rejectWithValue(error));
+      rejectWithValue(error);
+    }
+  }
+);
+
 export const addLikes = createAsyncThunk(
   "posts/like",
   async (postId, { rejectWithValue }) => {
@@ -201,6 +221,14 @@ const postsSlice = createSlice({
       })
       .addCase(editPost.rejected, (state, action) => {
         console.log(action);
+      })
+
+      .addCase(commentPost.fulfilled,(state,action)=>{
+        console.log(action)
+        // state.posts = action.payload.posts;
+      })
+      .addCase(commentPost.rejected,()=>{
+        AlertToast("Something went wrong")
       })
 
       .addCase(addLikes.fulfilled, (state, action) => {

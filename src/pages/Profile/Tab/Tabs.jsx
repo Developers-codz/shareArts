@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Post } from "../../../components";
 import {useSelector} from "react-redux"
 import userSlice from "../../../Redux/Reducers/userSlice";
-export const Tabs = ({isCurrentUser}) => {
+export const Tabs = ({isCurrentUser,postOfUser}) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}
   const bookmarked = useSelector(store => store.posts.bookmarked)
@@ -23,7 +23,6 @@ const getAllLiked = allPosts.filter(post => {
 const getAllPost = allPosts.filter((post)=>{
   return users.some(user => user.username === post.username)
 })
-console.log(getAllPost)
   return (
     <Wrapper>
       <TabHead>
@@ -55,7 +54,7 @@ console.log(getAllPost)
       </TabHead>
       <Outlet>
       <TabContent id="tab1" activeTab={activeTab}>
-         {/* <Post /> */}
+         {postOfUser.map(post => <Post key={post._id} post={post}/>)}
         </TabContent>
         <TabContent id="tab2" activeTab={activeTab}>
         {getAllLiked.map((item) => {

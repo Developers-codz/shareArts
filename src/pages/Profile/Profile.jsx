@@ -18,8 +18,10 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 export const Profile = () => {
+  const { theme } = useTheme();
   const { users } = useSelector((store) => store.users);
   const { currentUser } = useSelector((store) => store.auth);
+  const {posts} = useSelector(store => store.posts)
 
   const navigate = useNavigate();
   const params = useParams();
@@ -34,8 +36,14 @@ export const Profile = () => {
     }
   };
   let profile = getProfile(params.username, 10);
+const postOfUser = posts.filter(post =>{
+  if(params.username === "profile"){
+    return post.username === currentUser.username
+  }
+  else 
+  return post.username === params.username
+})
 
-  const { theme } = useTheme();
   return (
     <Wrapper>
       <Section style={{ borderBottom: getBorder(theme) }}>
@@ -56,14 +64,14 @@ export const Profile = () => {
             <About>{profile.bio}</About>
             <ExternalLink href={profile.link}>{profile.link}</ExternalLink>
             <Section>
-              <Followers>1 Post</Followers>
+              <Followers>{postOfUser.length} posts</Followers>
               <Followers>{profile.followers.length} followers</Followers>
               <Followers>{profile.following.length} Following</Followers>
             </Section>
           </BodySection>
         </Section>
       </Section>
-      <Tabs isCurrentUser={isCurrentUser} />
+      <Tabs isCurrentUser={isCurrentUser} postOfUser={postOfUser} />
     </Wrapper>
   );
 };
