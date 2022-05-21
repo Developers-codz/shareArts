@@ -3,7 +3,6 @@ import { Post } from "../../components";
 export const Explore = () => {
   const { posts } = useSelector((store) => store.posts);
   return (
-    <>
       <div className="section">
         <div>
           {posts.map((post) => {
@@ -11,6 +10,5 @@ export const Explore = () => {
           })}
         </div>
       </div>
-    </>
   );
 };

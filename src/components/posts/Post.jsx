@@ -70,7 +70,6 @@ export const Post = ({ post, setModalOpen }) => {
   const posts = useSelector(store => store.posts.posts);
  useEffect(()=>{
   setCurrentPost(posts.find(currpost => currpost._id === post._id ))
-  console.log(currentPost)
  },[comment])
   return (
     <>
