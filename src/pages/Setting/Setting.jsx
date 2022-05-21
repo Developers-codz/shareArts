@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editUser } from "../../Redux/Reducers/userSlice";
+import { logout } from "../../Redux/Reducers/authSlice";
 
 export const Setting = () => {
   const { currentUser } = useSelector((store) => store.auth);
@@ -39,6 +40,7 @@ export const Setting = () => {
   }
   return (
     <Wrapper>
+      
       <Form>
         <ImageWrapper>
           <ProfileImg src={userPhoto}></ProfileImg>
@@ -93,7 +95,12 @@ export const Setting = () => {
           value={link}
           onChange={(e) => changeHandler(e)}
         ></InputField>
-        <PrimaryButton onClick={clickHandler}>Update Profile</PrimaryButton>
+        <PrimaryButton  primary onClick={clickHandler}>Update Profile</PrimaryButton>
+   
+      </Form>
+      <Form>
+      <h1>Log Out</h1>
+      <PrimaryButton onClick={()=>dispatch(logout())} >LOG OUT</PrimaryButton>
       </Form>
     </Wrapper>
   );
