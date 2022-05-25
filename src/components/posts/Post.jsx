@@ -10,16 +10,12 @@ import {
   Likes,
   Caption,
   PostFooter,
-  CommentBox,
-  Button,
   UserThumbnail,
   Username,
   ToggleMenu,
   VerticalIconWrapper,
   EditButton,
   DeleteButton,
-  CommentArea,
-  Comment
 } from "../../pages/feeds/feedsComponent";
 import {
   BookmarkIcon,
@@ -41,18 +37,14 @@ import {
   deletePost,
   getPostToEdit,
   setEditEmpty,
-  commentPost,
 } from "../../Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { followUser, unFollowUser } from "../../Redux/Reducers/userSlice";
-import { useState,useEffect } from "react";
-import { AlertToast } from "../toasts";
+import { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 
 export const Post = ({ post, setModalOpen }) => {
   const [isMenuOpen, setOpen] = useState(false);
-  const [isCommentAreaOpen, setCommentOpen] = useState(false);
-  const [comment, setComment] = useState({ id: post._id, comment: "" });
-  const [currentPost,setCurrentPost] = useState(null)
 
   const { theme } = useTheme();
   const dispatch = useDispatch();
@@ -67,10 +59,8 @@ export const Post = ({ post, setModalOpen }) => {
     setOpen((open) => !open);
     isMenuOpen ? dispatch(setEditEmpty()) : dispatch(getPostToEdit(post));
   };
-  const posts = useSelector(store => store.posts.posts);
- useEffect(()=>{
-  setCurrentPost(posts.find(currpost => currpost._id === post._id ))
- },[comment])
+
+  const navigate = useNavigate();
   return (
     <>
       <PostContainer style={{ backgroundColor: getBgColor(theme) }}>
@@ -123,7 +113,10 @@ export const Post = ({ post, setModalOpen }) => {
           </RightArea>
         </PostHeader>
 
-        <PostHeroImg src={post.postPic} />
+        <PostHeroImg
+          src={post.postPic}
+          onClick={() => navigate(`/posts/${post._id}`)}
+        />
         <Content>
           <Icons>
             <LeftArea>
@@ -138,9 +131,8 @@ export const Post = ({ post, setModalOpen }) => {
                   <HeartOutline />
                 </span>
               )}
-              <span onClick={()=>setCommentOpen(open => !open)}>
-
-              <CommentIcon />
+              <span onClick={() => navigate(`/posts/${post._id}`)}>
+                <CommentIcon />
               </span>
               <ShareIcon />
             </LeftArea>
@@ -161,37 +153,10 @@ export const Post = ({ post, setModalOpen }) => {
           <Caption>{post.content}</Caption>
         </Content>
         <PostFooter>
-          <CommentBox>
-            <input value={comment.comment} onChange={(e)=> setComment(prev => ({...prev,comment:e.target.value}))} 
-            placeholder="Add a comment...." />
-            {/* <InputEmoji /> */}
-            <Button
-              style={{ color: getTextColor(theme) }}
-              fixed_bottom_right
-              onClick={() => {
-               if(comment.comment === "")
-                AlertToast("write something to comment first")
-               else{
-
-                 dispatch(commentPost(comment));
-                 setComment(prev => ({...prev,comment:""}))
-               }
-              }}
-            >
-              Post
-            </Button>
-          </CommentBox>
-         
         </PostFooter>
-      
-      {isCommentAreaOpen && <CommentArea> 
-     
-     {
-      currentPost.comments.length > 0  && currentPost.comments.map(comment => <Comment>{comment.content}</Comment>)
-      }
-      </CommentArea>}
+
+       
       </PostContainer>
-      
     </>
   );
 };

@@ -2,7 +2,7 @@ import GlobalStyle from "./globalStyles";
 import {Navbar,Aside,BottomNavigation,RequireAuth,RestrictAuth} from "./components"
 import {useTheme} from "./context/theme-context"
 import {Routes,Route} from "react-router-dom"
-import { Feeds,Landing,Login,SignUp,Profile,Setting,Explore} from "./pages";
+import { Feeds,Landing,Login,SignUp,Profile,Setting,Explore,SinglePost} from "./pages";
 import { ToastContainer, toast } from 'react-toastify';
 import {getAllPosts} from "./Redux/Reducers/postsSlice"
 import { getAllUsers } from "./Redux/Reducers/userSlice";
@@ -32,6 +32,9 @@ function App() {
      <Route path="/settings" element={<Setting />} />
      <Route path="/" element={<Feeds />} />
      <Route path="/explore" element={<Explore />} />
+     <Route path="/posts">
+      <Route path="/posts:postId"  element={<SinglePost />} />
+     </Route>
      </Route>
   
     <Route element={<RestrictAuth />}>

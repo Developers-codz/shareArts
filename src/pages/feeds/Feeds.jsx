@@ -23,7 +23,7 @@ export const Feeds = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { theme } = useTheme();
-  const activeuser = users.find((user) => user._id === currentUser._id);
+  const activeuser = users.find((user) => user._id === currentUser._id) || currentUser;
   return (
     <>
       <Modal isModalOpen={isModalOpen} setModalOpen={setModalOpen} />

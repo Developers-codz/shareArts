@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const BrowseFeeds = styled.div``;
 export const PostContainer = styled.div`
   width: 40vw;
-  min-height: 40rem;
+  min-height: 32rem;
   border-radius:10px;
   margin: 1rem 1rem .5rem 0;
   position: relative;
   @media only screen and (max-width:560px){
     width:100%;
-    min-height:45rem;
+    min-height:40rem;
   }
 `;
 export const PostHeader = styled.div`
@@ -17,7 +17,7 @@ export const PostHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 12vh;
-  border-bottom: 1px solid grey;
+  border-bottom: ${props => props.comment ? "none" : "1px solid grey"};
 `;
 export const LeftArea = styled.div`
   display: flex;
@@ -45,6 +45,7 @@ export const Likes = styled.div`
 export const PostHeroImg = styled.img`
   width: 100%;
   height: 20rem;
+  cursor:pointer;
 `;
 
 export const Content = styled.div`
@@ -65,17 +66,23 @@ export const Caption = styled(Content)`
 export const PostFooter = styled.div``;
 
 export const CommentBox = styled.div`
-  width: 100%;
-  padding: 0.2rem 0.8rem;
+  width: 98%;
+  padding: 1rem .8rem 1rem 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  background-color: var(--color-light);
+  border-radius: 20px;
+  
 `;
 export const CommentArea = styled.div`
 padding:.5rem;
 min-height:4rem;
+
 `
 export const Comment = styled.div`
-margin:.5rem;
+margin:.5rem 0 .5rem 5rem;
+border-bottom:1px solid var(--color-dark);
+padding-bottom:1rem;
 `
 
 export const SuggestionArea = styled.div`
@@ -95,13 +102,13 @@ export const Header = styled.div`
   padding: 1rem;
 `;
 export const Button = styled.button`
-  margin: 0 1rem;
+  margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 1rem"};
   border: none;
   background: ${(props) => props.addpostBtn ? "#d6806a":"transparent"};
-  padding:${(props) => props.addpostBtn ? ".5rem 1rem":""};
+  padding:${(props) => props.addpostBtn ? ".5rem 1rem":"0"};
   border-radius:${(props) => props.addpostBtn ? "10px":""};
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: ${(props) => props.lg ? "1.4rem" : "1.1rem"};
   position:${(props) => props.addpostBtn ? "fixed":""};
   bottom:${(props) => props.addpostBtn ? "20px":""};
   right:${(props) => props.addpostBtn ? "20px":""};
@@ -117,7 +124,7 @@ text-align:center;
 width:10rem;
 min-height:2rem;
 position:absolute;
-z-index:9;
+z-index:2;
 right:1rem;
 background-color:var(--color-primary);
 & :hover{
