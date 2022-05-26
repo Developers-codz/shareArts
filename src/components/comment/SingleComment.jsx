@@ -15,10 +15,12 @@ import {
 } from "../../pages/feeds/feedsComponent";
 import { useSelector, useDispatch } from "react-redux";
 import { deletePostComment } from "../../Redux/Reducers/postsSlice";
+import {EditCommentModal} from "../modal/EditCommentModal"
 
 
-export const SingleComment = ({ comment, postId }) => {
-    // const currentComment= posts.find((post) => post._id === postId);
+
+export const SingleComment = ({ comment, postId ,isModalOpen, setModalOpen}) => {
+  
   const [isMenuOpen, setOpen] = useState(false);
   const { currentUser } = useSelector((store) => store.auth);
   const clickHandler = () => {
@@ -31,6 +33,7 @@ export const SingleComment = ({ comment, postId }) => {
   };
   return (
     <>
+     <EditCommentModal isModalOpen={isModalOpen} setModalOpen={setModalOpen} postId={postId} comment={comment} />
       <CommentArea>
         <>
           <PostHeader comment>
@@ -45,7 +48,13 @@ export const SingleComment = ({ comment, postId }) => {
               </VerticalIconWrapper>
               {isMenuOpen && (
                 <ToggleMenu>
-                  <EditButton>Edit Comment</EditButton>
+                  <EditButton onClick={
+                    ()=>{
+                      setModalOpen(true);
+                      console.log("opened")
+                    }
+                  }
+                >Edit Comment</EditButton>
                   <DeleteButton
                     onClick={() => {
                       dispatch(deletePostComment(details));

@@ -120,7 +120,27 @@ export const deletePostComment = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
-      console.log(response.comments)
+      return response.data;
+    } catch (error) {
+      console.log(error)
+  
+    }
+  }
+);
+
+export const editPostComment = createAsyncThunk(
+  "posts/editPostComment",
+  async (details) => {
+    console.log(details)
+    const {postId, commentId,commentData} = details;
+    const encodedToken = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `/api/comments/edit/${postId}/${commentId}`,
+        { content: commentData },
+        { headers: { authorization: encodedToken } }
+      );
+      console.log(response.data)
       return response.data;
     } catch (error) {
       console.log(error)
@@ -260,6 +280,15 @@ const postsSlice = createSlice({
         state.posts = action.payload.posts
       })
       .addCase(deletePostComment.rejected,(state,action)=>{
+        console.log(action.error)
+        AlertToast("something went wrong");
+      })
+
+      .addCase(editPostComment.fulfilled,(state,action) =>{
+        console.log(action.payload.posts)
+        state.posts = action.payload.posts
+      })
+      .addCase(editPostComment.rejected,(state,action)=>{
         console.log(action.error)
         AlertToast("something went wrong");
       })

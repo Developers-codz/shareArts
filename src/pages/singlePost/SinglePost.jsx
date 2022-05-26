@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Post } from "../../components";
+import { Post ,EditCommentModal} from "../../components";
 import { CommentBox, Button } from "../feeds/feedsComponent";
 import { useTheme } from "../../context/theme-context";
-import { getTextColor } from "../../utils/Functions/getColor";
+import { getTextColor,getBgColor } from "../../utils/Functions/getColor";
 import { AlertToast } from "../../components/toasts";
 import { commentPost } from "../../Redux/Reducers/postsSlice";
 import { FormInput } from "../Authpages/AuthFormComponent";
@@ -22,15 +22,22 @@ export const SinglePost = () => {
   const currentPost = posts.find((post) => post._id === postId);
 
   const [comment, setComment] = useState({ id: currentPost._id, comment: ""});
+  const [isModalOpen, setModalOpen] = useState(false)
 
-  
-console.log(currentPost)
+
   return (
-    <div className="section">
+    <>
+     
+    <div className="section" style={
+      isModalOpen
+        ? { pointerEvents: "none", opacity: ".5" }
+        : { pointerEvents: "auto", opacity: "1" }
+    }>
    {currentPost ?   <div>
         <Post post={currentPost} />
-        <CommentBox>
+        <CommentBox style={{backgroundColor:getBgColor(theme)}}>
           <FormInput
+          
             singlepost
             value={comment.comment}
             onChange={(e) =>
@@ -56,10 +63,11 @@ console.log(currentPost)
         </CommentBox>
         {currentPost   &&
           currentPost.comments.map((comment) => (
-            <SingleComment comment={comment} key={comment._id} postId={currentPost._id} />
+            <SingleComment comment={comment} key={comment._id} postId={currentPost._id} isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
           ))}
       </div>:<div>Loading.....</div>}
       
     </div>
+    </>
   );
 };

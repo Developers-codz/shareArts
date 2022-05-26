@@ -72,7 +72,7 @@ export const CommentBox = styled.div`
   justify-content: space-around;
   background-color: var(--color-light);
   border-radius: 20px;
-  
+  margin:.5rem 0 1rem 0 ;
 `;
 export const CommentArea = styled.div`
 padding:.5rem;
