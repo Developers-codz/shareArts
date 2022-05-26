@@ -21,6 +21,17 @@ export const getAllPosts = createAsyncThunk(
   }
 );
 
+export const getSinglePostData = createAsyncThunk("posts/getSinglePostData", async (id,{rejectWithValue}) =>{
+  try{
+    const response = await axios.get(`/api/posts/${id}`);
+    console.log(response.data)
+    return response.data;
+  }
+  catch(error){
+    return rejectWithValue(error.response.data);
+  }
+})
+
 export const addNewPost = createAsyncThunk(
   "posts/addNewPost",
   async (post, { rejectWithValue }) => {
@@ -65,7 +76,7 @@ export const editPost = createAsyncThunk(
   "posts/editPost",
   async (postData, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
-    const {_id} = postData;
+    const { _id } = postData;
     try {
       const response = await axios.post(
         `/api/posts/edit/${_id}`,
@@ -82,7 +93,7 @@ export const editPost = createAsyncThunk(
 
 export const commentPost = createAsyncThunk(
   "posts/commentPost",
-  async ({id,comment}, { rejectWithValue }) => {
+  async ({ id, comment }, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -97,6 +108,26 @@ export const commentPost = createAsyncThunk(
   }
 );
 
+export const deletePostComment = createAsyncThunk(
+  "posts/deletePostComment",
+  async (details) => {
+    const {postId, commentId} = details;
+    console.log( "post " + postId , "comment "+ commentId)
+    const encodedToken = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `/api/comments/delete/${postId}/${commentId}`,
+        {},
+        { headers: { authorization: encodedToken } }
+      );
+      console.log(response.comments)
+      return response.data;
+    } catch (error) {
+      console.log(error)
+  
+    }
+  }
+);
 export const addLikes = createAsyncThunk(
   "posts/like",
   async (postId, { rejectWithValue }) => {
@@ -128,7 +159,7 @@ export const removeLikes = createAsyncThunk(
           },
         }
       );
-      SuccessToast("disliked  successfully")
+      SuccessToast("disliked  successfully");
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -197,6 +228,11 @@ const postsSlice = createSlice({
         AlertToast(`${action.payload.errors}`);
       })
 
+      .addCase(getSinglePostData.fulfilled,(state,action) =>{
+        console.log(action.payload.post)
+        state.currentPost = action.payload.post
+      })
+
       .addCase(addNewPost.fulfilled, (state, action) => {
         SuccessToast("Posted Successfully");
         state.posts = action.payload.posts;
@@ -205,23 +241,27 @@ const postsSlice = createSlice({
         AlertToast("Unable to Post");
       })
 
-      .addCase(deletePost.fulfilled, (state, action) => {
-        state.posts = action.payload.posts;
-      })
-      .addCase(deletePost.rejected, (state, action) => {})
-
+ 
       .addCase(editPost.fulfilled, (state, action) => {
         state.posts = action.payload.posts;
       })
-      .addCase(editPost.rejected, (state, action) => {
-    
-      })
+      .addCase(editPost.rejected, (state, action) => {})
 
-      .addCase(commentPost.fulfilled,(state,action)=>{
+      .addCase(commentPost.fulfilled, (state, action) => {
+        console.log(action.payload.posts)
         state.posts = action.payload.posts;
       })
-      .addCase(commentPost.rejected,()=>{
-        AlertToast("Something went wrong")
+      .addCase(commentPost.rejected, () => {
+        AlertToast("Something went wrong");
+      })
+
+      .addCase(deletePostComment.fulfilled,(state,action) =>{
+        console.log(action.payload.posts)
+        state.posts = action.payload.posts
+      })
+      .addCase(deletePostComment.rejected,(state,action)=>{
+        console.log(action.error)
+        AlertToast("something went wrong");
       })
 
       .addCase(addLikes.fulfilled, (state, action) => {
@@ -233,9 +273,7 @@ const postsSlice = createSlice({
       .addCase(removeLikes.fulfilled, (state, action) => {
         state.posts = action.payload.posts;
       })
-      .addCase(removeLikes.rejected, (state, action) => {
-        
-      })
+      .addCase(removeLikes.rejected, (state, action) => {})
       .addCase(bookmark.fulfilled, (state, action) => {
         SuccessToast("Added to bookmark");
         state.bookmarked = action.payload.bookmarks;

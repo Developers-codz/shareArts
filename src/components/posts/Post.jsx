@@ -39,6 +39,7 @@ import {
   setEditEmpty,
 } from "../../Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
+
 import { followUser, unFollowUser } from "../../Redux/Reducers/userSlice";
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
@@ -115,7 +116,10 @@ export const Post = ({ post, setModalOpen }) => {
 
         <PostHeroImg
           src={post.postPic}
-          onClick={() => navigate(`/posts/${post._id}`)}
+          onClick={() => {
+            navigate(`/posts/${post._id}`)
+            
+          }}
         />
         <Content>
           <Icons>

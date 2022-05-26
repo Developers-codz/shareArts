@@ -138,7 +138,7 @@ export const commentPostHandler = function (schema, request) {
     commentData.votes = { upvotedBy: [], downvotedBy: [] };
     post.comments.push(commentData);
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
-    return new Response(201, {}, { posts: this.db.posts });
+    return new Response(201, {}, { posts: this.db.posts  });
   } catch (error) {
     return new Response(
       500,

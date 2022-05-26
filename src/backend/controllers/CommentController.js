@@ -27,6 +27,54 @@ export const getPostCommentsHandler = function (schema, request) {
   }
 };
 
+/**
+ * This handler handles adding a comment to a particular post in the db.
+ * send POST Request at /api/comments/add/:postId
+ * */
+
+//  export const addPostCommentHandler = function (schema, request) {
+//   const user = requiresAuth.call(this, request);
+//   try {
+//     if (!user) {
+//       return new Response(
+//         404,
+//         {},
+//         {
+//           errors: [
+//             "The username you entered is not Registered. Not Found error",
+//           ],
+//         }
+//       );
+//     }
+//     const { postId } = request.params;
+//     const { content } = JSON.parse(request.requestBody);
+//     const { imageUrl } = JSON.parse(request.requestBody);
+
+//     const comment = {
+//       _id: uuid(),
+//       content:content,
+//       imageUrl:imageUrl,
+//       username: user.username,
+//       userPhoto: user?.profilePhoto?.chosen,
+//       votes: { upvotedBy: [], downvotedBy: [] },
+//       createdAt: formatDate(),
+//       updatedAt: formatDate(),
+//     };
+//     const post = schema.posts.findBy({ _id: postId }).attrs;
+//     post.comments.push(comment);
+//     this.db.posts.update({ _id: postId }, post);
+//     return new Response(201, {}, { comments: post.comments });
+//   } catch (error) {
+//     return new Response(
+//       500,
+//       {},
+//       {
+//         error,
+//       }
+//     );
+//   }
+// };
+
 
 /**
  * This handler handles editing a comment to a particular post in the db.
@@ -116,7 +164,7 @@ export const deletePostCommentHandler = function (schema, request) {
       (comment) => comment._id !== commentId
     );
     this.db.posts.update({ _id: postId }, post);
-    return new Response(201, {}, { comments: post.comments });
+    return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
     return new Response(
       500,

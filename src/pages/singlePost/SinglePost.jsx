@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Post } from "../../components";
@@ -9,22 +9,25 @@ import { AlertToast } from "../../components/toasts";
 import { commentPost } from "../../Redux/Reducers/postsSlice";
 import { FormInput } from "../Authpages/AuthFormComponent";
 import { SingleComment } from "../../components";
-import { v4 as uuid } from "uuid";
+
+
 
 export const SinglePost = () => {
-  const { posts } = useSelector((store) => store.posts);
+  const { theme } = useTheme();
+  const dispatch = useDispatch();
+  const { posts} = useSelector((store) => store.posts);
 
   const params = useParams();
   const { postId } = params;
   const currentPost = posts.find((post) => post._id === postId);
-  const [comment, setComment] = useState({ id: currentPost._id, comment: ""});
-  const { theme } = useTheme();
-  const dispatch = useDispatch();
-  console.log(currentPost)
 
+  const [comment, setComment] = useState({ id: currentPost._id, comment: ""});
+
+  
+console.log(currentPost)
   return (
     <div className="section">
-      <div>
+   {currentPost ?   <div>
         <Post post={currentPost} />
         <CommentBox>
           <FormInput
@@ -51,11 +54,12 @@ export const SinglePost = () => {
             Post
           </Button>
         </CommentBox>
-        {currentPost.comments.length > 0 &&
+        {currentPost   &&
           currentPost.comments.map((comment) => (
-            <SingleComment comment={comment} key={comment._id} />
+            <SingleComment comment={comment} key={comment._id} postId={currentPost._id} />
           ))}
-      </div>
+      </div>:<div>Loading.....</div>}
+      
     </div>
   );
 };
