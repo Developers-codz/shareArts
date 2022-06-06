@@ -1,4 +1,4 @@
-import InputEmoji from "react-input-emoji";
+
 import {
   PostContainer,
   PostHeader,
@@ -88,7 +88,9 @@ export const Post = ({ post, setModalOpen }) => {
                     >
                       Edit
                     </EditButton>
-                    <DeleteButton onClick={() => dispatch(deletePost(post))}>
+                    <DeleteButton onClick={() => {dispatch(deletePost(post))
+                    dispatch(setEditEmpty())
+                    }}>
                       Delete
                     </DeleteButton>{" "}
                   </>

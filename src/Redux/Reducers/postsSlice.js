@@ -266,6 +266,12 @@ const postsSlice = createSlice({
         state.posts = action.payload.posts;
       })
       .addCase(editPost.rejected, (state, action) => {})
+      .addCase(deletePost.fulfilled,(state,action)=>{
+        state.posts = action.payload.posts;
+      })
+      .addCase(deletePost.rejected, (state, action) => {
+        AlertToast("something went wrong");
+      })
 
       .addCase(commentPost.fulfilled, (state, action) => {
         console.log(action.payload.posts)

@@ -15,7 +15,7 @@ flex-direction: column;
 `
 export const InputWrapper = styled.div`
 margin:auto 0;
-
+position: relative;
 `
 export const CloseButton = styled.div`
 position:fixed;
@@ -41,4 +41,17 @@ background-color: transparent;
 &:focus{
     outline:none;
 }
+`
+
+export const EmojiBtn = styled.img`
+position:fixed;
+top:45%;
+right:4rem;
+width:1.2rem;
+
+`
+
+export const PickerWrapper = styled.div`
+position:fixed;
+top:58%;
 `

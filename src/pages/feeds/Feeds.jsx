@@ -36,7 +36,7 @@ export const Feeds = () => {
         }
       >
         <BrowseFeeds>
-          {posts.map((post) => {
+          {posts.slice(0).reverse().map((post) => {
             return <Post key={post._id} post={post} setModalOpen={setModalOpen} />;
           })}
         </BrowseFeeds>
@@ -46,7 +46,7 @@ export const Feeds = () => {
             .filter((user) => user._id !== currentUser._id)
             .map((user) => {
               return (
-                <LeftArea m_md>
+                <LeftArea m_md key={user._id}>
                   {" "}
                   <UserThumbnail
                     src={user.userPhoto}
