@@ -159,6 +159,7 @@ export const addLikes = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
+      SuccessToast("Liked Successful")
       return response.data;
     } catch (error) {
       return rejectWithValue(error);

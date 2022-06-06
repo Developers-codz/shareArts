@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export const BrowseFeeds = styled.div``;
+export const BrowseFeeds = styled.div`
+select{
+  margin:0 0 1rem 24rem;
+  height:2rem;
+  width:10rem
+}
+`;
 export const PostContainer = styled.div`
   width: 40vw;
   min-height: 32rem;

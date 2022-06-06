@@ -44,17 +44,17 @@ export const Feeds = () => {
         }
       >
         <BrowseFeeds>
-          {sortedPosts.map((post) => {
+        <select onChange={optionChangeHandler}>
+            <option value="Latest_First" >Latest First</option>
+            <option value="Trending" >Trending</option>
+            <option value="Oldest_First" >Oldest First</option>
+          </select>
+          {posts.slice(0).reverse().map((post) => {
             return <Post key={post._id} post={post} setModalOpen={setModalOpen} />;
           })}
         </BrowseFeeds>
         <SuggestionArea>
 
-          <select onChange={optionChangeHandler}>
-            <option value="Latest_First" >Latest First</option>
-            <option value="Trending" >Trending</option>
-            <option value="Oldest_First" >Oldest First</option>
-          </select>
           <Header>Suggestions For you </Header>
           {users
             .filter((user) => user._id !== currentUser._id)

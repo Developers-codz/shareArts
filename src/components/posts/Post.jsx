@@ -128,7 +128,7 @@ export const Post = ({ post, setModalOpen }) => {
             <LeftArea>
               {post.likes.likedBy
                 .map((liked) => liked.username)
-                .includes("adarshbalika") ? (
+                .includes("developers-codz") ? (
                 <span onClick={() => dispatch(removeLikes(post._id))}>
                   <HeartFilled />
                 </span>
