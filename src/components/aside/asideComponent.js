@@ -5,27 +5,27 @@ export const NavMenu = styled.ul`
   list-style: none;
 `;
 
-export const NavLinks = styled(NavLink)`
-  margin: 0.3rem;
+export const StyledNavLink = styled(NavLink)`
+  margin: 0.4rem 0.3rem 0.3rem 0;
   text-decoration: none;
   display: flex;
   justify-content: start;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   color: ${props => props.exact ? "red" : "black"};
   &:hover {
-    color: var(--primary-cta) !important;
     background-color: #f1e9e7;
-    color: var(--primary-cta) !important;
-  }
+  };
+  &.active{
+    background-color:var(--color-secondary);
+  };
+  
 `;
 
 export const NavItem = styled.li`
   cursor: pointer;
   font-size: 1.4rem;
   padding: 1rem 1rem 1rem 0.4rem;
-
-  color: black;
 `;
 
 export const IconWrapper = styled.span`

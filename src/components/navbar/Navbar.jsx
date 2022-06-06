@@ -8,7 +8,7 @@ import {
   SunIcon,
 } from "../../Assets/icons";
 import { useTheme } from "../../context/theme-context";
-import { Header,Heading,SearchInput,SearchWrapper,SearchWrapperIcon,IconWrapper } from "./navbarComponent";
+import { Header,Heading,SearchInput,SearchWrapper,SearchWrapperIcon,IconWrapper,NavHead } from "./navbarComponent";
 import { getBgColor } from "../../utils/Functions/getColor";
 
 export const Navbar = () => {
@@ -25,10 +25,10 @@ export const Navbar = () => {
       style={{backgroundColor:getBgColor(theme)}}
       
     >
-      <div>
+      <NavHead>
         <Logo width="2.4rem" height="2.4rem" />
         <Heading>Share Arts</Heading>
-      </div>
+      </NavHead>
       <SearchWrapper>
         <SearchInput placeholder="Search..." />
 
