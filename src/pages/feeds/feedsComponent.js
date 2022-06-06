@@ -116,6 +116,9 @@ export const Button = styled.button`
     transform: scale(1.03, 1.03);
     color:var( --primary-cta) !important;
   }
+  &:active{
+    color:var(--color-success) !important;
+  }
 `;
 
 export const ToggleMenu = styled.div`

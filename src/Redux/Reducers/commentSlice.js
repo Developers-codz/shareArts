@@ -4,7 +4,8 @@ import { AlertToast, SuccessToast } from "../../components/toasts";
 
 
 const initialState = {
-  comments:[]
+  comments:[],
+  editModalOpen: false
 };
 export const getComments = createAsyncThunk("/comments/getComments",async (id,{rejectWithValue})=>{
   try{
@@ -20,6 +21,11 @@ rejectWithValue(error)
   const commentSlice = createSlice({
     name:"comment",
     initialState,
+    reducers:{
+      toggleEditModal: (state,action) => {
+        state.editModalOpen = action.payload
+      }
+    },
     extraReducers(builder){
       builder.addCase(getComments.fulfilled,(state,action)=>{
         state.comments = action.payload
@@ -31,4 +37,6 @@ rejectWithValue(error)
 
   })
 
-  export default commentSlice.reducer
+  export default commentSlice.reducer;
+  const {actions} = commentSlice;
+  export const {toggleEditModal} = actions;

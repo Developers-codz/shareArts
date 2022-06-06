@@ -5,7 +5,7 @@ position:fixed;
 top:50%;
 left:50%;
 transform: translate(-50%,-50%);
-z-index:5;
+z-index:10;
 width:30rem;
 height:15rem;
 border-radius:20px;

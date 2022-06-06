@@ -6,20 +6,21 @@ import {
   InputWrapper,
   InputPost,
 } from "./modalComponent";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
 import { useTheme } from "../../context/theme-context";
 import { AlertToast } from "../toasts";
 import { editPostComment } from "../../Redux/Reducers/postsSlice";
+import {toggleEditModal} from "../../Redux/Reducers/commentSlice"
 
 export const EditCommentModal = ({
-  isModalOpen,
-  setModalOpen,
   postId,
   comment,
 }) => {
   const { theme } = useTheme();
+  const {editModalOpen} = useSelector((store) => store.comments)
+  console.log(editModalOpen)
   const [editedComment, setEditedComment] = useState({
     commentData: "",
     postId: postId,
@@ -32,20 +33,20 @@ export const EditCommentModal = ({
     } else {
       dispatch(editPostComment(editedComment));
       setEditedComment((prev) => ({ ...prev, commentData: "" }));
-      setModalOpen(false)
+      dispatch(toggleEditModal(false))
     }
   };
 
   return (
-    isModalOpen && (
+    editModalOpen && (
       <ModalWrapper
         style={
-          isModalOpen
+          editModalOpen
             ? { pointerEvents: "auto", opacity: "1" }
             : { pointerEvents: "none", opacity: "" }
         }
       >
-        <CloseButton onClick={() => setModalOpen(false)}>X</CloseButton>
+        <CloseButton onClick={() => dispatch(toggleEditModal(false))}>X</CloseButton>
         <InputWrapper>
           <InputPost
             style={{ color: getTextColor(theme) }}

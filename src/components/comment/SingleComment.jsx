@@ -16,13 +16,15 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { deletePostComment } from "../../Redux/Reducers/postsSlice";
 import {EditCommentModal} from "../modal/EditCommentModal"
+import {toggleEditModal} from "../../Redux/Reducers/commentSlice"
 
 
 
-export const SingleComment = ({ comment, postId ,isModalOpen, setModalOpen}) => {
+export const SingleComment = ({ comment, postId }) => {
   
   const [isMenuOpen, setOpen] = useState(false);
   const { currentUser } = useSelector((store) => store.auth);
+  
   const clickHandler = () => {
     setOpen((open) => !open);
   };
@@ -33,7 +35,7 @@ export const SingleComment = ({ comment, postId ,isModalOpen, setModalOpen}) => 
   };
   return (
     <>
-     <EditCommentModal isModalOpen={isModalOpen} setModalOpen={setModalOpen} postId={postId} comment={comment} />
+     <EditCommentModal postId={postId} comment={comment} />
       <CommentArea>
         <>
           <PostHeader comment>
@@ -48,12 +50,7 @@ export const SingleComment = ({ comment, postId ,isModalOpen, setModalOpen}) => 
               </VerticalIconWrapper>
               {isMenuOpen && (
                 <ToggleMenu>
-                  <EditButton onClick={
-                    ()=>{
-                      setModalOpen(true);
-                      console.log("opened")
-                    }
-                  }
+                  <EditButton onClick={() => dispatch(toggleEditModal(true))}
                 >Edit Comment</EditButton>
                   <DeleteButton
                     onClick={() => {

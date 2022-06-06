@@ -8,6 +8,7 @@ html{
   --color-light:#fff;
   --color-dark:black;
   --primary-cta:#0000ff;
+  --color-success:#006400
   
 }
 .dark{
