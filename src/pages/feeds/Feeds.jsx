@@ -17,9 +17,11 @@ import { useTheme } from "../../context/theme-context";
 import { getTextColor } from "../../utils/Functions/getColor";
 import { Post, Modal } from "../../components";
 import {getSortedPost} from "../../utils/Functions/getSortedPost"
+import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
 
 
 export const Feeds = () => {
+  useDocumentTitle("Feeds")
   const navigate = useNavigate();
   const { posts,sortBy } = useSelector((store) => store.posts);
   const { users } = useSelector((store) => store.users);

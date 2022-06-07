@@ -9,6 +9,7 @@ import { AlertToast } from "../../components/toasts";
 import { commentPost } from "../../Redux/Reducers/postsSlice";
 import { FormInput } from "../Authpages/AuthFormComponent";
 import { SingleComment } from "../../components";
+import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
 
 export const SinglePost = () => {
   const { theme } = useTheme();
@@ -20,8 +21,8 @@ export const SinglePost = () => {
   const params = useParams();
   const { postId } = params;
   const currentPost = posts.find((post) => post._id === postId);
-
   const [comment, setComment] = useState({ id: currentPost._id, comment: "" });
+  useDocumentTitle(`Post ${postId}`)
 
   return (
     <>
