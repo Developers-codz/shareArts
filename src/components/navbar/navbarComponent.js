@@ -12,6 +12,11 @@ export const Heading = styled.span`
   font-size: 2rem;
   padding-left: 1rem;
 `;
+export const NavHead = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 export const SearchInput = styled.input`
   width: 30vw;
   height: 3rem;

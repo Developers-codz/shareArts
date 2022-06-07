@@ -11,12 +11,14 @@ import { ProfileImg } from "../Profile/profileComponents";
 import { PrimaryButton } from "../Authpages/AuthFormComponent";
 import { EditIcon } from "../../Assets/icons";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { editUser } from "../../Redux/Reducers/userSlice";
 import { logout } from "../../Redux/Reducers/authSlice";
+import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
 
 export const Setting = () => {
+  useDocumentTitle("Settings")
   const { currentUser } = useSelector((store) => store.auth);
   const {users} = useSelector((store) => store.users);
 

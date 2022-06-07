@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Wrapper,
@@ -10,8 +11,9 @@ import {
 } from "./AuthFormComponent";
 import { useDispatch } from "react-redux";
 import { login } from "../../Redux/Reducers/authSlice";
-import { useState } from "react";
+import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
 export const Login = () => {
+  useDocumentTitle("Login")
   const dispatch = useDispatch();
   const [userDetail, setUserDetail] = useState({ username: "", password: "" });
   const changeHandler = (e) => {

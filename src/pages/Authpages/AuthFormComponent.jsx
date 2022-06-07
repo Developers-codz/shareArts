@@ -29,6 +29,7 @@ export const FormInput = styled.input`
   border-right: none;
   margin: 1.5rem 0 0 0;
   font-size: 1.2rem;
+  background-color: ${(props) => (props.singlepost ? "transparent" :"")};
   color: var(--color-secondary-dark);
   &::placeholder {
     font-weight: 500;

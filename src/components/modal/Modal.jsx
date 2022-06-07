@@ -1,10 +1,12 @@
-import InputEmoji from "react-input-emoji";
+import Picker from "emoji-picker-react";
 import { Button } from "../../pages/feeds/feedsComponent";
 import {
   ModalWrapper,
   CloseButton,
   InputWrapper,
   InputPost,
+  EmojiBtn,
+  PickerWrapper
 } from "./modalComponent";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
@@ -20,6 +22,14 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
   const postToEdit = useSelector((store) => store?.posts?.postToEdit);
   const [postData, setPostData] = useState({ content: "" });
   const [editData, setEditData] = useState(null);
+  const [showPicker, setShowPicker] = useState(false);
+
+  const onEmojiClick = (event, emojiObject) => {
+    const newData = postData.content + emojiObject.emoji;
+    setPostData((postData) => ({ ...postData, content: newData }));
+    setShowPicker(false);
+  };
+
   const clickHandler = () => {
     if (postData.content === "")
       AlertToast("Please write about what are you thinking");
@@ -48,15 +58,22 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
                 : setPostData((prev) => ({ ...prev, content: e.target.value }))
             }
           />
+          <EmojiBtn
+            src="https://icons.getBootstrap.com/assets/icons/emoji-smile.svg"
+            onClick={() => setShowPicker((prev) => !prev)}
+          />
+          <PickerWrapper>
+
+          {showPicker && <Picker onEmojiClick={onEmojiClick} />}
+          </PickerWrapper>
         </InputWrapper>
         {postToEdit ? (
           <Button
             addpostBtn
             onClick={() => {
               dispatch(editPost({ ...postToEdit, content: editData.content }));
-              setEditData(prev => ({...prev,content:""}));
+              setEditData((prev) => ({ ...prev, content: "" }));
               setModalOpen(false);
-
             }}
           >
             Edit

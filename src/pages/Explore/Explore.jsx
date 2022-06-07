@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { Post } from "../../components";
+import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
 export const Explore = () => {
+  useDocumentTitle("Explore")
   const { posts } = useSelector((store) => store.posts);
   return (
       <div className="section">

@@ -9,7 +9,7 @@ import { formatDate ,formatTime} from "../utils/authUtils";
 export const posts = [
   {
     _id: uuid(),
-    name:"Adarsh Balika",
+    name:"Kajal Kumari",
     userPhoto:"https://images.unsplash.com/photo-1496440737103-cd596325d314?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z2lybHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
     postPic:"https://assets.aboutamazon.com/dims4/default/a0e7138/2147483647/strip/true/crop/5760x3242+0+299/resize/1320x743!/format/webp/quality/90/?url=https%3A%2F%2Famazon-blogs-brightspot.s3.amazonaws.com%2F87%2Ff4%2F78d3e1ce4ea6a425f073e4c362ea%2Fgirls-who-code-image-2.jpg",
     content:
@@ -19,7 +19,7 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: "adarshbalika",
+    username: "developers-codz",
     comments:[],
     time: formatTime(),
     createdAt: formatDate(),

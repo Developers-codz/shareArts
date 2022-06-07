@@ -107,6 +107,12 @@ export const getAllUserPostsHandler = function (schema, request) {
   }
 };
 
+/**
+ * This handler handles adding a comment to a particular post in the db.
+ * send POST Request at /api/comments/add/:postId
+ * */
+
+
 export const commentPostHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
@@ -128,9 +134,11 @@ export const commentPostHandler = function (schema, request) {
     const { commentData } = JSON.parse(request.requestBody);
     commentData.createdAt = formatDate();
     commentData.username = user.username;
+    commentData._id = uuid();
+    commentData.votes = { upvotedBy: [], downvotedBy: [] };
     post.comments.push(commentData);
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
-    return new Response(201, {}, { posts: this.db.posts });
+    return new Response(201, {}, { posts: this.db.posts  });
   } catch (error) {
     return new Response(
       500,

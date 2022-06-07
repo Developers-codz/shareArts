@@ -16,8 +16,10 @@ import { Tabs } from "./Tab/Tabs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
 
 export const Profile = () => {
+  useDocumentTitle("Profile")
   const { theme } = useTheme();
   const { users } = useSelector((store) => store.users);
   const { currentUser } = useSelector((store) => store.auth);

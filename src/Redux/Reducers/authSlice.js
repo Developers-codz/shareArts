@@ -9,8 +9,8 @@ const initialState = {
 export const login = createAsyncThunk("/auth/login", async (e,userDetail) =>{
     try {
         const response = await axios.post(`api/auth/login`, e.target.value === "credentialLogin" ? {
-            username: "adarshbalika",
-            password: "adarshBalika123",
+            username: "developers-codz",
+            password: "developersCodz",
         } : JSON.stringify(userDetail));
         SuccessToast("Login Successful")
         return response.data;
@@ -29,6 +29,21 @@ export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
     catch(error){
         AlertToast(`${error}`)
 
+    }
+})
+
+export const verifyToken = createAsyncThunk("/auth/verifyToken",async (_,rejectWithValue) =>{
+    const encodedToken = localStorage.getItem("token");
+    if(encodedToken){
+        try{
+            const response = await axios.post("/api/auth/verify",{
+                encodedToken:encodedToken,
+            });
+            return response.data;
+        }
+        catch(error){
+            rejectWithValue(error)
+        }
     }
 })
 
@@ -57,6 +72,11 @@ const authSlice = createSlice({
         })
         .addCase(signup.rejected,(state,action) =>{
         
+        })
+        .addCase(verifyToken.fulfilled,(state,action)=>{
+            if(action.payload){
+                state.currentUser = action.payload.user
+            }
         })
     }
 })
