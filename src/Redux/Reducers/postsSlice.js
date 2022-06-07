@@ -25,7 +25,6 @@ export const getAllPosts = createAsyncThunk(
 export const getSinglePostData = createAsyncThunk("posts/getSinglePostData", async (id,{rejectWithValue}) =>{
   try{
     const response = await axios.get(`/api/posts/${id}`);
-    console.log(response.data)
     return response.data;
   }
   catch(error){
@@ -113,7 +112,6 @@ export const deletePostComment = createAsyncThunk(
   "posts/deletePostComment",
   async (details) => {
     const {postId, commentId} = details;
-    console.log( "post " + postId , "comment "+ commentId)
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -141,11 +139,9 @@ export const editPostComment = createAsyncThunk(
         { content: commentData },
         { headers: { authorization: encodedToken } }
       );
-      console.log(response.data)
       return response.data;
     } catch (error) {
       console.log(error)
-  
     }
   }
 );
@@ -235,7 +231,6 @@ const postsSlice = createSlice({
       state.postToEdit = null;
     },
     setSortBy:(state,action) =>{
-      console.log(action.payload)
       state.sortBy = action.payload
     }
   },

@@ -49,7 +49,7 @@ export const Feeds = () => {
             <option value="Trending" >Trending</option>
             <option value="Oldest_First" >Oldest First</option>
           </select>
-          {posts.slice(0).reverse().map((post) => {
+          {sortedPosts.map((post) => {
             return <Post key={post._id} post={post} setModalOpen={setModalOpen} />;
           })}
         </BrowseFeeds>

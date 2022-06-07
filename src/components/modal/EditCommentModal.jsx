@@ -20,7 +20,6 @@ export const EditCommentModal = ({
 }) => {
   const { theme } = useTheme();
   const {editModalOpen} = useSelector((store) => store.comments)
-  console.log(editModalOpen)
   const [editedComment, setEditedComment] = useState({
     commentData: "",
     postId: postId,

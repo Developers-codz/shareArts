@@ -10,7 +10,6 @@ const initialState = {
 export const getComments = createAsyncThunk("/comments/getComments",async (id,{rejectWithValue})=>{
   try{
     const response =  await axios.get(`/api/comments/${id}`)
-    console.log(response.data)
     return response.data;
   }
   catch(error){

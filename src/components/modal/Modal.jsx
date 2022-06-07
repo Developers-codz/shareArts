@@ -26,7 +26,6 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
 
   const onEmojiClick = (event, emojiObject) => {
     const newData = postData.content + emojiObject.emoji;
-    console.log(emojiObject);
     setPostData((postData) => ({ ...postData, content: newData }));
     setShowPicker(false);
   };
