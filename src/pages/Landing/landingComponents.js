@@ -14,7 +14,8 @@ export const Wrapper = styled.div`
 export const Section = styled.div`
   margin-left: ${(props) => (props.logo ? "4rem" : "5rem")};
   @media only screen and (max-width: 560px) {
-    margin-left:0
+    margin-left:0;
+    text-align: center;
   }
 `;
 

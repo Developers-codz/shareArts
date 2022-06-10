@@ -45,6 +45,9 @@ export const Feeds = () => {
             : { pointerEvents: "auto", opacity: "1" }
         }
       >
+         <Button addpostBtn onClick={() => setModalOpen(true)}>
+          Add Post
+        </Button>
         <BrowseFeeds>
         <select onChange={optionChangeHandler}>
             <option value="Latest_First" >Latest First</option>
@@ -90,9 +93,7 @@ export const Feeds = () => {
               );
             })}
         </SuggestionArea>
-        <Button addpostBtn onClick={() => setModalOpen(true)}>
-          Add Post
-        </Button>
+       
       </div>
     </>
   );

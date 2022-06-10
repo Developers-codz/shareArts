@@ -18,6 +18,7 @@ import { logout } from "../../Redux/Reducers/authSlice";
 import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
 
 export const Setting = () => {
+  
   useDocumentTitle("Settings")
   const { currentUser } = useSelector((store) => store.auth);
   const {users} = useSelector((store) => store.users);
@@ -102,7 +103,7 @@ export const Setting = () => {
       </Form>
       <Form>
       <h1>Log Out</h1>
-      <PrimaryButton onClick={()=>dispatch(logout())} >LOG OUT</PrimaryButton>
+      <PrimaryButton logout onClick={()=>dispatch(logout())} >LOG OUT</PrimaryButton>
       </Form>
     </Wrapper>
   );

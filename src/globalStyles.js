@@ -34,6 +34,7 @@ html{
   position:fixed;
   left:0;
   top:13vh;
+
 }
 .header-wrapper{
   grid-area: nav;
@@ -47,12 +48,15 @@ html{
   padding-top:13vh; 
   min-height: 97.5vh;
 }
-@media only screen and (max-width:560px){
+@media only screen and (max-width:768px){
   html{
     font-size:65%;
   }
   .aside{
     display:none;
+  }
+  .section{
+    justify-content:center
   }
   .App{
  

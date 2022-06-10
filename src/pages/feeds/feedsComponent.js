@@ -4,7 +4,13 @@ export const BrowseFeeds = styled.div`
 select{
   margin:0 0 1rem 24rem;
   height:2rem;
-  width:10rem
+  width:10rem;
+  
+}
+@media only screen and (max-width:768px){
+  select{
+    margin-left:19rem;
+  }
 }
 `;
 export const PostContainer = styled.div`
@@ -12,9 +18,8 @@ export const PostContainer = styled.div`
   min-height: 32rem;
   border-radius:10px;
   margin: 1rem 1rem .5rem 0;
-  position: relative;
   @media only screen and (max-width:560px){
-    width:100%;
+    width:300px;
     min-height:40rem;
   }
 `;
@@ -83,7 +88,6 @@ export const CommentBox = styled.div`
 export const CommentArea = styled.div`
 padding:.5rem;
 min-height:4rem;
-
 `
 export const Comment = styled.div`
 margin:.5rem 0 .5rem 5rem;
@@ -108,12 +112,12 @@ export const Header = styled.div`
   padding: 1rem;
 `;
 export const Button = styled.button`
-  margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 1rem"};
   border: none;
+  cursor: pointer;
+  margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 1rem"};
   background: ${(props) => props.addpostBtn ? "#d6806a":"transparent"};
   padding:${(props) => props.addpostBtn ? ".5rem 1rem":"0"};
   border-radius:${(props) => props.addpostBtn ? "10px":""};
-  cursor: pointer;
   font-size: ${(props) => props.lg ? "1.4rem" : "1.1rem"};
   position:${(props) => props.addpostBtn ? "fixed":""};
   bottom:${(props) => props.addpostBtn ? "20px":""};
@@ -125,6 +129,11 @@ export const Button = styled.button`
   &:active{
     color:var(--color-success) !important;
   }
+  @media only screen and (max-width:768px){
+    margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 .1rem"};
+    padding:${(props) => props.addpostBtn ? ".5rem":"0"};
+    bottom:${(props) => props.addpostBtn ? "60px":""};
+    }
 `;
 
 export const ToggleMenu = styled.div`
