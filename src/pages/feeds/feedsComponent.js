@@ -18,6 +18,12 @@ export const PostContainer = styled.div`
   min-height: 32rem;
   border-radius:10px;
   margin: 1rem 1rem .5rem 0;
+  .active{
+  background-color: black;
+}
+  .active :hover{
+  background-color: #28231d;
+  }
   @media only screen and (max-width:560px){
     width:300px;
     min-height:40rem;
@@ -88,6 +94,12 @@ export const CommentBox = styled.div`
 export const CommentArea = styled.div`
 padding:.5rem;
 min-height:4rem;
+.active{
+  background-color: black;
+}
+  .active :hover{
+  background-color: #28231d;
+  }
 `
 export const Comment = styled.div`
 margin:.5rem 0 .5rem 5rem;
@@ -114,6 +126,7 @@ export const Header = styled.div`
 export const Button = styled.button`
   border: none;
   cursor: pointer;
+  z-index:5;
   margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 1rem"};
   background: ${(props) => props.addpostBtn ? "#d6806a":"transparent"};
   padding:${(props) => props.addpostBtn ? ".5rem 1rem":"0"};
@@ -129,6 +142,7 @@ export const Button = styled.button`
   &:active{
     color:var(--color-success) !important;
   }
+  
   @media only screen and (max-width:768px){
     margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 .1rem"};
     padding:${(props) => props.addpostBtn ? ".5rem":"0"};
@@ -150,13 +164,14 @@ background-color:var(--color-primary);
   background-color:var(--color-primary)
 }
 
+
 `
 
 export const VerticalIconWrapper = styled.span`
 margin-right:1rem;
 & :hover{
   border-radius: 50%;
-  background-color:var(--color-primary)
+  cursor: pointer;
 }
 `
 

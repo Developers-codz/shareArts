@@ -73,11 +73,11 @@ export const Post = ({ post, setModalOpen }) => {
           </LeftArea>
 
           <RightArea>
-            <VerticalIconWrapper onClick={clickHandler}>
+            <VerticalIconWrapper onClick={clickHandler} className={theme==="dark" ? "active" : ""}>
               <VerticalDots />
             </VerticalIconWrapper>
             {isMenuOpen && (
-              <ToggleMenu>
+              <ToggleMenu className={theme==="dark" ? "active" : ""}>
                 {post.username === currentUser.username ? (
                   <>
                     {" "}
