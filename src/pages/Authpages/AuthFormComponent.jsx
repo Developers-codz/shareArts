@@ -48,10 +48,10 @@ export const Button = styled.button`
   color: var(--color-secondary-dark);
   font-size: 1rem;
   cursor: pointer;
+  white-space: nowrap;
   &:hover {
     transform: scale(1.03, 1.03);
     border: 2px solid var(--color-secondary-dark);
-    white-space: nowrap;
   }
 `;
 export const PrimaryButton = styled(Button)`
@@ -59,6 +59,9 @@ export const PrimaryButton = styled(Button)`
   padding: 0.5rem 8rem;
   background-color: var(--color-secondary-dark);
   color: var(--color-light);
+  @media only screen and (max-width:768px){
+    margin-bottom:${props => props.logout ? "3rem" :""}
+  }
 `;
 
 export const Para = styled.span`

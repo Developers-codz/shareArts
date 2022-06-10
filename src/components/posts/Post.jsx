@@ -16,7 +16,7 @@ import {
   VerticalIconWrapper,
   EditButton,
   DeleteButton,
-} from "../../pages/feeds/feedsComponent";
+} from "pages/feeds/feedsComponent";
 import {
   BookmarkIcon,
   BookmarkedIcon,
@@ -25,10 +25,10 @@ import {
   HeartFilled,
   ShareIcon,
   VerticalDots,
-} from "../../Assets/icons";
+} from "Assets/icons";
 
-import { useTheme } from "../../context/theme-context";
-import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
+import { useTheme } from "context/theme-context";
+import { getBgColor, getTextColor } from "utils/Functions/getColor";
 import {
   bookmark,
   removeBookmark,
@@ -37,10 +37,10 @@ import {
   deletePost,
   getPostToEdit,
   setEditEmpty,
-} from "../../Redux/Reducers/postsSlice";
+} from "Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-import { followUser, unFollowUser } from "../../Redux/Reducers/userSlice";
+import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 
@@ -73,11 +73,11 @@ export const Post = ({ post, setModalOpen }) => {
           </LeftArea>
 
           <RightArea>
-            <VerticalIconWrapper onClick={clickHandler}>
+            <VerticalIconWrapper onClick={clickHandler} className={theme==="dark" ? "active" : ""}>
               <VerticalDots />
             </VerticalIconWrapper>
             {isMenuOpen && (
-              <ToggleMenu>
+              <ToggleMenu className={theme==="dark" ? "active" : ""}>
                 {post.username === currentUser.username ? (
                   <>
                     {" "}

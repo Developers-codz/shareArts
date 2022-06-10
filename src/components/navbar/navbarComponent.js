@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { getTextColor } from "../../utils/Functions/getColor";
 
 export const Header = styled.div`
   width: 100vw;
@@ -11,6 +10,7 @@ export const Header = styled.div`
 export const Heading = styled.span`
   font-size: 2rem;
   padding-left: 1rem;
+  white-space: nowrap;
 `;
 export const NavHead = styled.div`
   display: flex;
@@ -41,8 +41,13 @@ export const IconWrapper = styled.div`
   margin: 0.1rem 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 7vw;
   > * {
     cursor: pointer;
+  }
+  @media only screen and (max-width:768px){
+    width:9vw;
+    margin:.1rem 0;
   }
 `;

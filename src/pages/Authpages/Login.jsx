@@ -10,8 +10,8 @@ import {
   Para,
 } from "./AuthFormComponent";
 import { useDispatch } from "react-redux";
-import { login } from "../../Redux/Reducers/authSlice";
-import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
+import { login } from "Redux/Reducers/authSlice";
+import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 export const Login = () => {
   useDocumentTitle("Login")
   const dispatch = useDispatch();

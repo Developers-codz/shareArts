@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Post, EditCommentModal } from "../../components";
+import { Post } from "components";
 import { CommentBox, Button } from "../feeds/feedsComponent";
-import { useTheme } from "../../context/theme-context";
-import { getTextColor, getBgColor } from "../../utils/Functions/getColor";
-import { AlertToast } from "../../components/toasts";
-import { commentPost } from "../../Redux/Reducers/postsSlice";
+import { useTheme } from "context/theme-context";
+import { getTextColor, getBgColor } from "utils/Functions/getColor";
+import { AlertToast } from "components/toasts";
+import { commentPost } from "Redux/Reducers/postsSlice";
 import { FormInput } from "../Authpages/AuthFormComponent";
-import { SingleComment } from "../../components";
-import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
+import { SingleComment } from "components";
+import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 
 export const SinglePost = () => {
   const { theme } = useTheme();

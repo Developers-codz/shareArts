@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { VerticalDots } from "../../Assets/icons";
+import { VerticalDots } from "Assets/icons";
 import {
   CommentArea,
   Comment,
@@ -12,15 +12,17 @@ import {
   ToggleMenu,
   EditButton,
   DeleteButton,
-} from "../../pages/feeds/feedsComponent";
+} from "pages/feeds/feedsComponent";
 import { useSelector, useDispatch } from "react-redux";
-import { deletePostComment } from "../../Redux/Reducers/postsSlice";
+import { deletePostComment } from "Redux/Reducers/postsSlice";
 import {EditCommentModal} from "../modal/EditCommentModal"
-import {toggleEditModal} from "../../Redux/Reducers/commentSlice"
+import {toggleEditModal} from "Redux/Reducers/commentSlice"
+import { useTheme } from "context/theme-context";
 
 
 
 export const SingleComment = ({ comment, postId }) => {
+  const {theme} = useTheme();
   
   const [isMenuOpen, setOpen] = useState(false);
   const { currentUser } = useSelector((store) => store.auth);
@@ -49,7 +51,7 @@ export const SingleComment = ({ comment, postId }) => {
                 <VerticalDots />
               </VerticalIconWrapper>
               {isMenuOpen && (
-                <ToggleMenu>
+                <ToggleMenu className={theme==="dark" ? "active" : ""}>
                   <EditButton onClick={() => dispatch(toggleEditModal(true))}
                 >Edit Comment</EditButton>
                   <DeleteButton

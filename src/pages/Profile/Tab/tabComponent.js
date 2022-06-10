@@ -3,8 +3,12 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
 margin-left:17rem;
 margin-top: 1rem;
-@media only screen and (max-width:560px){
-    margin:.5rem;
+@media only screen and (max-width:768px){
+    margin:3rem;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
 }
 
 `

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+
 export const Wrapper  = styled.div`
   padding-top:13vh; 
   min-height: 95vh;
@@ -34,13 +35,14 @@ margin:.2rem 0 1rem 0`
 
 export const EditBtn = styled.label`
 position:absolute;
-bottom:20px;
-right:20px;
+bottom:1.2rem;
+right:1.2rem;
 cursor:pointer;
 background-color:var(--color-light);
 border:none;
 border-radius: 50%;
 padding:.3rem;
+
 `
 export const ImageWrapper = styled.div`
 position:relative;

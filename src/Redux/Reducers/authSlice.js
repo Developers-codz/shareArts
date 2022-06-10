@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
-import { AlertToast,SuccessToast } from "../../components/toasts";
+import { AlertToast,SuccessToast } from "components/toasts";
 
 const initialState = {
     currentUser:{},
