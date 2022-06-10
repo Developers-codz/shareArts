@@ -1,9 +1,9 @@
 import { Wrapper, TabHead, EachTab,Outlet } from "./tabComponent";
 import {TabContent} from "./TabContent"
 import { useState } from "react";
-import { Post } from "../../../components";
+import { Post } from "components";
 import {useSelector} from "react-redux"
-import userSlice from "../../../Redux/Reducers/userSlice";
+
 export const Tabs = ({isCurrentUser,postOfUser}) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const currentStyle = {fontWeight: "700",color:"#ca2535",borderBottom:"3px solid #ca2535"}

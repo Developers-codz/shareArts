@@ -10,13 +10,13 @@ import {
   Followers,
   ExternalLink,
 } from "./profileComponents";
-import { getBorder } from "../../utils/Functions/getColor";
-import { useTheme } from "../../context/theme-context";
+import { getBorder } from "utils/Functions/getColor";
+import { useTheme } from "context/theme-context";
 import { Tabs } from "./Tab/Tabs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
+import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 
 export const Profile = () => {
   useDocumentTitle("Profile")

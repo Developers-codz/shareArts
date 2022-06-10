@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AlertToast, SuccessToast } from "../../components/toasts";
+import { AlertToast, SuccessToast } from "components/toasts";
 
 const initialState = {
   posts: [],
@@ -273,7 +273,6 @@ const postsSlice = createSlice({
       })
 
       .addCase(commentPost.fulfilled, (state, action) => {
-        console.log(action.payload.posts)
         state.posts = action.payload.posts;
       })
       .addCase(commentPost.rejected, () => {
@@ -281,7 +280,6 @@ const postsSlice = createSlice({
       })
 
       .addCase(deletePostComment.fulfilled,(state,action) =>{
-        console.log(action.payload.posts)
         state.posts = action.payload.posts
       })
       .addCase(deletePostComment.rejected,(state,action)=>{
@@ -290,7 +288,6 @@ const postsSlice = createSlice({
       })
 
       .addCase(editPostComment.fulfilled,(state,action) =>{
-        console.log(action.payload.posts)
         state.posts = action.payload.posts
       })
       .addCase(editPostComment.rejected,(state,action)=>{

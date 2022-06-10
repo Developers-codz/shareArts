@@ -9,13 +9,13 @@ import {
 } from "./settingComponent";
 import { ProfileImg } from "../Profile/profileComponents";
 import { PrimaryButton } from "../Authpages/AuthFormComponent";
-import { EditIcon } from "../../Assets/icons";
+import { EditIcon } from "Assets/icons";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editUser } from "../../Redux/Reducers/userSlice";
-import { logout } from "../../Redux/Reducers/authSlice";
-import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
+import { editUser } from "Redux/Reducers/userSlice";
+import { logout } from "Redux/Reducers/authSlice";
+import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 
 export const Setting = () => {
   

@@ -10,14 +10,14 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { followUser, unFollowUser } from "../../Redux/Reducers/userSlice";
-import {setSortBy} from "../../Redux/Reducers/postsSlice"
+import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
+import {setSortBy} from "Redux/Reducers/postsSlice"
 import { useSelector, useDispatch } from "react-redux";
-import { useTheme } from "../../context/theme-context";
-import { getTextColor } from "../../utils/Functions/getColor";
-import { Post, Modal } from "../../components";
-import {getSortedPost} from "../../utils/Functions/getSortedPost"
-import {useDocumentTitle} from "../../utils/hooks/useDocumentTitle";
+import { useTheme } from "context/theme-context";
+import { getTextColor } from "utils/Functions/getColor";
+import { Post, Modal } from "components";
+import {getSortedPost} from "utils/Functions/getSortedPost"
+import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 
 
 export const Feeds = () => {

@@ -1,5 +1,5 @@
 import Picker from "emoji-picker-react";
-import { Button } from "../../pages/feeds/feedsComponent";
+import { Button } from "pages/feeds/feedsComponent";
 import {
   ModalWrapper,
   CloseButton,
@@ -11,9 +11,9 @@ import {
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { AlertToast } from "../toasts";
-import { addNewPost, editPost } from "../../Redux/Reducers/postsSlice";
-import { getBgColor, getTextColor } from "../../utils/Functions/getColor";
-import { useTheme } from "../../context/theme-context";
+import { addNewPost, editPost } from "Redux/Reducers/postsSlice";
+import { getBgColor, getTextColor } from "utils/Functions/getColor";
+import { useTheme } from "context/theme-context";
 import { useSelector } from "react-redux";
 
 export const Modal = ({ isModalOpen, setModalOpen }) => {

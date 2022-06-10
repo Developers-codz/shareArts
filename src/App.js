@@ -19,9 +19,9 @@ import {
   SinglePost,
 } from "./pages";
 import { ToastContainer, toast } from "react-toastify";
-import { getAllPosts } from "./Redux/Reducers/postsSlice";
-import { getAllUsers } from "./Redux/Reducers/userSlice";
-import { verifyToken } from "./Redux/Reducers/authSlice";
+import { getAllPosts } from "Redux/Reducers/postsSlice";
+import { getAllUsers } from "Redux/Reducers/userSlice";
+import { verifyToken } from "Redux/Reducers/authSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import MockMan from "mockman-js";

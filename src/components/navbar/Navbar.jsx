@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 
-import { Logo, Search, LoginIcon, MoonIcon, SunIcon } from "../../Assets/icons";
-import { useTheme } from "../../context/theme-context";
+import { Logo, Search, LoginIcon, MoonIcon, SunIcon } from "Assets/icons";
+import { useTheme } from "context/theme-context";
 import {
   Header,
   Heading,
@@ -11,7 +11,7 @@ import {
   IconWrapper,
   NavHead,
 } from "./navbarComponent";
-import { getBgColor } from "../../utils/Functions/getColor";
+import { getBgColor } from "utils/Functions/getColor";
 
 export const Navbar = () => {
   const { theme } = useTheme();

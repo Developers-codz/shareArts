@@ -56,7 +56,8 @@ html{
     display:none;
   }
   .section{
-    justify-content:center
+    justify-content:center;
+    margin-bottom:3rem;
   }
   .App{
  

@@ -1,7 +1,7 @@
 import React from "react";
-import { asideData } from "../../data/aside-data";
-import { getBgColor, getTextColor,getBorder } from "../../utils/Functions/getColor";
-import { useTheme } from "../../context/theme-context";
+import { asideData } from "data/aside-data";
+import { getBgColor, getTextColor,getBorder } from "utils/Functions/getColor";
+import { useTheme } from "context/theme-context";
 import { NavLink } from "react-router-dom";
 
 import styled from "styled-components";
