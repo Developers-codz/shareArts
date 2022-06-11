@@ -16,15 +16,12 @@ import { useDispatch } from "react-redux";
 import { editUser } from "Redux/Reducers/authSlice";
 import { logout } from "Redux/Reducers/authSlice";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
+import { Navigate,useNavigate } from "react-router-dom";
 
 export const Setting = () => {
   useDocumentTitle("Settings")
   const { currentUser } = useSelector((store) => store.auth);
-  console.log(currentUser)
-  // console.log(users)
-console.log()
-  // const user = users.find(user => user.username === currentUser.username)
-  // console.log(user)
+  const navigate = useNavigate();
   const [newData, setNewData] = useState({
     firstName: currentUser.firstName,
     lastName:currentUser.lastName,
@@ -41,6 +38,7 @@ console.log()
   const clickHandler = () =>{
     console.log(newData)
       dispatch(editUser(newData)) 
+      navigate("/profile")
   }
   return (
     <Wrapper>

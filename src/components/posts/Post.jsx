@@ -51,7 +51,6 @@ export const Post = ({ post, setModalOpen }) => {
   const dispatch = useDispatch();
 
   const bookmarked = useSelector((store) => store.posts.bookmarked);
-
   const currentUser = useSelector((store) => store.auth.currentUser);
   const { users } = useSelector((store) => store.users);
   const activeuser = users.find((user) => user._id === currentUser._id);
@@ -128,7 +127,7 @@ export const Post = ({ post, setModalOpen }) => {
             <LeftArea>
               {post.likes.likedBy
                 .map((liked) => liked.username)
-                .includes("developers-codz") ? (
+                .includes(currentUser.username) ? (
                 <span onClick={() => dispatch(removeLikes(post._id))}>
                   <HeartFilled />
                 </span>

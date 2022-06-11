@@ -52,14 +52,14 @@ export const SignUp = () => {
           <Header>SignUp</Header>
           <FormInput
             type="text"
-            placeholder="Enter Your firstName"
+            placeholder="Enter Your first name"
             name="firstName"
             value={firstName}
             onChange={(e) => changeHandler(e)}
           ></FormInput>
           <FormInput
             type="text"
-            placeholder="Enter Your lastName"
+            placeholder="Enter Your last name"
             name="lastName"
             value={lastName}
             onChange={(e) => changeHandler(e)}
