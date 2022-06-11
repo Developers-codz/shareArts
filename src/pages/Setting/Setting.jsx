@@ -21,23 +21,30 @@ import { Navigate,useNavigate } from "react-router-dom";
 export const Setting = () => {
   useDocumentTitle("Settings")
   const { currentUser } = useSelector((store) => store.auth);
+  const [photo,setUserPhoto] = useState(currentUser.userPhoto)
   const navigate = useNavigate();
   const [newData, setNewData] = useState({
     firstName: currentUser.firstName,
     lastName:currentUser.lastName,
     link: currentUser.link,
     bio: currentUser.bio,
-    userPhoto: currentUser.userPhoto,
+    userPhoto:currentUser.userPhoto,
     email: currentUser.email,
   });
+
+  
   const { firstName,lastName, link, bio, userPhoto, email } = newData;
   const dispatch = useDispatch();
   const changeHandler = (e) => {
     setNewData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const clickHandler = () =>{
-    console.log(newData)
-      dispatch(editUser(newData)) 
+    if(photo === currentUser.userPhoto){
+      dispatch(editUser(newData))
+    }
+    else{
+      dispatch(editUser({...newData,userPhoto:URL.createObjectURL(photo)})) 
+    }
       navigate("/profile")
   }
   return (
@@ -45,11 +52,11 @@ export const Setting = () => {
       
       <Form>
         <ImageWrapper>
-          <ProfileImg src={userPhoto}></ProfileImg>
+          <ProfileImg src={photo === userPhoto ? photo : URL.createObjectURL(photo)}></ProfileImg>
           <EditBtn htmlFor="picUpdate">
             <EditIcon />
           </EditBtn>
-          <input type="file" id="picUpdate" style={{ display: "none" }} />
+          <input type="file" onChange={(e)=>setUserPhoto(e.target.files[0])} id="picUpdate" style={{ display: "none" }} />
         </ImageWrapper>
         <Label htmlFor="firstName">
           First Name
