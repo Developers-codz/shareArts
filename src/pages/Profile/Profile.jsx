@@ -24,6 +24,8 @@ export const Profile = () => {
   const { users } = useSelector((store) => store.users);
   const { currentUser } = useSelector((store) => store.auth);
   const {posts} = useSelector(store => store.posts)
+  console.log(users)
+  console.log(currentUser)
 
   const navigate = useNavigate();
   const params = useParams();
@@ -32,7 +34,7 @@ export const Profile = () => {
   );
   const getProfile = (username) => {
     if (username === "profile") {
-      return users.find((user) => user.username === currentUser.username);
+      return currentUser;
     } else {
       return users.find((user) => user.username === username);
     }

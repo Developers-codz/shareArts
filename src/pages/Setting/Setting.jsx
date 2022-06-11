@@ -13,25 +13,25 @@ import { EditIcon } from "Assets/icons";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editUser } from "Redux/Reducers/userSlice";
+import { editUser } from "Redux/Reducers/authSlice";
 import { logout } from "Redux/Reducers/authSlice";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 
 export const Setting = () => {
-  
   useDocumentTitle("Settings")
   const { currentUser } = useSelector((store) => store.auth);
-  const {users} = useSelector((store) => store.users);
-
-  const user = users.find(user => user._id === currentUser._id)
-  
+  console.log(currentUser)
+  // console.log(users)
+console.log()
+  // const user = users.find(user => user.username === currentUser.username)
+  // console.log(user)
   const [newData, setNewData] = useState({
-    firstName: user.firstName,
-    lastName:user.lastName,
-    link: user.link,
-    bio: user.bio,
-    userPhoto: user.userPhoto,
-    email: user.email,
+    firstName: currentUser.firstName,
+    lastName:currentUser.lastName,
+    link: currentUser.link,
+    bio: currentUser.bio,
+    userPhoto: currentUser.userPhoto,
+    email: currentUser.email,
   });
   const { firstName,lastName, link, bio, userPhoto, email } = newData;
   const dispatch = useDispatch();
@@ -39,6 +39,7 @@ export const Setting = () => {
     setNewData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const clickHandler = () =>{
+    console.log(newData)
       dispatch(editUser(newData)) 
   }
   return (

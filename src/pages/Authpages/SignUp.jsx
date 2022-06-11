@@ -16,7 +16,8 @@ import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 export const SignUp = () => {
   useDocumentTitle("Signup")
   const [userDetail, setUserDetail] = useState({
-    fullname: "",
+    firstName: "",
+    lastName:"",
     email: "",
     username: "",
     password: "",
@@ -28,11 +29,11 @@ export const SignUp = () => {
   const dispatch = useDispatch();
 
   const clickHandler = () => {
-    const {fullname,email,username,password} = userDetail;
+    const {firstName,lastName,email,username,password} = userDetail;
     console.log(userDetail,passMatch)
-    if(fullname && email && username && password !== "" && password === passMatch ){
+    if(firstName && lastName && email && username && password !== "" && password === passMatch ){
       dispatch(signup(userDetail))
-      setUserDetail(prev => ({...prev,fullname:"",email:"",username:"",password:""}))
+      setUserDetail(prev => ({...prev,firstName:"",lastName:"",email:"",username:"",password:""}))
       setPassMatch("")
     }
     else if(password !== passMatch){
@@ -43,7 +44,7 @@ export const SignUp = () => {
     }
   }
 
-  const {fullname,email,username,password} = userDetail;
+  const {firstName,lastName,email,username,password} = userDetail;
   return (
     <div className="section">
       <Wrapper>
@@ -51,9 +52,16 @@ export const SignUp = () => {
           <Header>SignUp</Header>
           <FormInput
             type="text"
-            placeholder="Enter Your Fullname"
-            name="fullname"
-            value={fullname}
+            placeholder="Enter Your firstName"
+            name="firstName"
+            value={firstName}
+            onChange={(e) => changeHandler(e)}
+          ></FormInput>
+          <FormInput
+            type="text"
+            placeholder="Enter Your lastName"
+            name="lastName"
+            value={lastName}
             onChange={(e) => changeHandler(e)}
           ></FormInput>
           <FormInput
