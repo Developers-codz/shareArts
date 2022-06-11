@@ -38,7 +38,7 @@ export const signupHandler = function (schema, request) {
       username,
       password,
       ...rest,
-      userPhoto:"https://avatars.githubusercontent.com/u/50793296?v=4",
+      userPhoto:"https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?size=338&ext=jpg&ga=GA1.2.2024815328.1654937061",
       bio: "",
       link:"",
       followers: [],

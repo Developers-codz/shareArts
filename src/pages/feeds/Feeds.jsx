@@ -7,7 +7,7 @@ import {
   Header,
   Button,
 } from "./feedsComponent";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
@@ -30,9 +30,13 @@ export const Feeds = () => {
   const dispatch = useDispatch();
   const { theme } = useTheme();
   const activeuser = users.find((user) => user._id === currentUser._id) || currentUser;
+  const [sort,setSort] = useState("Latest_First")
   const optionChangeHandler = (e) =>{
-    dispatch(setSortBy(e.target.value))
+    setSort(e.target.value)
   }
+  useEffect(()=>{
+    dispatch(setSortBy(sort))
+  },[sort])
   const sortedPosts = getSortedPost(posts,sortBy)
   return (
     <>
@@ -49,7 +53,7 @@ export const Feeds = () => {
           Add Post
         </Button>
         <BrowseFeeds>
-        <select onChange={optionChangeHandler}>
+        <select value={sort}  onChange={optionChangeHandler}>
             <option value="Latest_First" >Latest First</option>
             <option value="Trending" >Trending</option>
             <option value="Oldest_First" >Oldest First</option>
