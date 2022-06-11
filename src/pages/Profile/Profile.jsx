@@ -29,7 +29,7 @@ export const Profile = () => {
   const params = useParams();
   const [isCurrentUser, setCurrentUser] = useState(false);
  
-  console.log(isCurrentUser)
+  
   const getProfile = (username) => {
     if (username === "profile") {
       return currentUser;

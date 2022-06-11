@@ -36,10 +36,11 @@ export const addNewPost = createAsyncThunk(
   "posts/addNewPost",
   async (post, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
+    const {content,postPic} = post;
     try {
       const response = await axios.post(
         "/api/posts",
-        { content: post },
+        { content,postPic },
         {
           headers: {
             authorization: encodedToken,

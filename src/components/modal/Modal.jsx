@@ -1,12 +1,13 @@
 import Picker from "emoji-picker-react";
-import { Button } from "pages/feeds/feedsComponent";
+import { Button, PostImageButton } from "pages/feeds/feedsComponent";
 import {
   ModalWrapper,
   CloseButton,
   InputWrapper,
   InputPost,
   EmojiBtn,
-  PickerWrapper
+  PickerWrapper,
+  ImageToPost,
 } from "./modalComponent";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
@@ -15,14 +16,17 @@ import { addNewPost, editPost } from "Redux/Reducers/postsSlice";
 import { getBgColor, getTextColor } from "utils/Functions/getColor";
 import { useTheme } from "context/theme-context";
 import { useSelector } from "react-redux";
+import addPostImg from "Assets/images/addpostImg.webp";
 
 export const Modal = ({ isModalOpen, setModalOpen }) => {
   const dispatch = useDispatch();
   const { theme } = useTheme();
-  const postToEdit = useSelector((store) => store?.posts?.postToEdit);
   const [postData, setPostData] = useState({ content: "" });
   const [editData, setEditData] = useState(null);
   const [showPicker, setShowPicker] = useState(false);
+  const [imageToPost, setImageToPost] = useState(null);
+
+  const postToEdit = useSelector((store) => store?.posts?.postToEdit);
 
   const onEmojiClick = (event, emojiObject) => {
     const newData = postData.content + emojiObject.emoji;
@@ -33,19 +37,45 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
   const clickHandler = () => {
     if (postData.content === "")
       AlertToast("Please write about what are you thinking");
-    else {
-      dispatch(addNewPost(postData.content));
+    else if (imageToPost === null) {
+      AlertToast("Please Select a photo to post");
+    } else {
+      dispatch(
+        addNewPost({ ...postData, postPic: URL.createObjectURL(imageToPost) })
+      );
       setPostData("");
+      setImageToPost(null);
       setModalOpen(false);
     }
   };
+
+  const editClickHandler = () => {
+    dispatch(
+      editPost({
+        ...postToEdit,
+        content: editData.content,
+        postPic: URL.createObjectURL(imageToPost),
+      })
+    );
+    setEditData((prev) => ({ ...prev, content: "" }));
+    setModalOpen(false);
+  };
   useEffect(() => {
     setEditData({ content: postToEdit?.content });
+    setImageToPost(postToEdit?.postPic);
   }, [postToEdit]);
+
   return (
     isModalOpen && (
       <ModalWrapper style={{ backgroundColor: getBgColor(theme) }}>
         <CloseButton onClick={() => setModalOpen(false)}>X</CloseButton>
+        {postToEdit ? (
+          <img src={imageToPost} className="postImg" />
+        ) : (
+          imageToPost !== null && (
+            <img src={URL.createObjectURL(imageToPost)} className="postImg" />
+          )
+        )}
         <InputWrapper>
           <InputPost
             style={{ color: getTextColor(theme) }}
@@ -63,19 +93,21 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
             onClick={() => setShowPicker((prev) => !prev)}
           />
           <PickerWrapper>
-
-          {showPicker && <Picker onEmojiClick={onEmojiClick} />}
+            {showPicker && <Picker onEmojiClick={onEmojiClick} />}
           </PickerWrapper>
         </InputWrapper>
+        <input
+          type="file"
+          style={{ display: "none" }}
+          id="postData"
+          onChange={(e) => setImageToPost(e.target.files[0])}
+        />
+        <label htmlFor="postData">
+          {" "}
+          <PostImageButton src={addPostImg} />
+        </label>
         {postToEdit ? (
-          <Button
-            addpostBtn
-            onClick={() => {
-              dispatch(editPost({ ...postToEdit, content: editData.content }));
-              setEditData((prev) => ({ ...prev, content: "" }));
-              setModalOpen(false);
-            }}
-          >
+          <Button addpostBtn onClick={editClickHandler}>
             Edit
           </Button>
         ) : (
