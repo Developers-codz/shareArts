@@ -83,6 +83,7 @@ export const Post = ({ post, setModalOpen }) => {
                     <EditButton
                       onClick={() => {
                         setModalOpen(true);
+                        setOpen(false);
                       }}
                     >
                       Edit

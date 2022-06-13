@@ -13,7 +13,7 @@ import addPostImg from "Assets/images/addpostImg.webp";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { AlertToast } from "../toasts";
-import { addNewPost, editPost } from "Redux/Reducers/postsSlice";
+import { addNewPost, editPost,setEditEmpty } from "Redux/Reducers/postsSlice";
 import { getBgColor, getTextColor } from "utils/Functions/getColor";
 import { useTheme } from "context/theme-context";
 import { useSelector } from "react-redux";
@@ -64,6 +64,7 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
       })
     );
     setEditData((prev) => ({ ...prev, content: "" }));
+    dispatch(setEditEmpty())
     setModalOpen(false);
   };
 
@@ -74,7 +75,10 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
   return (
     isModalOpen && (
       <ModalWrapper style={{ backgroundColor: getBgColor(theme) }}>
-        <CloseButton onClick={() => setModalOpen(false)}>X</CloseButton>
+        <CloseButton onClick={() => {
+          setModalOpen(false)
+          dispatch(setEditEmpty())
+        }}>X</CloseButton>
         {imageToPost.isShow === true && (
           <img
             className="postImg"
