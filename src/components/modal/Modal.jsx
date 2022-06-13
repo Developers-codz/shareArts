@@ -7,8 +7,9 @@ import {
   InputPost,
   EmojiBtn,
   PickerWrapper,
-  ImageToPost,
+  InputImage
 } from "./modalComponent";
+import addPostImg from "Assets/images/addpostImg.webp";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { AlertToast } from "../toasts";
@@ -16,7 +17,6 @@ import { addNewPost, editPost } from "Redux/Reducers/postsSlice";
 import { getBgColor, getTextColor } from "utils/Functions/getColor";
 import { useTheme } from "context/theme-context";
 import { useSelector } from "react-redux";
-import addPostImg from "Assets/images/addpostImg.webp";
 
 export const Modal = ({ isModalOpen, setModalOpen }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,11 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
   const [postData, setPostData] = useState({ content: "" });
   const [editData, setEditData] = useState(null);
   const [showPicker, setShowPicker] = useState(false);
-  const [imageToPost, setImageToPost] = useState(null);
+  const [imageToPost, setImageToPost] = useState({
+    isShow: false,
+    image: null,
+  });
+
 
   const postToEdit = useSelector((store) => store?.posts?.postToEdit);
 
@@ -37,14 +41,17 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
   const clickHandler = () => {
     if (postData.content === "")
       AlertToast("Please write about what are you thinking");
-    else if (imageToPost === null) {
-      AlertToast("Please Select a photo to post");
-    } else {
+    else if (imageToPost.image === null)
+      AlertToast("Please choose a photo to post");
+    else {
       dispatch(
-        addNewPost({ ...postData, postPic: URL.createObjectURL(imageToPost) })
+        addNewPost({
+          ...postData,
+          postPic: URL.createObjectURL(imageToPost.image),
+        })
       );
       setPostData("");
-      setImageToPost(null);
+      setImageToPost((prev) => ({ ...prev, isShow: false, image: null }));
       setModalOpen(false);
     }
   };
@@ -54,34 +61,33 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
       editPost({
         ...postToEdit,
         content: editData.content,
-        postPic: URL.createObjectURL(imageToPost),
       })
     );
     setEditData((prev) => ({ ...prev, content: "" }));
     setModalOpen(false);
   };
+
   useEffect(() => {
     setEditData({ content: postToEdit?.content });
-    setImageToPost(postToEdit?.postPic);
   }, [postToEdit]);
 
   return (
     isModalOpen && (
       <ModalWrapper style={{ backgroundColor: getBgColor(theme) }}>
         <CloseButton onClick={() => setModalOpen(false)}>X</CloseButton>
-        {postToEdit ? (
-          <img src={imageToPost} className="postImg" />
-        ) : (
-          imageToPost !== null && (
-            <img src={URL.createObjectURL(imageToPost)} className="postImg" />
-          )
+        {imageToPost.isShow === true && (
+          <img
+            className="postImg"
+            src={URL.createObjectURL(imageToPost.image)}
+          />
         )}
+       
         <InputWrapper>
           <InputPost
             style={{ color: getTextColor(theme) }}
             name="content"
             value={postToEdit ? editData?.content : postData.content}
-            placeholder="What Are you thinking about...."
+            placeholder="Write something awesome...."
             onChange={(e) =>
               postToEdit
                 ? setEditData((prev) => ({ ...prev, content: e.target.value }))
@@ -96,16 +102,21 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
             {showPicker && <Picker onEmojiClick={onEmojiClick} />}
           </PickerWrapper>
         </InputWrapper>
-        <input
+        <InputImage
           type="file"
-          style={{ display: "none" }}
           id="postData"
-          onChange={(e) => setImageToPost(e.target.files[0])}
+          onChange={(e) => 
+            setImageToPost((prev) => ({
+                  ...prev,
+                  isShow: true,
+                  image: e.target.files[0],
+                }))
+          }
         />
-        <label htmlFor="postData">
+       {!postToEdit && <label htmlFor="postData">
           {" "}
           <PostImageButton src={addPostImg} />
-        </label>
+        </label>}
         {postToEdit ? (
           <Button addpostBtn onClick={editClickHandler}>
             Edit

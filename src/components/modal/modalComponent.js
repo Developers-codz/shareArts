@@ -70,3 +70,7 @@ export const ImageToPost = styled.img`
     width:10rem;
     height:10rem;
 `
+
+export const InputImage = styled.input`
+display:none;
+`
