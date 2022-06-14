@@ -142,6 +142,9 @@ export const Button = styled.button`
   &:active{
     color:var(--color-success) !important;
   }
+  &:disabled{
+    cursor:not-allowed;
+  }
 
   @media only screen and (max-width:768px){
     margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 .1rem"};
@@ -194,3 +197,12 @@ border-radius:10px;
 }
 `
 export const DeleteButton = styled(EditButton)``
+
+export const HiddenBtn = styled.button`
+background-color:transparent;
+border:none;
+width:2.5rem;
+&:disabled{
+  cursor:not-allowed;
+}
+`

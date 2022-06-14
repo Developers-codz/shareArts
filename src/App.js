@@ -9,7 +9,6 @@ import {
 } from "./components";
 import { useTheme } from "./context/theme-context";
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import {
   Feeds,
   Landing,
@@ -40,6 +39,7 @@ function App() {
   return (
     <>
      <Modal />
+     <ToastContainer />
       <div className={`App ${theme === "dark" ? "dark" : "light"}`} style={
           isModalOpen
             ? { pointerEvents: "none", opacity: ".5" }
@@ -67,7 +67,6 @@ function App() {
         <Route path="/mockman" element={<MockMan />} />
       </Routes>
       <BottomNavigation />
-      <ToastContainer />
     </div>
     </>
   );

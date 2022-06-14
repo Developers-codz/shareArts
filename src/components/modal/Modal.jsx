@@ -31,7 +31,7 @@ export const Modal = () => {
 
 
   const postToEdit = useSelector((store) => store?.posts?.postToEdit);
-  const {isModalOpen} = useSelector((store) => store.posts)
+  const {isModalOpen,isFetching} = useSelector((store) => store.posts)
 
   const onEmojiClick = (event, emojiObject) => {
     const newData = postData.content + emojiObject.emoji;
@@ -123,11 +123,11 @@ export const Modal = () => {
           <PostImageButton src={addPostImg} />
         </label>}
         {postToEdit ? (
-          <Button addpostBtn onClick={editClickHandler}>
+          <Button addpostBtn onClick={editClickHandler} disabled={isFetching}>
             Edit
           </Button>
         ) : (
-          <Button addpostBtn onClick={clickHandler}>
+          <Button addpostBtn onClick={clickHandler} disabled={isFetching}>
             Post
           </Button>
         )}

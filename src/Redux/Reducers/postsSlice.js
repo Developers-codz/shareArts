@@ -8,7 +8,8 @@ const initialState = {
   loading: false,
   postToEdit: null,
   sortBy:null,
-  isModalOpen:false
+  isModalOpen:false,
+  isFetching:false,
 };
 
 export const getAllPosts = createAsyncThunk(
@@ -66,7 +67,6 @@ export const deletePost = createAsyncThunk(
           authorization: encodedToken,
         },
       });
-      SuccessToast("Deleted Successfully");
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -258,38 +258,61 @@ const postsSlice = createSlice({
       })
 
       .addCase(addNewPost.fulfilled, (state, action) => {
+        state.isFetching = false
         SuccessToast("Posted Successfully");
         state.posts = action.payload.posts;
       })
       .addCase(addNewPost.rejected, (state, action) => {
         AlertToast("Unable to Post");
       })
+      .addCase(addNewPost.pending,(state)=>{
+        state.isFetching = true
+      })
 
  
       .addCase(editPost.fulfilled, (state, action) => {
+        SuccessToast("Post edited Successfully");
+        state.isFetching = false
         state.posts = action.payload.posts;
       })
       .addCase(editPost.rejected, (state, action) => {})
+      .addCase(editPost.pending,(state) =>{
+        state.isFetching = true
+      })
+
       .addCase(deletePost.fulfilled,(state,action)=>{
+        state.isFetching = false
+        SuccessToast("Post Deleted Successfully")
         state.posts = action.payload.posts;
       })
       .addCase(deletePost.rejected, (state, action) => {
         AlertToast("something went wrong");
       })
+      .addCase(deletePost.pending,(state)=>{
+        state.isFetching = true
+      })
 
       .addCase(commentPost.fulfilled, (state, action) => {
+        state.isFetching = false
         state.posts = action.payload.posts;
       })
       .addCase(commentPost.rejected, () => {
         AlertToast("Something went wrong");
       })
+      .addCase(commentPost.pending,(state) =>{
+        state.isFetching = true
+      })
 
       .addCase(deletePostComment.fulfilled,(state,action) =>{
+        state.isFetching = false
         state.posts = action.payload.posts
       })
       .addCase(deletePostComment.rejected,(state,action)=>{
         console.log(action.error)
         AlertToast("something went wrong");
+      })
+      .addCase(deletePostComment.pending,(state) =>{
+        state.isFetching = true
       })
 
       .addCase(editPostComment.fulfilled,(state,action) =>{
@@ -301,27 +324,47 @@ const postsSlice = createSlice({
       })
 
       .addCase(addLikes.fulfilled, (state, action) => {
+        state.isFetching = false
         state.posts = action.payload.posts;
       })
       .addCase(addLikes.rejected, (state, action) => {
         AlertToast(`${action.payload.errors}`);
       })
+      .addCase(addLikes.pending,(state)=>{
+        state.isFetching = true
+      })
+
       .addCase(removeLikes.fulfilled, (state, action) => {
+        state.isFetching = false
         state.posts = action.payload.posts;
       })
       .addCase(removeLikes.rejected, (state, action) => {})
+      .addCase(removeLikes.pending,(state)=>{
+        state.isFetching = true
+      })
+
       .addCase(bookmark.fulfilled, (state, action) => {
+        state.isFetching = false;
         SuccessToast("Added to bookmark");
         state.bookmarked = action.payload.bookmarks;
       })
       .addCase(bookmark.rejected, (state, action) => {
         AlertToast(`${action.payload.errors}`);
       })
+      .addCase(bookmark.pending,(state)=>{
+        state.isFetching = true
+      })
+
+
       .addCase(removeBookmark.fulfilled, (state, action) => {
+        state.isFetching = false
         state.bookmarked = action.payload.bookmarks;
       })
       .addCase(removeBookmark.rejected, (state, action) => {
         AlertToast(`${action.payload.errors}`);
+      })
+      .addCase(removeBookmark.pending,(state)=>{
+        state.isFetching = true
       });
   },
 });
