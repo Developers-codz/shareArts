@@ -32,7 +32,7 @@ export const Profile = () => {
   
   const getProfile = (username) => {
     if (username === "profile") {
-      return currentUser;
+      return users.find(user => user._id === currentUser._id);
     } else {
       return users.find((user) => user.username === username);
     }

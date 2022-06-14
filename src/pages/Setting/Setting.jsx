@@ -13,23 +13,25 @@ import { EditIcon } from "Assets/icons";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editUser } from "Redux/Reducers/authSlice";
+import { editUser } from "Redux/Reducers/userSlice";
 import { logout } from "Redux/Reducers/authSlice";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 import { Navigate,useNavigate } from "react-router-dom";
 
 export const Setting = () => {
   useDocumentTitle("Settings")
-  const { currentUser,isAuth } = useSelector((store) => store.auth);
-  const [photo,setUserPhoto] = useState(currentUser.userPhoto)
+  const { currentUser } = useSelector((store) => store.auth);
+  const {users,isUpdating} = useSelector(store => store.users)
   const navigate = useNavigate();
+  const activeUser = users.find(user => user._id === currentUser._id)
+  const [photo,setUserPhoto] = useState(activeUser.userPhoto)
   const [newData, setNewData] = useState({
-    firstName: currentUser.firstName,
-    lastName:currentUser.lastName,
-    link: currentUser.link,
-    bio: currentUser.bio,
-    userPhoto:currentUser.userPhoto,
-    email: currentUser.email,
+    firstName: activeUser.firstName,
+    lastName:activeUser.lastName,
+    link: activeUser.link,
+    bio: activeUser.bio,
+    userPhoto:activeUser.userPhoto,
+    email: activeUser.email,
   });
 
   
@@ -39,7 +41,7 @@ export const Setting = () => {
     setNewData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const clickHandler = () =>{
-    if(photo === currentUser.userPhoto){
+    if(photo === activeUser.userPhoto){
       dispatch(editUser(newData))
     }
     else{
@@ -103,7 +105,7 @@ export const Setting = () => {
           value={link}
           onChange={(e) => changeHandler(e)}
         ></InputField>
-        <PrimaryButton  primary onClick={clickHandler} disabled={isAuth}>Update Profile</PrimaryButton>
+        <PrimaryButton  primary onClick={clickHandler} disabled={isUpdating}>Update Profile</PrimaryButton>
    
       </Form>
       <Form>

@@ -10,8 +10,8 @@ import {
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
-import { setSortBy, setModalOpen } from "Redux/Reducers/postsSlice";
+import { followUser, unFollowUser,getAllUsers } from "Redux/Reducers/userSlice";
+import { setSortBy, setModalOpen,getAllPosts } from "Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "context/theme-context";
 import { getTextColor } from "utils/Functions/getColor";
@@ -22,7 +22,7 @@ import { useDocumentTitle } from "utils/hooks/useDocumentTitle";
 export const Feeds = () => {
   useDocumentTitle("Feeds");
   const navigate = useNavigate();
-  const { posts, sortBy, isModalOpen } = useSelector((store) => store.posts);
+  const { posts, sortBy } = useSelector((store) => store.posts);
   const { users ,isFollowUnfollow} = useSelector((store) => store.users);
   const { currentUser } = useSelector((store) => store.auth);
 
@@ -34,6 +34,11 @@ export const Feeds = () => {
   const optionChangeHandler = (e) => {
     setSort(e.target.value);
   };
+  useEffect(() => {
+    
+    dispatch(getAllPosts());
+    dispatch(getAllUsers());
+  }, []);
   useEffect(() => {
     dispatch(setSortBy(sort));
   }, [sort]);

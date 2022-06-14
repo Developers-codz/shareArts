@@ -56,7 +56,7 @@ export const Post = ({ post }) => {
   const currentUser = useSelector((store) => store.auth.currentUser);
   const { users } = useSelector((store) => store.users);
   const {isFetching} =useSelector((store) => store.posts);
-  const activeuser = users.find((user) => user._id === currentUser._id);
+  const activeuser =  currentUser
   const userToFollow = users.find((user) => user.username === post.username);
   const clickHandler = () => {
     setOpen((open) => !open);

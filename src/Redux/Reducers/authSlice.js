@@ -25,6 +25,7 @@ export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
     try{
         const response = await axios.post("/api/auth/signup",JSON.stringify(userDetail))
         SuccessToast("SignIn Successful")
+        console.log(response.data)
         return response.data
     }
     catch(error){
@@ -33,28 +34,28 @@ export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
     }
 })
 
-export const editUser = createAsyncThunk(
-    "users/edit",
-    async (userData, { rejectWithValue }) => {
-      const encodedToken = localStorage.getItem("token");
-      try {
-        const response = await axios.post(
-          "/api/users/edit",
-          { userData },
-          {
-            headers: {
-              authorization: encodedToken,
-            },
-          }
-        );
-      SuccessToast("User Data Updated Successfully")
-      console.log(response.data)
-        return response.data;
-      } catch (error) {
-        return rejectWithValue(error);
-      }
-    }
-  );
+// export const editUser = createAsyncThunk(
+//     "users/edit",
+//     async (userData, { rejectWithValue }) => {
+//       const encodedToken = localStorage.getItem("token");
+//       try {
+//         const response = await axios.post(
+//           "/api/users/edit",
+//           { userData },
+//           {
+//             headers: {
+//               authorization: encodedToken,
+//             },
+//           }
+//         );
+//       SuccessToast("User Data Updated Successfully")
+//       console.log(response.data)
+//         return response.data;
+//       } catch (error) {
+//         return rejectWithValue(error);
+//       }
+//     }
+//   );
 
 export const verifyToken = createAsyncThunk("/auth/verifyToken",async (_,rejectWithValue) =>{
     const encodedToken = localStorage.getItem("token");
@@ -113,16 +114,16 @@ const authSlice = createSlice({
                 state.currentUser = action.payload.user
             }
         })
-        .addCase(editUser.fulfilled, (state, action) => {
-            state.isAuth=false
-            state.currentUser = action.payload.user
-          })
-          .addCase(editUser.rejected, (action) => {
-            AlertToast(`${action.payload.errors}`);
-          })
-          .addCase(editUser.pending,(state)=>{
-              state.isAuth=true
-          })
+        // .addCase(editUser.fulfilled, (state, action) => {
+        //     state.isAuth=false
+        //     state.currentUser = action.payload.user
+        //   })
+        //   .addCase(editUser.rejected, (action) => {
+        //     AlertToast(`${action.payload.errors}`);
+        //   })
+        //   .addCase(editUser.pending,(state)=>{
+        //       state.isAuth=true
+        //   })
     }
 })
 
