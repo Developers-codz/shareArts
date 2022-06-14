@@ -133,8 +133,8 @@ export const Button = styled.button`
   border-radius:${(props) => props.addpostBtn ? "10px":""};
   font-size: ${(props) => props.lg ? "1.4rem" : "1.1rem"};
   position:${(props) => props.addpostBtn ? "fixed":""};
-  bottom:${(props) => props.addpostBtn ? "20px":""};
-  right:${(props) => props.addpostBtn ? "20px":""};
+  bottom:${(props) => props.addpostBtn ? "1.25rem":""};
+  right:${(props) => props.addpostBtn ? "1.25rem":""};
   &:hover {
     transform: scale(1.03, 1.03);
     color:var( --primary-cta) !important;
@@ -142,13 +142,25 @@ export const Button = styled.button`
   &:active{
     color:var(--color-success) !important;
   }
-  
+  &:disabled{
+    cursor:not-allowed;
+  }
+
   @media only screen and (max-width:768px){
     margin:${props => props.lg ? "3rem 0 1rem 0" :  "0 .1rem"};
     padding:${(props) => props.addpostBtn ? ".5rem":"0"};
     bottom:${(props) => props.addpostBtn ? "60px":""};
     }
 `;
+export const PostImageButton = styled.img`
+z-index:5;
+position:fixed;
+bottom:20px;
+left:40px;
+width:30px;
+height:30px;
+cursor:pointer;
+`
 
 export const ToggleMenu = styled.div`
 border-radius:10px;
@@ -185,3 +197,12 @@ border-radius:10px;
 }
 `
 export const DeleteButton = styled(EditButton)``
+
+export const HiddenBtn = styled.button`
+background-color:transparent;
+border:none;
+width:2.5rem;
+&:disabled{
+  cursor:not-allowed;
+}
+`

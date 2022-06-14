@@ -7,59 +7,59 @@ import {
   Header,
   Button,
 } from "./feedsComponent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
-import {setSortBy} from "Redux/Reducers/postsSlice"
+import { followUser, unFollowUser,getAllUsers } from "Redux/Reducers/userSlice";
+import { setSortBy, setModalOpen,getAllPosts } from "Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "context/theme-context";
 import { getTextColor } from "utils/Functions/getColor";
-import { Post, Modal } from "components";
-import {getSortedPost} from "utils/Functions/getSortedPost"
-import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
-
+import { Post } from "components";
+import { getSortedPost } from "utils/Functions/getSortedPost";
+import { useDocumentTitle } from "utils/hooks/useDocumentTitle";
 
 export const Feeds = () => {
-  useDocumentTitle("Feeds")
+  useDocumentTitle("Feeds");
   const navigate = useNavigate();
-  const { posts,sortBy } = useSelector((store) => store.posts);
-  const { users } = useSelector((store) => store.users);
+  const { posts, sortBy } = useSelector((store) => store.posts);
+  const { users ,isFollowUnfollow} = useSelector((store) => store.users);
   const { currentUser } = useSelector((store) => store.auth);
-  const [isModalOpen, setModalOpen] = useState(false);
+
   const dispatch = useDispatch();
   const { theme } = useTheme();
-  const activeuser = users.find((user) => user._id === currentUser._id) || currentUser;
-  const optionChangeHandler = (e) =>{
-    dispatch(setSortBy(e.target.value))
-  }
-  const sortedPosts = getSortedPost(posts,sortBy)
+  const activeuser =
+    users.find((user) => user._id === currentUser._id) || currentUser;
+  const [sort, setSort] = useState("Latest_First");
+  const optionChangeHandler = (e) => {
+    setSort(e.target.value);
+  };
+  useEffect(() => {
+    
+    dispatch(getAllPosts());
+    dispatch(getAllUsers());
+  }, []);
+  useEffect(() => {
+    dispatch(setSortBy(sort));
+  }, [sort]);
+  const sortedPosts = getSortedPost(posts, sortBy);
   return (
     <>
-      <Modal isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
-      <div
-        className="section"
-        style={
-          isModalOpen
-            ? { pointerEvents: "none", opacity: ".5" }
-            : { pointerEvents: "auto", opacity: "1" }
-        }
-      >
-         <Button addpostBtn onClick={() => setModalOpen(true)}>
+      <div className="section">
+        <Button addpostBtn onClick={() => dispatch(setModalOpen())}>
           Add Post
         </Button>
         <BrowseFeeds>
-        <select onChange={optionChangeHandler}>
-            <option value="Latest_First" >Latest First</option>
-            <option value="Trending" >Trending</option>
-            <option value="Oldest_First" >Oldest First</option>
+          <select value={sort} onChange={optionChangeHandler}>
+            <option value="Latest_First">Latest First</option>
+            <option value="Trending">Trending</option>
+            <option value="Oldest_First">Oldest First</option>
           </select>
           {sortedPosts.map((post) => {
-            return <Post key={post._id} post={post} setModalOpen={setModalOpen} />;
+            return <Post key={post._id} post={post} />;
           })}
         </BrowseFeeds>
         <SuggestionArea>
-
           <Header>Suggestions For you </Header>
           {users
             .filter((user) => user._id !== currentUser._id)
@@ -78,6 +78,7 @@ export const Feeds = () => {
                     <Button
                       style={{ color: getTextColor(theme) }}
                       onClick={() => dispatch(unFollowUser(user._id))}
+                      disabled={isFollowUnfollow}
                     >
                       Following
                     </Button>
@@ -85,6 +86,7 @@ export const Feeds = () => {
                     <Button
                       style={{ color: getTextColor(theme) }}
                       onClick={() => dispatch(followUser(user._id))}
+                      disabled={isFollowUnfollow}
                     >
                       Follow
                     </Button>
@@ -93,7 +95,6 @@ export const Feeds = () => {
               );
             })}
         </SuggestionArea>
-       
       </div>
     </>
   );

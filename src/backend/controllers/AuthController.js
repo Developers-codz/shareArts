@@ -16,7 +16,7 @@ const sign = require("jwt-encode");
  * */
 
 export const signupHandler = function (schema, request) {
-  const { username, password, ...rest } = JSON.parse(request.requestBody);
+  const { username, password,userPhoto, ...rest } = JSON.parse(request.requestBody);
   try {
     // check if username already exists
     const foundUser = schema.users.findBy({ username: username });
@@ -38,6 +38,9 @@ export const signupHandler = function (schema, request) {
       username,
       password,
       ...rest,
+      userPhoto:"https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?size=338&ext=jpg&ga=GA1.2.2024815328.1654937061",
+      bio: "",
+      link:"",
       followers: [],
       following: [],
       bookmarks: [],

@@ -77,10 +77,11 @@ export const getAllUserPostsHandler = function (schema, request) {
         }
       );
     }
-    const { content } = JSON.parse(request.requestBody);
+    const { content,postPic } = JSON.parse(request.requestBody);
     const post = {
       _id: uuid(),
       content: content,
+      postPic:postPic,
       likes: {
         likeCount: 0,
         likedBy: [],
@@ -88,7 +89,7 @@ export const getAllUserPostsHandler = function (schema, request) {
       },
       comments: [],
       userPhoto: user.userPhoto,
-      postPic:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      // postPic:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
       username: user.username,
       createdAt: formatDate(),
       updatedAt: formatDate(),

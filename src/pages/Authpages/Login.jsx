@@ -9,12 +9,14 @@ import {
   PrimaryButton,
   Para,
 } from "./AuthFormComponent";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "Redux/Reducers/authSlice";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
+
 export const Login = () => {
   useDocumentTitle("Login")
   const dispatch = useDispatch();
+  const {isAuth } = useSelector((store) => store.auth)
   const [userDetail, setUserDetail] = useState({ username: "", password: "" });
   const changeHandler = (e) => {
     setUserDetail((prevDetail) => ({
@@ -22,9 +24,12 @@ export const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  const setCredential = () =>{
+    setUserDetail((prev) => ({ ...prev, username: "developers-codz", password: "developersCodz" }));
+  }
 
   const clickHandler = (e) => {
-    dispatch(login(e, userDetail));
+    dispatch(login(userDetail));
     setUserDetail((prev) => ({ ...prev, username: "", password: "" }));
   };
   const { username, password } = userDetail;
@@ -48,10 +53,10 @@ export const Login = () => {
             onChange={(e) => changeHandler(e)}
           ></FormInput>
           <Header small>OR</Header>
-          <Button value="credentialLogin" onClick={(e) => clickHandler(e)}>
+          <Button disabled={isAuth} onClick={(e) => setCredential(e)}>
             Login with Test Credential
           </Button>
-          <PrimaryButton primary onClick={(e) => clickHandler(e)}>
+          <PrimaryButton primary onClick={(e) => clickHandler(e)} disabled={isAuth} >
             Login
           </PrimaryButton>
           <Para>

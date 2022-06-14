@@ -4,14 +4,12 @@ import { AlertToast,SuccessToast } from "components/toasts";
 
 const initialState = {
     currentUser:{},
+    isAuth:false
 };
 
-export const login = createAsyncThunk("/auth/login", async (e,userDetail) =>{
+export const login = createAsyncThunk("/auth/login", async (userDetail) =>{
     try {
-        const response = await axios.post(`api/auth/login`, e.target.value === "credentialLogin" ? {
-            username: "developers-codz",
-            password: "developersCodz",
-        } : JSON.stringify(userDetail));
+        const response = await axios.post(`api/auth/login`,  JSON.stringify(userDetail));
         SuccessToast("Login Successful")
         return response.data;
         
@@ -31,6 +29,8 @@ export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
 
     }
 })
+
+
 
 export const verifyToken = createAsyncThunk("/auth/verifyToken",async (_,rejectWithValue) =>{
     const encodedToken = localStorage.getItem("token");
@@ -60,19 +60,30 @@ const authSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(login.fulfilled,(state,action) =>{
+            state.isAuth=false
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.foundUser
         })
         .addCase(login.rejected, (state, action) => {
             AlertToast(`${action.payload.errors}`);
           })
+        .addCase(login.pending,(state)=>{
+            state.isAuth=true
+        })
+
+
         .addCase(signup.fulfilled,(state,action) => {
+            state.isAuth=false
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.createdUser
         })
         .addCase(signup.rejected,(state,action) =>{
         
         })
+        .addCase(signup.pending,(state)=>{
+            state.isAuth=true
+        })
+
         .addCase(verifyToken.fulfilled,(state,action)=>{
             if(action.payload){
                 state.currentUser = action.payload.user

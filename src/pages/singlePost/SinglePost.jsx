@@ -14,7 +14,7 @@ import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 export const SinglePost = () => {
   const { theme } = useTheme();
   const dispatch = useDispatch();
-  const { posts } = useSelector((store) => store.posts);
+  const { posts ,isFetching} = useSelector((store) => store.posts);
   const {editModalOpen} = useSelector((store) => store.comments)
   
 
@@ -50,6 +50,7 @@ export const SinglePost = () => {
                 lg
                 style={{ color: getTextColor(theme) }}
                 fixed_bottom_right
+                disabled={isFetching}
                 onClick={() => {
                   if (comment.comment === "") AlertToast("What to comment ?");
                   else {

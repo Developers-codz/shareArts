@@ -27,6 +27,25 @@ export const posts = [
   },
   {
     _id: uuid(),
+    name:"Narendra",
+    userPhoto:"https://pbs.twimg.com/profile_images/1479443900368519169/PgOyX1vt_200x200.jpg",
+    postPic:"https://akm-img-a-in.tosshub.com/indiatoday/images/story/202205/Untitled_design_-_2022-05-31T1_2.jpg?VgU5Q2aIHnw2eaOyGSV3qJJfbXxMAkMt&size=770:433",
+
+    content:
+      "A spectacular welcome in Shimla. Have a look.",
+    likes: {
+      likeCount: 52123,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "narendramodi",
+    comments:[],
+    time: formatTime(),
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
     name:"Kajal",
     userPhoto:"https://avatars.githubusercontent.com/u/50793296?v=4",
     postPic:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
@@ -80,4 +99,5 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
+
 ];

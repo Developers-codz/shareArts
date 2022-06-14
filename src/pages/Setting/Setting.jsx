@@ -16,41 +16,48 @@ import { useDispatch } from "react-redux";
 import { editUser } from "Redux/Reducers/userSlice";
 import { logout } from "Redux/Reducers/authSlice";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
+import { Navigate,useNavigate } from "react-router-dom";
 
 export const Setting = () => {
-  
   useDocumentTitle("Settings")
   const { currentUser } = useSelector((store) => store.auth);
-  const {users} = useSelector((store) => store.users);
-
-  const user = users.find(user => user._id === currentUser._id)
-  
+  const {users,isUpdating} = useSelector(store => store.users)
+  const navigate = useNavigate();
+  const activeUser = users.find(user => user._id === currentUser._id)
+  const [photo,setUserPhoto] = useState(activeUser.userPhoto)
   const [newData, setNewData] = useState({
-    firstName: user.firstName,
-    lastName:user.lastName,
-    link: user.link,
-    bio: user.bio,
-    userPhoto: user.userPhoto,
-    email: user.email,
+    firstName: activeUser.firstName,
+    lastName:activeUser.lastName,
+    link: activeUser.link,
+    bio: activeUser.bio,
+    userPhoto:activeUser.userPhoto,
+    email: activeUser.email,
   });
+
+  
   const { firstName,lastName, link, bio, userPhoto, email } = newData;
   const dispatch = useDispatch();
   const changeHandler = (e) => {
     setNewData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const clickHandler = () =>{
-      dispatch(editUser(newData)) 
+    if(photo === activeUser.userPhoto){
+      dispatch(editUser(newData))
+    }
+    else{
+      dispatch(editUser({...newData,userPhoto:URL.createObjectURL(photo)})) 
+    }
   }
   return (
     <Wrapper>
       
       <Form>
         <ImageWrapper>
-          <ProfileImg src={userPhoto}></ProfileImg>
+          <ProfileImg src={photo === userPhoto ? photo : URL.createObjectURL(photo)}></ProfileImg>
           <EditBtn htmlFor="picUpdate">
             <EditIcon />
           </EditBtn>
-          <input type="file" id="picUpdate" style={{ display: "none" }} />
+          <input type="file" onChange={(e)=>setUserPhoto(e.target.files[0])} id="picUpdate" style={{ display: "none" }} />
         </ImageWrapper>
         <Label htmlFor="firstName">
           First Name
@@ -98,7 +105,7 @@ export const Setting = () => {
           value={link}
           onChange={(e) => changeHandler(e)}
         ></InputField>
-        <PrimaryButton  primary onClick={clickHandler}>Update Profile</PrimaryButton>
+        <PrimaryButton  primary onClick={clickHandler} disabled={isUpdating}>Update Profile</PrimaryButton>
    
       </Form>
       <Form>

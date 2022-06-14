@@ -16,6 +16,7 @@ import {
   VerticalIconWrapper,
   EditButton,
   DeleteButton,
+  HiddenBtn
 } from "pages/feeds/feedsComponent";
 import {
   BookmarkIcon,
@@ -37,6 +38,7 @@ import {
   deletePost,
   getPostToEdit,
   setEditEmpty,
+  setModalOpen
 } from "Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -44,17 +46,17 @@ import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 
-export const Post = ({ post, setModalOpen }) => {
+export const Post = ({ post }) => {
   const [isMenuOpen, setOpen] = useState(false);
 
   const { theme } = useTheme();
   const dispatch = useDispatch();
 
   const bookmarked = useSelector((store) => store.posts.bookmarked);
-
   const currentUser = useSelector((store) => store.auth.currentUser);
   const { users } = useSelector((store) => store.users);
-  const activeuser = users.find((user) => user._id === currentUser._id);
+  const {isFetching} =useSelector((store) => store.posts);
+  const activeuser =  users.find(user => user._id === currentUser._id)
   const userToFollow = users.find((user) => user.username === post.username);
   const clickHandler = () => {
     setOpen((open) => !open);
@@ -83,7 +85,8 @@ export const Post = ({ post, setModalOpen }) => {
                     {" "}
                     <EditButton
                       onClick={() => {
-                        setModalOpen(true);
+                        dispatch(setModalOpen(true))
+                        setOpen(false);
                       }}
                     >
                       Edit
@@ -128,14 +131,19 @@ export const Post = ({ post, setModalOpen }) => {
             <LeftArea>
               {post.likes.likedBy
                 .map((liked) => liked.username)
-                .includes("developers-codz") ? (
+                .includes(currentUser.username) ? (
+                  <HiddenBtn disabled={isFetching}>
+
                 <span onClick={() => dispatch(removeLikes(post._id))}>
                   <HeartFilled />
                 </span>
+                  </HiddenBtn>
               ) : (
+                <HiddenBtn disabled={isFetching}>
                 <span onClick={() => dispatch(addLikes(post._id))}>
                   <HeartOutline />
                 </span>
+                </HiddenBtn>
               )}
               <span onClick={() => navigate(`/posts/${post._id}`)}>
                 <CommentIcon />
@@ -144,14 +152,18 @@ export const Post = ({ post, setModalOpen }) => {
             </LeftArea>
             <RightArea>
               {bookmarked.map((bookmark) => bookmark._id).includes(post._id) ? (
+                <HiddenBtn disabled={isFetching}>
                 <span onClick={() => dispatch(removeBookmark(post._id))}>
                   <BookmarkedIcon />
                 </span>
+                </HiddenBtn>
               ) : (
+                <HiddenBtn disabled={isFetching}>
                 <span onClick={() => dispatch(bookmark(post._id))}>
                   {" "}
                   <BookmarkIcon />
                 </span>
+                </HiddenBtn>
               )}
             </RightArea>
           </Icons>

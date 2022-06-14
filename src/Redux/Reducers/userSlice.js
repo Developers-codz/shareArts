@@ -3,6 +3,8 @@ import axios from "axios";
 import { AlertToast, SuccessToast } from "components/toasts";
 const initialState = {
   users: [],
+  isFollowUnfollow:false,
+  isUpdating:false
 };
 
 export const getAllUsers = createAsyncThunk(
@@ -57,6 +59,7 @@ export const unFollowUser = createAsyncThunk(
 );
 
 const setFollowUser = (state, action) => {
+  state.isFollowUnfollow = false;
     if (action.payload !== undefined) {
       state.users = state.users.map((user) => {
         if (user._id === action.payload.followUser._id) {
@@ -68,27 +71,29 @@ const setFollowUser = (state, action) => {
     }
   };
 
-export const editUser = createAsyncThunk(
-  "users/edit",
-  async (userData, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
-    try {
-      const response = await axios.post(
-        "/api/users/edit",
-        { userData },
-        {
-          headers: {
-            authorization: encodedToken,
-          },
-        }
-      );
-    SuccessToast("User Data Updated Successfully")
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error);
+  export const editUser = createAsyncThunk(
+    "users/edit",
+    async (userData, { rejectWithValue }) => {
+      const encodedToken = localStorage.getItem("token");
+      try {
+        const response = await axios.post(
+          "/api/users/edit",
+          { userData },
+          {
+            headers: {
+              authorization: encodedToken,
+            },
+          }
+        );
+      SuccessToast("User Data Updated Successfully")
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error);
+      }
     }
-  }
-);
+  );
+
+
 
 const userSlice = createSlice({
   name: "users",
@@ -103,8 +108,16 @@ const userSlice = createSlice({
       })
 
       .addCase(followUser.fulfilled ,setFollowUser)
+      .addCase(followUser.pending,(state)=>{
+        state.isFollowUnfollow = true
+      })
       .addCase(unFollowUser.fulfilled,setFollowUser)
+      .addCase(unFollowUser.pending,(state)=>{
+        state.isFollowUnfollow = true
+      })
+
       .addCase(editUser.fulfilled, (state, action) => {
+        state.isUpdating = false
         state.users = state.users.map((user) => {
           if (user._id === action.payload.user._id) return action.payload.user;
           else return user;
@@ -112,7 +125,10 @@ const userSlice = createSlice({
       })
       .addCase(editUser.rejected, (state, action) => {
         AlertToast(`${action.payload.errors}`);
-      });
+      })
+      .addCase(editUser.pending,(state)=>{
+        state.isUpdating = true
+      })
   },
 });
 

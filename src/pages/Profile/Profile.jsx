@@ -15,7 +15,7 @@ import { useTheme } from "context/theme-context";
 import { Tabs } from "./Tab/Tabs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 
 export const Profile = () => {
@@ -27,18 +27,21 @@ export const Profile = () => {
 
   const navigate = useNavigate();
   const params = useParams();
-  const [isCurrentUser, setCurrentUser] = useState(
-    params.username === "profile" ? true : false
-  );
+  const [isCurrentUser, setCurrentUser] = useState(false);
+ 
+  
   const getProfile = (username) => {
     if (username === "profile") {
-      return users.find((user) => user.username === currentUser.username);
+      return users.find(user => user._id === currentUser._id);
     } else {
       return users.find((user) => user.username === username);
     }
   };
   let profile = getProfile(params.username, 10);
-const postOfUser = posts.filter(post =>{
+  useEffect(()=>{
+    params.username === "profile" ? setCurrentUser(true) : setCurrentUser(false)
+  },[profile])
+  const postOfUser = posts.filter(post =>{
   if(params.username === "profile"){
     return post.username === currentUser.username
   }
