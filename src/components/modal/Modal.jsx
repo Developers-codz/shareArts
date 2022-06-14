@@ -13,12 +13,12 @@ import addPostImg from "Assets/images/addpostImg.webp";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { AlertToast } from "../toasts";
-import { addNewPost, editPost,setEditEmpty } from "Redux/Reducers/postsSlice";
+import { addNewPost, editPost,setEditEmpty,setModalOpen } from "Redux/Reducers/postsSlice";
 import { getBgColor, getTextColor } from "utils/Functions/getColor";
 import { useTheme } from "context/theme-context";
 import { useSelector } from "react-redux";
 
-export const Modal = ({ isModalOpen, setModalOpen }) => {
+export const Modal = () => {
   const dispatch = useDispatch();
   const { theme } = useTheme();
   const [postData, setPostData] = useState({ content: "" });
@@ -31,6 +31,7 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
 
 
   const postToEdit = useSelector((store) => store?.posts?.postToEdit);
+  const {isModalOpen} = useSelector((store) => store.posts)
 
   const onEmojiClick = (event, emojiObject) => {
     const newData = postData.content + emojiObject.emoji;
@@ -52,7 +53,7 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
       );
       setPostData("");
       setImageToPost((prev) => ({ ...prev, isShow: false, image: null }));
-      setModalOpen(false);
+      dispatch(setModalOpen());
     }
   };
 
@@ -65,7 +66,7 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
     );
     setEditData((prev) => ({ ...prev, content: "" }));
     dispatch(setEditEmpty())
-    setModalOpen(false);
+    dispatch(setModalOpen());
   };
 
   useEffect(() => {
@@ -76,7 +77,7 @@ export const Modal = ({ isModalOpen, setModalOpen }) => {
     isModalOpen && (
       <ModalWrapper style={{ backgroundColor: getBgColor(theme) }}>
         <CloseButton onClick={() => {
-          setModalOpen(false)
+          dispatch(setModalOpen());
           dispatch(setEditEmpty())
         }}>X</CloseButton>
         {imageToPost.isShow === true && (

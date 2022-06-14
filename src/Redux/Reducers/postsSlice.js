@@ -7,7 +7,8 @@ const initialState = {
   bookmarked: [],
   loading: false,
   postToEdit: null,
-  sortBy:null
+  sortBy:null,
+  isModalOpen:false
 };
 
 export const getAllPosts = createAsyncThunk(
@@ -233,6 +234,9 @@ const postsSlice = createSlice({
     },
     setSortBy:(state,action) =>{
       state.sortBy = action.payload
+    },
+    setModalOpen:(state) => {
+      state.isModalOpen = !state.isModalOpen
     }
   },
   extraReducers(builder) {
@@ -324,4 +328,4 @@ const postsSlice = createSlice({
 
 const { actions, reducer } = postsSlice;
 export { actions, reducer as default };
-export const { getPostToEdit, setEditEmpty,setSortBy } = actions;
+export const { getPostToEdit, setEditEmpty,setSortBy,setModalOpen } = actions;

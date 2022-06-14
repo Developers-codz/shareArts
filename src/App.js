@@ -5,9 +5,11 @@ import {
   BottomNavigation,
   RequireAuth,
   RestrictAuth,
+  Modal
 } from "./components";
 import { useTheme } from "./context/theme-context";
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import {
   Feeds,
   Landing,
@@ -23,11 +25,12 @@ import { getAllPosts } from "Redux/Reducers/postsSlice";
 import { getAllUsers } from "Redux/Reducers/userSlice";
 import { verifyToken } from "Redux/Reducers/authSlice";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MockMan from "mockman-js";
 
 function App() {
   const { theme } = useTheme();
+  const {isModalOpen} = useSelector(store => store.posts)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPosts());
@@ -35,7 +38,13 @@ function App() {
     dispatch(verifyToken())
   }, []);
   return (
-    <div className={`App ${theme === "dark" ? "dark" : "light"}`}>
+    <>
+     <Modal />
+      <div className={`App ${theme === "dark" ? "dark" : "light"}`} style={
+          isModalOpen
+            ? { pointerEvents: "none", opacity: ".5" }
+            : { pointerEvents: "auto", opacity: "1" }
+        }>
       <GlobalStyle />
       <Navbar />
       <Aside />
@@ -60,6 +69,7 @@ function App() {
       <BottomNavigation />
       <ToastContainer />
     </div>
+    </>
   );
 }
 

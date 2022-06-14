@@ -37,6 +37,7 @@ import {
   deletePost,
   getPostToEdit,
   setEditEmpty,
+  setModalOpen
 } from "Redux/Reducers/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -44,7 +45,7 @@ import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 
-export const Post = ({ post, setModalOpen }) => {
+export const Post = ({ post }) => {
   const [isMenuOpen, setOpen] = useState(false);
 
   const { theme } = useTheme();
@@ -82,7 +83,7 @@ export const Post = ({ post, setModalOpen }) => {
                     {" "}
                     <EditButton
                       onClick={() => {
-                        setModalOpen(true);
+                        dispatch(setModalOpen(true))
                         setOpen(false);
                       }}
                     >
