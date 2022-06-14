@@ -20,7 +20,7 @@ import { Navigate,useNavigate } from "react-router-dom";
 
 export const Setting = () => {
   useDocumentTitle("Settings")
-  const { currentUser } = useSelector((store) => store.auth);
+  const { currentUser,isAuth } = useSelector((store) => store.auth);
   const [photo,setUserPhoto] = useState(currentUser.userPhoto)
   const navigate = useNavigate();
   const [newData, setNewData] = useState({
@@ -45,7 +45,6 @@ export const Setting = () => {
     else{
       dispatch(editUser({...newData,userPhoto:URL.createObjectURL(photo)})) 
     }
-      navigate("/profile")
   }
   return (
     <Wrapper>
@@ -104,7 +103,7 @@ export const Setting = () => {
           value={link}
           onChange={(e) => changeHandler(e)}
         ></InputField>
-        <PrimaryButton  primary onClick={clickHandler}>Update Profile</PrimaryButton>
+        <PrimaryButton  primary onClick={clickHandler} disabled={isAuth}>Update Profile</PrimaryButton>
    
       </Form>
       <Form>

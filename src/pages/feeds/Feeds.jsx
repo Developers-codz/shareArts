@@ -23,7 +23,7 @@ export const Feeds = () => {
   useDocumentTitle("Feeds");
   const navigate = useNavigate();
   const { posts, sortBy, isModalOpen } = useSelector((store) => store.posts);
-  const { users } = useSelector((store) => store.users);
+  const { users ,isFollowUnfollow} = useSelector((store) => store.users);
   const { currentUser } = useSelector((store) => store.auth);
 
   const dispatch = useDispatch();
@@ -73,6 +73,7 @@ export const Feeds = () => {
                     <Button
                       style={{ color: getTextColor(theme) }}
                       onClick={() => dispatch(unFollowUser(user._id))}
+                      disabled={isFollowUnfollow}
                     >
                       Following
                     </Button>
@@ -80,6 +81,7 @@ export const Feeds = () => {
                     <Button
                       style={{ color: getTextColor(theme) }}
                       onClick={() => dispatch(followUser(user._id))}
+                      disabled={isFollowUnfollow}
                     >
                       Follow
                     </Button>

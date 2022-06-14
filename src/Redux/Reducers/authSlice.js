@@ -4,6 +4,7 @@ import { AlertToast,SuccessToast } from "components/toasts";
 
 const initialState = {
     currentUser:{},
+    isAuth:false
 };
 
 export const login = createAsyncThunk("/auth/login", async (e,userDetail) =>{
@@ -83,30 +84,45 @@ const authSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(login.fulfilled,(state,action) =>{
+            state.isAuth=false
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.foundUser
         })
         .addCase(login.rejected, (state, action) => {
             AlertToast(`${action.payload.errors}`);
           })
+        .addCase(login.pending,(state)=>{
+            state.isAuth=true
+        })
+
+
         .addCase(signup.fulfilled,(state,action) => {
+            state.isAuth=false
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.createdUser
         })
         .addCase(signup.rejected,(state,action) =>{
         
         })
+        .addCase(signup.pending,(state)=>{
+            state.isAuth=true
+        })
+
         .addCase(verifyToken.fulfilled,(state,action)=>{
             if(action.payload){
                 state.currentUser = action.payload.user
             }
         })
         .addCase(editUser.fulfilled, (state, action) => {
+            state.isAuth=false
             state.currentUser = action.payload.user
           })
           .addCase(editUser.rejected, (action) => {
             AlertToast(`${action.payload.errors}`);
-          });
+          })
+          .addCase(editUser.pending,(state)=>{
+              state.isAuth=true
+          })
     }
 })
 

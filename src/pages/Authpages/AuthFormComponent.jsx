@@ -59,6 +59,9 @@ export const PrimaryButton = styled(Button)`
   padding: 0.5rem 8rem;
   background-color: var(--color-secondary-dark);
   color: var(--color-light);
+  &:disabled{
+    cursor:not-allowed;
+  }
   @media only screen and (max-width:768px){
     margin-bottom:${props => props.logout ? "3rem" :""}
   }

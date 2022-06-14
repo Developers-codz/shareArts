@@ -3,6 +3,7 @@ import axios from "axios";
 import { AlertToast, SuccessToast } from "components/toasts";
 const initialState = {
   users: [],
+  isFollowUnfollow:false
 };
 
 export const getAllUsers = createAsyncThunk(
@@ -57,6 +58,7 @@ export const unFollowUser = createAsyncThunk(
 );
 
 const setFollowUser = (state, action) => {
+  state.isFollowUnfollow = false;
     if (action.payload !== undefined) {
       state.users = state.users.map((user) => {
         if (user._id === action.payload.followUser._id) {
@@ -83,7 +85,13 @@ const userSlice = createSlice({
       })
 
       .addCase(followUser.fulfilled ,setFollowUser)
+      .addCase(followUser.pending,(state)=>{
+        state.isFollowUnfollow = true
+      })
       .addCase(unFollowUser.fulfilled,setFollowUser)
+      .addCase(unFollowUser.pending,(state)=>{
+        state.isFollowUnfollow = true
+      })
   },
 });
 
