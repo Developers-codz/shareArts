@@ -7,12 +7,9 @@ const initialState = {
     isAuth:false
 };
 
-export const login = createAsyncThunk("/auth/login", async (e,userDetail) =>{
+export const login = createAsyncThunk("/auth/login", async (userDetail) =>{
     try {
-        const response = await axios.post(`api/auth/login`, e.target.value === "credentialLogin" ? {
-            username: "developers-codz",
-            password: "developersCodz",
-        } : JSON.stringify(userDetail));
+        const response = await axios.post(`api/auth/login`,  JSON.stringify(userDetail));
         SuccessToast("Login Successful")
         return response.data;
         
@@ -25,7 +22,6 @@ export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
     try{
         const response = await axios.post("/api/auth/signup",JSON.stringify(userDetail))
         SuccessToast("SignIn Successful")
-        console.log(response.data)
         return response.data
     }
     catch(error){

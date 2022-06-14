@@ -32,6 +32,7 @@ function App() {
   const {isModalOpen} = useSelector(store => store.posts)
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getAllUsers());
     dispatch(verifyToken())
   }, []);
   return (

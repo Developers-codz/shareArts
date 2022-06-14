@@ -24,9 +24,12 @@ export const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  const setCredential = () =>{
+    setUserDetail((prev) => ({ ...prev, username: "developers-codz", password: "developersCodz" }));
+  }
 
   const clickHandler = (e) => {
-    dispatch(login(e, userDetail));
+    dispatch(login(userDetail));
     setUserDetail((prev) => ({ ...prev, username: "", password: "" }));
   };
   const { username, password } = userDetail;
@@ -50,7 +53,7 @@ export const Login = () => {
             onChange={(e) => changeHandler(e)}
           ></FormInput>
           <Header small>OR</Header>
-          <Button value="credentialLogin" disabled={isAuth} onClick={(e) => clickHandler(e)}>
+          <Button disabled={isAuth} onClick={(e) => setCredential(e)}>
             Login with Test Credential
           </Button>
           <PrimaryButton primary onClick={(e) => clickHandler(e)} disabled={isAuth} >

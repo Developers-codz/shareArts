@@ -30,7 +30,6 @@ export const SignUp = () => {
 
   const clickHandler = () => {
     const {firstName,lastName,email,username,password} = userDetail;
-    console.log(userDetail,passMatch)
     if(firstName && lastName && email && username && password !== "" && password === passMatch ){
       dispatch(signup(userDetail))
       setUserDetail(prev => ({...prev,firstName:"",lastName:"",email:"",username:"",password:""}))
