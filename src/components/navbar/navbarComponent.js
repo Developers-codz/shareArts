@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Header = styled.div`
   width: 100vw;
@@ -12,10 +13,11 @@ export const Heading = styled.span`
   padding-left: 1rem;
   white-space: nowrap;
 `;
-export const NavHead = styled.div`
+export const NavHead = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 `
 export const SearchInput = styled.input`
   width: 30vw;

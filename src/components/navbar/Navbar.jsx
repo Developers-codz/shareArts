@@ -11,7 +11,7 @@ import {
   IconWrapper,
   NavHead,
 } from "./navbarComponent";
-import { getBgColor } from "utils/Functions/getColor";
+import { getBgColor,getTextColor } from "utils/Functions/getColor";
 
 export const Navbar = () => {
   const { theme } = useTheme();
@@ -25,9 +25,9 @@ export const Navbar = () => {
         className="header-wrapper"
         style={{ backgroundColor: getBgColor(theme) }}
       >
-        <NavHead>
+        <NavHead to="/">
           <Logo width="2.4rem" height="2.4rem" />
-          <Heading>Share Arts</Heading>
+          <Heading  style={{ color: getTextColor(theme) }} >Share Arts</Heading>
         </NavHead>
         <SearchWrapper>
           <SearchInput placeholder="Search..." />
