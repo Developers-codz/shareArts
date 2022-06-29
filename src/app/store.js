@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./Reducers/authSlice";
-import postReducer from "./Reducers/postsSlice";
-import userReducer from "./Reducers/userSlice";
-import commentReducer from "./Reducers/commentSlice"
+import authReducer from "../features/authentication/authSlice";
+import postReducer from "../features/home/postsSlice";
+import userReducer from "../features/user/userSlice";
+import commentReducer from "../features/singlepost/commentSlice"
 
 const reducer ={
     auth:authReducer,

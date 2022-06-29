@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { VerticalDots } from "Assets/icons";
+import { VerticalDots } from "assets/icons";
 import {
   CommentArea,
   Comment,
@@ -12,11 +12,11 @@ import {
   ToggleMenu,
   EditButton,
   DeleteButton,
-} from "pages/feeds/feedsComponent";
+} from "features/home/pages/feedsComponent";
 import { useSelector, useDispatch } from "react-redux";
-import { deletePostComment } from "Redux/Reducers/postsSlice";
+import { deletePostComment } from "features/home/postsSlice";
 import {EditCommentModal} from "../modal/EditCommentModal"
-import {toggleEditModal} from "Redux/Reducers/commentSlice"
+import {toggleEditModal} from "features/singlepost/commentSlice"
 import { useTheme } from "context/theme-context";
 
 

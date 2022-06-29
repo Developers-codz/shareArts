@@ -10,8 +10,8 @@ import {
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { followUser, unFollowUser,getAllUsers } from "Redux/Reducers/userSlice";
-import { setSortBy, setModalOpen,getAllPosts } from "Redux/Reducers/postsSlice";
+import { followUser, unFollowUser,getAllUsers } from "features/user/userSlice";
+import { setSortBy, setModalOpen,getAllPosts } from "features/home/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "context/theme-context";
 import { getTextColor } from "utils/Functions/getColor";

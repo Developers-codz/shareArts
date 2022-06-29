@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Post } from "components";
-import { CommentBox, Button } from "../feeds/feedsComponent";
+import { CommentBox, Button } from "../../home/pages/feedsComponent";
 import { useTheme } from "context/theme-context";
 import { getTextColor, getBgColor } from "utils/Functions/getColor";
 import { AlertToast } from "components/toasts";
-import { commentPost } from "Redux/Reducers/postsSlice";
-import { FormInput } from "../Authpages/AuthFormComponent";
+import { commentPost } from "features/home/postsSlice";
+import { FormInput } from "../../authentication/pages/AuthFormComponent"
 import { SingleComment } from "components";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 

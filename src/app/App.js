@@ -1,4 +1,4 @@
-import GlobalStyle from "./globalStyles";
+import GlobalStyle from "../globalStyles";
 import {
   Navbar,
   Aside,
@@ -6,23 +6,15 @@ import {
   RequireAuth,
   RestrictAuth,
   Modal
-} from "./components";
-import { useTheme } from "./context/theme-context";
+} from "../components";
+import { useTheme } from "../context/theme-context";
 import { Routes, Route } from "react-router-dom";
-import {
-  Feeds,
-  Landing,
-  Login,
-  SignUp,
-  Profile,
-  Setting,
-  Explore,
-  SinglePost,
-} from "./pages";
+import {Login,SignUp,Explore,Profile,
+  Setting,Landing,Feeds,SinglePost} from "features"
 import { ToastContainer, toast } from "react-toastify";
-import { getAllPosts } from "Redux/Reducers/postsSlice";
-import { getAllUsers } from "Redux/Reducers/userSlice";
-import { verifyToken } from "Redux/Reducers/authSlice";
+import { getAllPosts } from "features/home/postsSlice";
+import { getAllUsers } from "features/user/userSlice";
+import { verifyToken } from "features/authentication/authSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MockMan from "mockman-js";

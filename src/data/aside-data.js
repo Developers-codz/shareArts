@@ -3,7 +3,7 @@ import {
   HomeIcon,
   ExploreIcon,
   SettingsIcon,
-} from "Assets/icons/navigationIcon";
+} from "assets/icons/navigationIcon";
 
 export const asideData = [
   {

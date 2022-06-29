@@ -17,7 +17,7 @@ import {
   EditButton,
   DeleteButton,
   HiddenBtn
-} from "pages/feeds/feedsComponent";
+} from "features/home/pages/feedsComponent";
 import {
   BookmarkIcon,
   BookmarkedIcon,
@@ -26,7 +26,7 @@ import {
   HeartFilled,
   ShareIcon,
   VerticalDots,
-} from "Assets/icons";
+} from "assets/icons";
 
 import { useTheme } from "context/theme-context";
 import { getBgColor, getTextColor } from "utils/Functions/getColor";
@@ -39,10 +39,10 @@ import {
   getPostToEdit,
   setEditEmpty,
   setModalOpen
-} from "Redux/Reducers/postsSlice";
+} from "features/home/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
+import { followUser, unFollowUser } from "features/user/userSlice";
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 

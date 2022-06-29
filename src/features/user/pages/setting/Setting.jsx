@@ -7,14 +7,14 @@ import {
   EditBtn,
   ImageWrapper,
 } from "./settingComponent";
-import { ProfileImg } from "../Profile/profileComponents";
-import { PrimaryButton } from "../Authpages/AuthFormComponent";
-import { EditIcon } from "Assets/icons";
+import { ProfileImg } from "../profile/profileComponents";
+import { PrimaryButton } from "../../../authentication/pages/AuthFormComponent";
+import { EditIcon } from "assets/icons";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editUser } from "Redux/Reducers/userSlice";
-import { logout } from "Redux/Reducers/authSlice";
+import { editUser } from "features/user/userSlice";
+import { logout } from "features/authentication/authSlice";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 import { Navigate,useNavigate } from "react-router-dom";
 

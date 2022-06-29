@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-import { Logo, Search, LoginIcon, MoonIcon, SunIcon } from "Assets/icons";
+import { Logo, Search, LoginIcon, MoonIcon, SunIcon } from "assets/icons";
 import { useTheme } from "context/theme-context";
 import {
   Header,
