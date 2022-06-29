@@ -1,17 +1,13 @@
-import { useDispatch } from "react-redux";
-import { removeLikes } from "../../features/home/postsSlice";
-import {getTextColor} from "utils/Functions/getColor.js"
-import {useTheme} from "context/theme-context"
-export const HeartFilled = ({ id }) => {
-  const dispatch = useDispatch();
-  const {theme} = useTheme()
+import { getTextColor } from "utils/Functions/getColor.js";
+import { useTheme } from "context/theme-context";
+export const HeartFilled = () => {
+  const { theme } = useTheme();
   return (
     <svg
       width="1.8em"
       height="1.8em"
       viewBox="0 0 24 24"
-      style={{ margin: "0 .5rem" ,color:getTextColor(theme)}}
-      onClick={() => dispatch(removeLikes(id))}
+      style={{ margin: "0 .5rem", color: getTextColor(theme) }}
     >
       <path
         fill="currentColor"
