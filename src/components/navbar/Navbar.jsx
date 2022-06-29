@@ -10,7 +10,7 @@ import {
   IconWrapper,
   NavHead,
 } from "./navbarComponent";
-import { getBgColor, getTextColor } from "utils/functions/getColor";
+import { getBgColor, getTextColor,getBgColor2 } from "utils/functions/getColor";
 import { debounce } from "utils/functions/debounce";
 import { UserModal } from "components";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,6 +44,7 @@ export const Navbar = () => {
             placeholder="Search User..."
             value={searchedText}
             onChange={getOptimisedVersion}
+           className={theme === "dark" ? "dark" : "light"}
           />
           {userModalFlag && <UserModal />}
 

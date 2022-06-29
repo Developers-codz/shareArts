@@ -23,7 +23,6 @@ export const SearchInput = styled.input`
   width: 30vw;
   height: 3rem;
   border: none;
-  background-color: var(--color-primary);
   border-radius: 20px;
   font-size: 1rem;
   padding: 0rem 3rem 0 1rem;
