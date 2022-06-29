@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Post } from "components";
+import { Post, UserList } from "components";
 import {useDocumentTitle} from "utils/hooks/useDocumentTitle";
 export const Explore = () => {
   useDocumentTitle("Explore")
@@ -11,6 +11,7 @@ export const Explore = () => {
             return <Post post={post} key={post._id} />;
           })}
         </div>
+        <UserList />
       </div>
   );
 };
