@@ -33,6 +33,12 @@ export const SearchInput = styled.input`
 `;
 export const SearchWrapper = styled.div`
   position: relative;
+  .active{
+  background-color: black;
+}
+  .active :hover{
+  background-color: #28231d;
+  }
 `;
 export const SearchWrapperIcon = styled.div`
   position: absolute;

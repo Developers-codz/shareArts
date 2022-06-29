@@ -89,4 +89,13 @@ background-color: var(--color-primary);
 -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 text-align: center;
+& :hover{
+    background-color: white;
+}
+`
+export const NoUserText = styled.div`
+display:flex;
+justify-content: center;
+align-items: center;
+height:3rem;
 `

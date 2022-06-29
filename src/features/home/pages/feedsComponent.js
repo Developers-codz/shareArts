@@ -41,6 +41,7 @@ export const LeftArea = styled.div`
   align-items: center;
   cursor: pointer;
   margin: ${(props) => (props.m_md ? "1rem" : ".2rem")};
+  padding:${(props) => props.user_modal ? ".5rem":""} 
 `;
 export const RightArea = styled.div`
 position:relative;`;

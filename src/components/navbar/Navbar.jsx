@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Logo, Search, LoginIcon, MoonIcon, SunIcon } from "assets/icons";
 import { useTheme } from "context/theme-context";
@@ -12,6 +11,7 @@ import {
   NavHead,
 } from "./navbarComponent";
 import { getBgColor, getTextColor } from "utils/functions/getColor";
+import { debounce } from "utils/functions/debounce";
 import { UserModal } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchedText } from "features/user/userSlice";
@@ -20,7 +20,12 @@ export const Navbar = () => {
   const { theme } = useTheme();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const { userModalFlag,searchedText } = useSelector((store) => store.users);
+  const { userModalFlag, searchedText } = useSelector((store) => store.users);
+  const changeHandler = (e) => dispatch(setSearchedText(e.target.value));
+
+  const getOptimisedVersion = (e) => {
+    return debounce(changeHandler(e), 1000);
+  };
   return pathname !== "/landing" &&
     pathname !== "/login" &&
     pathname !== "/signup" &&
@@ -38,7 +43,7 @@ export const Navbar = () => {
           <SearchInput
             placeholder="Search User..."
             value={searchedText}
-            onChange={(e) =>dispatch(setSearchedText(e.target.value))}
+            onChange={getOptimisedVersion}
           />
           {userModalFlag && <UserModal />}
 

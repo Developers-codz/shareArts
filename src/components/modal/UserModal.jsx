@@ -1,5 +1,5 @@
 import React from "react";
-import { UserModalWrapper } from "./modalComponent";
+import { UserModalWrapper,NoUserText } from "./modalComponent";
 import { useDispatch, useSelector } from "react-redux";
 import {
   LeftArea,
@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { getSearchedUser } from "utils/functions/getSearchedUser";
 import {setSearchedText} from "features/user/userSlice"
+import { useTheme } from "context/theme-context";
 
 export const UserModal = () => {
   const { users, searchedText } = useSelector(
@@ -17,23 +18,26 @@ export const UserModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchedUser = getSearchedUser(users, searchedText);
+  const {theme} = useTheme()
 
   return (
-    <UserModalWrapper>
+    <UserModalWrapper className={theme==="dark" ? "active" : ""}>
+       
+
+      
       {!searchedUser.length ? (
-        <div>No User Found</div>
+        <NoUserText>No Such User Found</NoUserText>
       ) : (
         searchedUser.map((user) => {
           return (
             <>
-              <LeftArea m_md key={user._id}>
+              <LeftArea m_md user_modal key={user._id} onClick={() => {
+                    navigate(`${user.username}`);
+                    dispatch(setSearchedText(""));
+                  }} >
                 {" "}
                 <UserThumbnail
                   src={user.userPhoto}
-                  onClick={() => {
-                    navigate(`${user.username}`);
-                    dispatch(setSearchedText(""));
-                  }}
                 />
                 <Username>{user.username}</Username>
               </LeftArea>
@@ -41,6 +45,7 @@ export const UserModal = () => {
           );
         })
       )}
+    
     </UserModalWrapper>
   );
 };
