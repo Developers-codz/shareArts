@@ -10,7 +10,7 @@ import {
   Followers,
   ExternalLink,
 } from "./profileComponents";
-import { getBorder } from "utils/Functions/getColor";
+import { getBorder } from "utils/functions/getColor";
 import { useTheme } from "context/theme-context";
 import { Tabs } from "./tab/Tabs";
 import { useNavigate, useParams } from "react-router-dom";

@@ -1,4 +1,4 @@
-import { getTextColor } from "utils/Functions/getColor.js";
+import { getTextColor } from "utils/functions/getColor.js";
 import { useTheme } from "context/theme-context";
 export const BookmarkIcon = () => {
     const { theme } = useTheme();

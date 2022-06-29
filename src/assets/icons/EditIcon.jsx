@@ -1,5 +1,5 @@
 import React from 'react'
-import { getAsideColor } from "../../utils/Functions/getColor"
+import { getAsideColor } from "../../utils/functions/getColor"
 import { useTheme } from "../../context/theme-context";
 
 export const EditIcon = () => {

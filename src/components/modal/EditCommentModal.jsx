@@ -8,7 +8,7 @@ import {
 } from "./modalComponent";
 import { useDispatch,useSelector } from "react-redux";
 
-import { getBgColor, getTextColor } from "utils/Functions/getColor";
+import { getBgColor, getTextColor } from "utils/functions/getColor";
 import { useTheme } from "context/theme-context";
 import { AlertToast } from "../toasts";
 import { editPostComment } from "features/home/postsSlice";

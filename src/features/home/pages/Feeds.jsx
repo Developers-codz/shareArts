@@ -4,7 +4,7 @@ import { getAllUsers } from "features/user/userSlice";
 import { setSortBy, setModalOpen, getAllPosts } from "features/home/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Post, UserList } from "components";
-import { getSortedPost } from "utils/Functions/getSortedPost";
+import { getSortedPost } from "utils/functions/getSortedPost";
 import { useDocumentTitle } from "utils/hooks/useDocumentTitle";
 
 export const Feeds = () => {

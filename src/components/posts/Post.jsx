@@ -29,7 +29,7 @@ import {
 } from "assets/icons";
 
 import { useTheme } from "context/theme-context";
-import { getBgColor, getTextColor } from "utils/Functions/getColor";
+import { getBgColor, getTextColor } from "utils/functions/getColor";
 import {
   bookmark,
   removeBookmark,

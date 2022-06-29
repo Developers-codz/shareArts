@@ -1,6 +1,6 @@
 import React from "react";
 import { asideData } from "data/aside-data";
-import { getBgColor, getTextColor,getBorder } from "utils/Functions/getColor";
+import { getBgColor, getTextColor,getBorder } from "utils/functions/getColor";
 import { useTheme } from "context/theme-context";
 import { NavLink } from "react-router-dom";
 

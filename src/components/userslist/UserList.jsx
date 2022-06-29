@@ -8,7 +8,7 @@ import {
   Button,
 } from "features/home/pages/feedsComponent";
 import { followUser, unFollowUser } from "features/user/userSlice";
-import { getTextColor } from "utils/Functions/getColor";
+import { getTextColor } from "utils/functions/getColor";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "context/theme-context";
 import { useNavigate } from "react-router-dom";

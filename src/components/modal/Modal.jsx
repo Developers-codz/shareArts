@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { AlertToast } from "../toasts";
 import { addNewPost, editPost,setEditEmpty,setModalOpen } from "features/home/postsSlice";
-import { getBgColor, getTextColor } from "utils/Functions/getColor";
+import { getBgColor, getTextColor } from "utils/functions/getColor";
 import { useTheme } from "context/theme-context";
 import { useSelector } from "react-redux";
 

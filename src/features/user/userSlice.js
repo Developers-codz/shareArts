@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { AlertToast, SuccessToast } from "components/toasts";
 import { setFollowUser, getUserData ,postFollowUser,postUnfollowUser,postEditUser} from "services";
 const initialState = {
   users: [],
   isFollowUnfollow: false,
   isUpdating: false,
+  searchedText:"",
+  userModalFlag:false
 };
 
 export const getAllUsers = createAsyncThunk(
@@ -66,6 +67,15 @@ export const editUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "users",
   initialState,
+  reducers:{
+    setSearchedText:(state,action)=>{
+    state.searchedText = action.payload;
+    action.payload === "" ? state.userModalFlag = false : state.userModalFlag =true
+    },
+    setUserModalFlag:(state,action)=>{
+      state.userModalFlag=action.payload
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(getAllUsers.fulfilled, (state, action) => {
@@ -101,3 +111,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+
+export const {setSearchedText,setUserModalFlag} =  userSlice.actions
