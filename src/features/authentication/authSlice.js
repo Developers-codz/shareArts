@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import axios from "axios";
 import { AlertToast,SuccessToast } from "components/toasts";
+import { postLoginData,postSignupData,postUserVerify } from "services";
 
 const initialState = {
     currentUser:{},
@@ -9,7 +9,7 @@ const initialState = {
 
 export const login = createAsyncThunk("/auth/login", async (userDetail) =>{
     try {
-        const response = await axios.post(`api/auth/login`,  JSON.stringify(userDetail));
+        const response = await postLoginData(userDetail)
         SuccessToast("Login Successful")
         return response.data;
         
@@ -20,7 +20,7 @@ export const login = createAsyncThunk("/auth/login", async (userDetail) =>{
 
 export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
     try{
-        const response = await axios.post("/api/auth/signup",JSON.stringify(userDetail))
+        const response = await postSignupData(userDetail)
         SuccessToast("SignIn Successful")
         return response.data
     }
@@ -36,9 +36,7 @@ export const verifyToken = createAsyncThunk("/auth/verifyToken",async (_,rejectW
     const encodedToken = localStorage.getItem("token");
     if(encodedToken){
         try{
-            const response = await axios.post("/api/auth/verify",{
-                encodedToken:encodedToken,
-            });
+            const response = await postUserVerify(encodedToken)
             return response.data;
         }
         catch(error){

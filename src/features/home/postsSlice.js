@@ -1,22 +1,36 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { AlertToast, SuccessToast } from "components/toasts";
+import {
+  getSinglePost,
+  getPosts,
+  postNewPostData,
+  deletePostData,
+  postEditedData,
+  postCommentData,
+  deleteCommentedData,
+  editCommentedData,
+  postLikeData,
+  postUnlikeData,
+  postBookmarkData,
+  postRemoveBookmarkData
+  
+} from "services";
 
 const initialState = {
   posts: [],
   bookmarked: [],
   loading: false,
   postToEdit: null,
-  sortBy:null,
-  isModalOpen:false,
-  isFetching:false,
+  sortBy: null,
+  isModalOpen: false,
+  isFetching: false,
 };
 
 export const getAllPosts = createAsyncThunk(
   "posts/getAll",
-  async (mockParameter, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/posts");
+      const response = await getPosts();
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -24,31 +38,25 @@ export const getAllPosts = createAsyncThunk(
   }
 );
 
-export const getSinglePostData = createAsyncThunk("posts/getSinglePostData", async (id,{rejectWithValue}) =>{
-  try{
-    const response = await axios.get(`/api/posts/${id}`);
-    return response.data;
+export const getSinglePostData = createAsyncThunk(
+  "posts/getSinglePostData",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await getSinglePost(id);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
-  catch(error){
-    return rejectWithValue(error.response.data);
-  }
-})
+);
 
 export const addNewPost = createAsyncThunk(
   "posts/addNewPost",
   async (post, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
-    const {content,postPic} = post;
+    const { content, postPic } = post;
     try {
-      const response = await axios.post(
-        "/api/posts",
-        { content,postPic },
-        {
-          headers: {
-            authorization: encodedToken,
-          },
-        }
-      );
+      const response = await postNewPostData(content, postPic, encodedToken);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -62,11 +70,7 @@ export const deletePost = createAsyncThunk(
     const encodedToken = localStorage.getItem("token");
     const { _id } = postData;
     try {
-      const response = await axios.delete(`/api/posts/${_id}`, {
-        headers: {
-          authorization: encodedToken,
-        },
-      });
+      const response = await deletePostData(_id, encodedToken);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -80,11 +84,7 @@ export const editPost = createAsyncThunk(
     const encodedToken = localStorage.getItem("token");
     const { _id } = postData;
     try {
-      const response = await axios.post(
-        `/api/posts/edit/${_id}`,
-        { postData: postData },
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await postEditedData(_id, postData, encodedToken);
 
       return response.data;
     } catch (error) {
@@ -98,11 +98,7 @@ export const commentPost = createAsyncThunk(
   async ({ id, comment }, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `/api/posts/${id}/comment`,
-        { commentData: { content: comment } },
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await postCommentData(id,comment,encodedToken)
       return response.data;
     } catch (error) {
       rejectWithValue(error);
@@ -113,18 +109,13 @@ export const commentPost = createAsyncThunk(
 export const deletePostComment = createAsyncThunk(
   "posts/deletePostComment",
   async (details) => {
-    const {postId, commentId} = details;
+    const { postId, commentId } = details;
     const encodedToken = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `/api/comments/delete/${postId}/${commentId}`,
-        {},
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await deleteCommentedData(postId,commentId,encodedToken)
       return response.data;
     } catch (error) {
-      console.log(error)
-  
+      console.log(error);
     }
   }
 );
@@ -132,18 +123,14 @@ export const deletePostComment = createAsyncThunk(
 export const editPostComment = createAsyncThunk(
   "posts/editPostComment",
   async (details) => {
-    console.log(details)
-    const {postId, commentId,commentData} = details;
+    console.log(details);
+    const { postId, commentId, commentData } = details;
     const encodedToken = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `/api/comments/edit/${postId}/${commentId}`,
-        { content: commentData },
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await editCommentedData(postId,commentId,commentData,encodedToken);
       return response.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 );
@@ -152,12 +139,8 @@ export const addLikes = createAsyncThunk(
   async (postId, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `/api/posts/like/${postId}`,
-        {},
-        { headers: { authorization: encodedToken } }
-      );
-      SuccessToast("Liked Successful")
+      const response = await postLikeData(postId,encodedToken)
+      SuccessToast("Liked Successful");
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -170,15 +153,7 @@ export const removeLikes = createAsyncThunk(
   async (postId, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `/api/posts/dislike/${postId}`,
-        {},
-        {
-          headers: {
-            authorization: encodedToken,
-          },
-        }
-      );
+      const response = await postUnlikeData(postId,encodedToken) 
       SuccessToast("disliked  successfully");
       return response.data;
     } catch (error) {
@@ -192,11 +167,7 @@ export const bookmark = createAsyncThunk(
   async (postId, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `/api/users/bookmark/${postId}`,
-        {},
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await postBookmarkData(postId,encodedToken);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -209,11 +180,7 @@ export const removeBookmark = createAsyncThunk(
   async (postId, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `/api/users/remove-bookmark/${postId}`,
-        {},
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await postRemoveBookmarkData(postId,encodedToken);
       SuccessToast("Removed from Bookmark");
       return response.data;
     } catch (error) {
@@ -232,12 +199,12 @@ const postsSlice = createSlice({
     setEditEmpty: (state, action) => {
       state.postToEdit = null;
     },
-    setSortBy:(state,action) =>{
-      state.sortBy = action.payload
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload;
     },
-    setModalOpen:(state) => {
-      state.isModalOpen = !state.isModalOpen
-    }
+    setModalOpen: (state) => {
+      state.isModalOpen = !state.isModalOpen;
+    },
   },
   extraReducers(builder) {
     builder
@@ -252,95 +219,94 @@ const postsSlice = createSlice({
         AlertToast(`${action.payload.errors}`);
       })
 
-      .addCase(getSinglePostData.fulfilled,(state,action) =>{
-        console.log(action.payload.post)
-        state.currentPost = action.payload.post
+      .addCase(getSinglePostData.fulfilled, (state, action) => {
+        console.log(action.payload.post);
+        state.currentPost = action.payload.post;
       })
 
       .addCase(addNewPost.fulfilled, (state, action) => {
-        state.isFetching = false
+        state.isFetching = false;
         SuccessToast("Posted Successfully");
         state.posts = action.payload.posts;
       })
       .addCase(addNewPost.rejected, (state, action) => {
         AlertToast("Unable to Post");
       })
-      .addCase(addNewPost.pending,(state)=>{
-        state.isFetching = true
+      .addCase(addNewPost.pending, (state) => {
+        state.isFetching = true;
       })
 
- 
       .addCase(editPost.fulfilled, (state, action) => {
         SuccessToast("Post edited Successfully");
-        state.isFetching = false
+        state.isFetching = false;
         state.posts = action.payload.posts;
       })
       .addCase(editPost.rejected, (state, action) => {})
-      .addCase(editPost.pending,(state) =>{
-        state.isFetching = true
+      .addCase(editPost.pending, (state) => {
+        state.isFetching = true;
       })
 
-      .addCase(deletePost.fulfilled,(state,action)=>{
-        state.isFetching = false
-        SuccessToast("Post Deleted Successfully")
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.isFetching = false;
+        SuccessToast("Post Deleted Successfully");
         state.posts = action.payload.posts;
       })
       .addCase(deletePost.rejected, (state, action) => {
         AlertToast("something went wrong");
       })
-      .addCase(deletePost.pending,(state)=>{
-        state.isFetching = true
+      .addCase(deletePost.pending, (state) => {
+        state.isFetching = true;
       })
 
       .addCase(commentPost.fulfilled, (state, action) => {
-        state.isFetching = false
+        state.isFetching = false;
         state.posts = action.payload.posts;
       })
       .addCase(commentPost.rejected, () => {
         AlertToast("Something went wrong");
       })
-      .addCase(commentPost.pending,(state) =>{
-        state.isFetching = true
+      .addCase(commentPost.pending, (state) => {
+        state.isFetching = true;
       })
 
-      .addCase(deletePostComment.fulfilled,(state,action) =>{
-        state.isFetching = false
-        state.posts = action.payload.posts
+      .addCase(deletePostComment.fulfilled, (state, action) => {
+        state.isFetching = false;
+        state.posts = action.payload.posts;
       })
-      .addCase(deletePostComment.rejected,(state,action)=>{
-        console.log(action.error)
+      .addCase(deletePostComment.rejected, (state, action) => {
+        console.log(action.error);
         AlertToast("something went wrong");
       })
-      .addCase(deletePostComment.pending,(state) =>{
-        state.isFetching = true
+      .addCase(deletePostComment.pending, (state) => {
+        state.isFetching = true;
       })
 
-      .addCase(editPostComment.fulfilled,(state,action) =>{
-        state.posts = action.payload.posts
+      .addCase(editPostComment.fulfilled, (state, action) => {
+        state.posts = action.payload.posts;
       })
-      .addCase(editPostComment.rejected,(state,action)=>{
-        console.log(action.error)
+      .addCase(editPostComment.rejected, (state, action) => {
+        console.log(action.error);
         AlertToast("something went wrong");
       })
 
       .addCase(addLikes.fulfilled, (state, action) => {
-        state.isFetching = false
+        state.isFetching = false;
         state.posts = action.payload.posts;
       })
       .addCase(addLikes.rejected, (state, action) => {
         AlertToast(`${action.payload.errors}`);
       })
-      .addCase(addLikes.pending,(state)=>{
-        state.isFetching = true
+      .addCase(addLikes.pending, (state) => {
+        state.isFetching = true;
       })
 
       .addCase(removeLikes.fulfilled, (state, action) => {
-        state.isFetching = false
+        state.isFetching = false;
         state.posts = action.payload.posts;
       })
       .addCase(removeLikes.rejected, (state, action) => {})
-      .addCase(removeLikes.pending,(state)=>{
-        state.isFetching = true
+      .addCase(removeLikes.pending, (state) => {
+        state.isFetching = true;
       })
 
       .addCase(bookmark.fulfilled, (state, action) => {
@@ -351,24 +317,23 @@ const postsSlice = createSlice({
       .addCase(bookmark.rejected, (state, action) => {
         AlertToast(`${action.payload.errors}`);
       })
-      .addCase(bookmark.pending,(state)=>{
-        state.isFetching = true
+      .addCase(bookmark.pending, (state) => {
+        state.isFetching = true;
       })
 
-
       .addCase(removeBookmark.fulfilled, (state, action) => {
-        state.isFetching = false
+        state.isFetching = false;
         state.bookmarked = action.payload.bookmarks;
       })
       .addCase(removeBookmark.rejected, (state, action) => {
         AlertToast(`${action.payload.errors}`);
       })
-      .addCase(removeBookmark.pending,(state)=>{
-        state.isFetching = true
+      .addCase(removeBookmark.pending, (state) => {
+        state.isFetching = true;
       });
   },
 });
 
 const { actions, reducer } = postsSlice;
 export { actions, reducer as default };
-export const { getPostToEdit, setEditEmpty,setSortBy,setModalOpen } = actions;
+export const { getPostToEdit, setEditEmpty, setSortBy, setModalOpen } = actions;
