@@ -132,17 +132,12 @@ export const Post = ({ post }) => {
               {post.likes.likedBy
                 .map((liked) => liked.username)
                 .includes(currentUser.username) ? (
-                  <HiddenBtn disabled={isFetching}>
-
-                <span onClick={() => dispatch(removeLikes(post._id))}>
+                  <HiddenBtn disabled={isFetching} onClick={() => dispatch(removeLikes(post._id))}>
                   <HeartFilled />
-                </span>
                   </HiddenBtn>
               ) : (
-                <HiddenBtn disabled={isFetching}>
-                <span onClick={() => dispatch(addLikes(post._id))}>
+                <HiddenBtn disabled={isFetching} onClick={() => dispatch(addLikes(post._id))}>
                   <HeartOutline />
-                </span>
                 </HiddenBtn>
               )}
               <span onClick={() => navigate(`/posts/${post._id}`)}>
@@ -152,17 +147,13 @@ export const Post = ({ post }) => {
             </LeftArea>
             <RightArea>
               {bookmarked.map((bookmark) => bookmark._id).includes(post._id) ? (
-                <HiddenBtn disabled={isFetching}>
-                <span onClick={() => dispatch(removeBookmark(post._id))}>
+                <HiddenBtn disabled={isFetching}  onClick={() => dispatch(removeBookmark(post._id))}>
                   <BookmarkedIcon />
-                </span>
                 </HiddenBtn>
               ) : (
-                <HiddenBtn disabled={isFetching}>
-                <span onClick={() => dispatch(bookmark(post._id))}>
+                <HiddenBtn disabled={isFetching} onClick={() => dispatch(bookmark(post._id))}>
                   {" "}
                   <BookmarkIcon />
-                </span>
                 </HiddenBtn>
               )}
             </RightArea>

@@ -203,6 +203,7 @@ export const HiddenBtn = styled.button`
 background-color:transparent;
 border:none;
 width:2.5rem;
+cursor:pointer;
 &:disabled{
   cursor:not-allowed;
 }
