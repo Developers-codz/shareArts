@@ -5,6 +5,7 @@ export const Wrapper  = styled.div`
   margin:1rem 0 0rem 18rem;
   @media only screen and (max-width:560px){
     margin:0rem;
+    margin-top:4rem;
   }
 `
 export const Section = styled.div`
@@ -36,7 +37,6 @@ export const HeaderSection = styled.div`
   margin-top: 2rem;
   white-space: nowrap;
   @media only screen and (max-width:560px){
-    
     flex-direction: column-reverse;
     margin:.5rem
   }
