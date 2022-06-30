@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "pages/feeds/feedsComponent";
+import { Button } from "features/home/pages/feedsComponent";
 import {
   ModalWrapper,
   CloseButton,
@@ -8,11 +8,11 @@ import {
 } from "./modalComponent";
 import { useDispatch,useSelector } from "react-redux";
 
-import { getBgColor, getTextColor } from "utils/Functions/getColor";
+import { getBgColor, getTextColor } from "utils/functions/getColor";
 import { useTheme } from "context/theme-context";
 import { AlertToast } from "../toasts";
-import { editPostComment } from "Redux/Reducers/postsSlice";
-import {toggleEditModal} from "Redux/Reducers/commentSlice"
+import { editPostComment } from "features/home/postsSlice";
+import {toggleEditModal} from "features/singlepost/commentSlice"
 
 export const EditCommentModal = ({
   postId,

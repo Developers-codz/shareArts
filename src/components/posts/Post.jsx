@@ -17,7 +17,7 @@ import {
   EditButton,
   DeleteButton,
   HiddenBtn
-} from "pages/feeds/feedsComponent";
+} from "features/home/pages/feedsComponent";
 import {
   BookmarkIcon,
   BookmarkedIcon,
@@ -26,10 +26,10 @@ import {
   HeartFilled,
   ShareIcon,
   VerticalDots,
-} from "Assets/icons";
+} from "assets/icons";
 
 import { useTheme } from "context/theme-context";
-import { getBgColor, getTextColor } from "utils/Functions/getColor";
+import { getBgColor, getTextColor } from "utils/functions/getColor";
 import {
   bookmark,
   removeBookmark,
@@ -39,10 +39,10 @@ import {
   getPostToEdit,
   setEditEmpty,
   setModalOpen
-} from "Redux/Reducers/postsSlice";
+} from "features/home/postsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-import { followUser, unFollowUser } from "Redux/Reducers/userSlice";
+import { followUser, unFollowUser } from "features/user/userSlice";
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 
@@ -104,7 +104,7 @@ export const Post = ({ post }) => {
                     style={{ color: getTextColor(theme) }}
                     onClick={() => dispatch(unFollowUser(userToFollow._id))}
                   >
-                    Following
+                    UnFollow
                   </EditButton>
                 ) : (
                   <EditButton
@@ -132,17 +132,12 @@ export const Post = ({ post }) => {
               {post.likes.likedBy
                 .map((liked) => liked.username)
                 .includes(currentUser.username) ? (
-                  <HiddenBtn disabled={isFetching}>
-
-                <span onClick={() => dispatch(removeLikes(post._id))}>
+                  <HiddenBtn disabled={isFetching} onClick={() => dispatch(removeLikes(post._id))}>
                   <HeartFilled />
-                </span>
                   </HiddenBtn>
               ) : (
-                <HiddenBtn disabled={isFetching}>
-                <span onClick={() => dispatch(addLikes(post._id))}>
+                <HiddenBtn disabled={isFetching} onClick={() => dispatch(addLikes(post._id))}>
                   <HeartOutline />
-                </span>
                 </HiddenBtn>
               )}
               <span onClick={() => navigate(`/posts/${post._id}`)}>
@@ -152,17 +147,13 @@ export const Post = ({ post }) => {
             </LeftArea>
             <RightArea>
               {bookmarked.map((bookmark) => bookmark._id).includes(post._id) ? (
-                <HiddenBtn disabled={isFetching}>
-                <span onClick={() => dispatch(removeBookmark(post._id))}>
+                <HiddenBtn disabled={isFetching}  onClick={() => dispatch(removeBookmark(post._id))}>
                   <BookmarkedIcon />
-                </span>
                 </HiddenBtn>
               ) : (
-                <HiddenBtn disabled={isFetching}>
-                <span onClick={() => dispatch(bookmark(post._id))}>
+                <HiddenBtn disabled={isFetching} onClick={() => dispatch(bookmark(post._id))}>
                   {" "}
                   <BookmarkIcon />
-                </span>
                 </HiddenBtn>
               )}
             </RightArea>

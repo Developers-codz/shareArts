@@ -74,3 +74,28 @@ export const ImageToPost = styled.img`
 export const InputImage = styled.input`
 display:none;
 `
+
+// user Modal
+
+export const UserModalWrapper = styled.div`
+width: 23rem;
+min-height:3rem;
+border-radius:2px;
+position: absolute;
+left:20px;
+top:3.5rem;
+background-color: var(--color-primary);
+-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+text-align: center;
+& :hover{
+    background-color: white;
+}
+`
+export const NoUserText = styled.div`
+display:flex;
+justify-content: center;
+align-items: center;
+height:3rem;
+`

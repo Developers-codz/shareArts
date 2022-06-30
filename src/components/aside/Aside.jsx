@@ -2,7 +2,7 @@ import { useTheme } from "context/theme-context";
 import { useLocation } from "react-router-dom";
 import { asideData } from "data/aside-data";
 import { NavMenu, NavItem, StyledNavLink, IconWrapper } from "./asideComponent";
-import { getAsideColor } from "utils/Functions/getColor";
+import { getAsideColor } from "utils/functions/getColor";
 
 
 export const Aside = () => {
