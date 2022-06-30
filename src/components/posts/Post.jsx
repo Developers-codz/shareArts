@@ -104,7 +104,7 @@ export const Post = ({ post }) => {
                     style={{ color: getTextColor(theme) }}
                     onClick={() => dispatch(unFollowUser(userToFollow._id))}
                   >
-                    Following
+                    UnFollow
                   </EditButton>
                 ) : (
                   <EditButton
