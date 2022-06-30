@@ -4,8 +4,9 @@ export const Wrapper  = styled.div`
   padding-top:13vh; 
   min-height: 95vh;
   margin:1rem 0 0rem 25rem;
-  @media only screen and (max-width:560px){
+  @media only screen and (max-width:768px){
     margin:.4rem;
+    width:100vw
   }
 `
 
@@ -31,7 +32,12 @@ margin:.2rem 0 1rem 0
 `
 
 export const BioInput = styled.textarea`
-margin:.2rem 0 1rem 0`
+margin:.2rem 0 1rem 0;
+@media only screen and (max-width:768px){
+  width:50%;
+}
+
+`
 
 export const EditBtn = styled.label`
 position:absolute;

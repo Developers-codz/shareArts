@@ -7,6 +7,7 @@ export const Header = styled.div`
   justify-content: space-between;
   padding: 1rem;
   z-index: 3;
+  flex-wrap: wrap;
 `;
 export const Heading = styled.span`
   font-size: 2rem;
@@ -29,6 +30,10 @@ export const SearchInput = styled.input`
   &:focus {
     outline: none;
   }
+  @media only screen and (max-width:768px){
+    width:95vw;
+    margin:1rem 0;
+  }
 `;
 export const SearchWrapper = styled.div`
   position: relative;
@@ -38,23 +43,33 @@ export const SearchWrapper = styled.div`
   .active :hover{
   background-color: #28231d;
   }
+  @media only screen and (max-width:768px){
+    order:10;
+    width:100vw;
+  }
 `;
 export const SearchWrapperIcon = styled.div`
   position: absolute;
   top: 10px;
   right: 15px;
+  @media only screen and (max-width:768px){
+    top:18px
+  }
 `;
 export const IconWrapper = styled.div`
   margin: 0.1rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 7vw;
+  min-width: 7vw;
   > * {
     cursor: pointer;
   }
   @media only screen and (max-width:768px){
-    width:9vw;
+    width:18vw;
     margin:.1rem 0;
+    > * {
+      padding:0 .1rem 0 0;
+    }
   }
 `;
